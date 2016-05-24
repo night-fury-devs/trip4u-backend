@@ -2,5 +2,13 @@ language: java
 jdk: oraclejdk8
 install: true
 script:
-  - cd trip4u-backend
-  - mvn package
+- cd trip4u-backend
+- mvn package
+deploy:
+  provider: heroku
+  api_key:
+    secure: EFqmhOZa5t77BrSDVysUM7H2FDP2sORex/9EEp/Tpgs+XmUtSO9+fzzIA+pgA2Xvog9dU4dabSNHBPog1gmUWXg/Jus3QyFb/a43e681T4W0xpdKjBZh0FNRrUppBWmoWdQYlheSV07Cl+22tHNeN7zctYBpEjkqz/X41I+ncDl8YnnoV9U80L/ESY2ipPF3HHpuZNaXROgHgXctQMtQkP9o+6wn/2QbHppGygPs2IQiYnPcz8nydZf3IjCM2oJzSyRSwVuhd4RbaYnr+FgOWINDR5kCiBb1FO8iClZ8m0M4mKXS410Hkn6LHsEUVSjotfvuv6Gg+QG/H376AQs5UASx+87AWW52coKT9ikBrwCaWRHFmeonG/kbanT80U5yZUTZZcD7El3tqXCrFGhFwPZgirSJb33QvkUGrUCeb/X0F5t1MmIEkiBbVseYllAUm+KUNFjh65JTXevoWn5DTTbuRGegsiOS/Wk7xd9eRpqcpVfTU7yKMZMO3sGlM0g9I35JDfjldBqqdxyvEk+mkDqErRa8Y5vtdAmOLzzKgxpwJq/yk/IN3pb1U5cWZAgVzOkysHrWueyDkJnEBosw/5Qc9B33MHdjS0zPy1E0KYn8qe7PjvvVqgZ0MhEVXEj8/OhcTsRhEol6nRCDudQ5BnFKp2f9a6G57ZTCVvU9N28=
+  app: trip4u
+  on:
+    repo: night-fury-devs/Trip4U
+    branch: dev
