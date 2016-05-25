@@ -94,16 +94,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <archive>
-                        <manifestFile>src/main/resources/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
