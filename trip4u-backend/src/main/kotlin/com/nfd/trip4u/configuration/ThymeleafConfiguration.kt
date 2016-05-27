@@ -30,7 +30,7 @@ open class ThymeleafConfiguration{
     @Bean
     open fun emailTemplateResolver(): ITemplateResolver {
         val emailTemplateResolver = ClassLoaderTemplateResolver()
-        emailTemplateResolver.prefix = "/mail/"
+        emailTemplateResolver.prefix = "mail/"
         emailTemplateResolver.suffix = ".html"
         emailTemplateResolver.templateMode = "HTML5"
         emailTemplateResolver.characterEncoding = "UTF-8"
