@@ -1,0 +1,10 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: night.fury.devs@gmail.com
+    password: 8_forbidden_friendship
+    protocol: smtp
+    auth: true
+    starttls: true
+    quitwait: false
