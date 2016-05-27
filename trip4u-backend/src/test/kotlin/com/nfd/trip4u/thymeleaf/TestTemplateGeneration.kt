@@ -3,7 +3,6 @@ package com.nfd.trip4u.thymeleaf
 import com.nfd.trip4u.Application
 import com.nfd.trip4u.configuration.ThymeleafConfiguration
 import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
-import com.sun.javafx.collections.MappingChange
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
