@@ -17,13 +17,17 @@ open class TemplateProducerService{
     @Autowired
     lateinit var templateEngine: TemplateEngine
 
-    open fun produceTemplate(parameters: Map<String, String>, templateName: String): String {
-        var context = Context()
-        for (parameterEntry in parameters) {
-            context.setVariable(parameterEntry.key, parameterEntry.value)
-        }
+    open fun produceTemplate(parameters: Map<String, String>, templateName: String): String? {
+        try{
+            var context = Context()
+            for (parameterEntry in parameters) {
+                context.setVariable(parameterEntry.key, parameterEntry.value)
+            }
 
-        return templateEngine.process(templateName, context)
+            return templateEngine.process(templateName, context)
+        } catch(e: Exception) {
+            return null
+        }
     }
 
 }
