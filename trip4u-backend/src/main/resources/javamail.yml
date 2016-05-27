@@ -1,0 +1,6 @@
+mail:
+  smtp:
+    auth: true
+    strarrls:
+      enable: true
+    quitwait: false
