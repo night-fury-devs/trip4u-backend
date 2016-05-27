@@ -1,9 +1,10 @@
 package com.nfd.trip4u.configuration
 
+import com.nfd.trip4u.configuration.properties.MailingProperties
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ClassPathResource
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
 import java.util.*
@@ -18,32 +19,26 @@ import java.util.*
 @ComponentScan(basePackages = arrayOf("com.nfd.trip4u"))
 open class MailConfiguration {
 
-    val JAVA_MAIL_FILE = "javamail.yml"
-    val CONFIG_PROPERTIES = "configuration.yml"
+    @Autowired
+    lateinit var mailingProperties: MailingProperties
 
     @Bean
     open fun mailSender(): JavaMailSender {
-        val properties = configProperties()
-
-        var mailSender = JavaMailSenderImpl()
-        mailSender.host = properties.getProperty("mail.server.host")
-        mailSender.port = Integer.parseInt(properties.getProperty("mail.server.port"))
-        mailSender.protocol = properties.getProperty("mail.server.protocol")
-        mailSender.username = properties.getProperty("mail.server.username")
-        mailSender.password = properties.getProperty("mail.server.password")
+        val mailSender = JavaMailSenderImpl()
+        mailSender.host = mailingProperties.host
+        mailSender.port = Integer.parseInt(mailingProperties.port)
+        mailSender.protocol = mailingProperties.protocol
+        mailSender.username = mailingProperties.username
+        mailSender.password = mailingProperties.password
         mailSender.javaMailProperties = javaMailProperties()
         return mailSender
     }
 
-    fun configProperties(): Properties {
-        val properties = Properties()
-        properties.load(ClassPathResource(CONFIG_PROPERTIES).inputStream)
-        return properties
-    }
-
     fun javaMailProperties(): Properties {
-        val properties = Properties()
-        properties.load(ClassPathResource(JAVA_MAIL_FILE).inputStream)
+        var properties = Properties()
+        properties.setProperty("mail.smtp.auth", mailingProperties.auth)
+        properties.setProperty("mail.smtp.starttls.enable", mailingProperties.starttls)
+        properties.setProperty("mail.smtp.quitwait", mailingProperties.quitwait)
         return properties
     }
 }

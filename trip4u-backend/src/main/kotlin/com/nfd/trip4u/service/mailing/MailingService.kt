@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 /**
  * Author: Mary Kuchumova
- * Date: 27 Май 2016
+ * Date: 27 May 2016
  * Time: 14:49
  */
 
