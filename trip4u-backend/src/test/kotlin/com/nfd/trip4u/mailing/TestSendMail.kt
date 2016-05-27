@@ -2,6 +2,8 @@ package com.nfd.trip4u.mailing
 
 import com.nfd.trip4u.Application
 import com.nfd.trip4u.configuration.MailConfiguration
+import com.nfd.trip4u.entity.mailing.Email
+import com.nfd.trip4u.entity.mailing.Template
 import com.nfd.trip4u.service.mailing.MailingService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,20 +26,13 @@ class TestSendMail {
     val TEST_KEY = "message"
     val SUBJECT = "trip4u: test message"
     val TEST_VALUE = "hello in trip4u"
+    val SENDER = "night.fury.devs@gmail.com"
     val RECIPIENT = "kuchumova.mary@gmail.com"
-    val RECIPIENT2 = "alex.vesy96@gmail.com"
 
     var parameters = HashMap<String, String>()
 
     @Autowired
     lateinit var mailingService: MailingService
-
-    fun getMultiUserRecipients(): List<String>{
-        var recipients = ArrayList<String>()
-        recipients.add(RECIPIENT)
-        recipients.add(RECIPIENT2)
-        return recipients
-    }
 
     fun getSingleUserRecipients(): List<String>{
         var recipients = ArrayList<String>()
@@ -47,13 +42,16 @@ class TestSendMail {
 
     @Test
     fun testSendPlainTextMessage(){
-        mailingService.sendPlainTextEmail(SUBJECT, getSingleUserRecipients(), TEST_VALUE)
+        val email = Email(SENDER, getSingleUserRecipients(), SUBJECT, TEST_VALUE, null)
+        mailingService.sendMessage(email)
     }
 
     @Test
     fun testSendHtmlMessage() {
         parameters.put(TEST_KEY, TEST_VALUE)
-        mailingService.sendTemplateEmail(SUBJECT, getMultiUserRecipients(), parameters, TEMPLATE_NAME)
+        val template = Template(TEMPLATE_NAME, parameters)
+        val email = Email(SENDER, getSingleUserRecipients(), SUBJECT, null, template)
+        mailingService.sendMessage(email)
     }
 
 }

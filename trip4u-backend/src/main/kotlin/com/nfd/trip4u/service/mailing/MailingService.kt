@@ -1,5 +1,6 @@
 package com.nfd.trip4u.service.mailing
 
+import com.nfd.trip4u.entity.mailing.Email
 import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.mail.javamail.JavaMailSender
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service
 open class MailingService {
 
     val IS_HTML_MESSAGE = true
+    val DEFAULT_ENCODING = "UTF-8"
 
     @Autowired
     lateinit var mailSender: JavaMailSender
@@ -23,33 +25,26 @@ open class MailingService {
     @Autowired
     lateinit var templateProducer: TemplateProducerService
 
-    open fun sendPlainTextEmail(subject: String, recipients: List<String>, messageBody: String) {
+    fun sendMessage(email: Email) {
+        try {
+            val mimeMessage = mailSender.createMimeMessage()
+            val message = MimeMessageHelper(mimeMessage, DEFAULT_ENCODING)
+            message.setSubject(email.subject)
+            message.setFrom(email.sender)
+            for (recipient in email.recipients) {
+                message.addTo(recipient)
+            }
+            if (email.template != null) {
+                val template = templateProducer.produceTemplate(email.template?.parameters!!, email.template?.templateName!!)
+                message.setText(template, IS_HTML_MESSAGE);
+            } else {
+                message.setText(email.messageBody, !IS_HTML_MESSAGE)
+            }
 
-        val mimeMessage = mailSender.createMimeMessage()
-        val message = MimeMessageHelper(mimeMessage, "UTF-8")
-        message.setSubject(subject)
-        message.setFrom("night.fury.devs@gmail.com")
-        for(recipient in recipients){
-            message.addTo(recipient)
+            mailSender.send(mimeMessage)
+        }catch(e: Exception){
+            println(e.message)
+            //add logging
         }
-        message.setText(messageBody);
-
-        this.mailSender.send(mimeMessage);
-    }
-
-    open fun sendTemplateEmail(subject: String, recipients: List<String>, templateParameters: Map<String, String>, templateName: String){
-        val mimeMessage = mailSender.createMimeMessage()
-        val message = MimeMessageHelper(mimeMessage, "UTF-8")
-        message.setSubject(subject)
-        message.setFrom("night.fury.devs@gmail.com")
-        for(recipient in recipients){
-            message.addTo(recipient)
-        }
-
-        var template = templateProducer.produceTemplate(templateParameters, templateName)
-
-        message.setText(template, IS_HTML_MESSAGE);
-
-        this.mailSender.send(mimeMessage);
     }
 }
