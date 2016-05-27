@@ -23,24 +23,28 @@ open class MailingService {
     @Autowired
     lateinit var templateProducer: TemplateProducerService
 
-    open fun sendPlainTextEmail(subject: String, recipient: String, messageBody: String) {
+    open fun sendPlainTextEmail(subject: String, recipients: List<String>, messageBody: String) {
 
         val mimeMessage = mailSender.createMimeMessage()
         val message = MimeMessageHelper(mimeMessage, "UTF-8")
         message.setSubject(subject)
         message.setFrom("night.fury.devs@gmail.com")
-        message.setTo(recipient)
+        for(recipient in recipients){
+            message.addTo(recipient)
+        }
         message.setText(messageBody);
 
         this.mailSender.send(mimeMessage);
     }
 
-    open fun sendTemplateEmail(subject: String, recipient: String, templateParameters: Map<String, String>, templateName: String){
+    open fun sendTemplateEmail(subject: String, recipients: List<String>, templateParameters: Map<String, String>, templateName: String){
         val mimeMessage = mailSender.createMimeMessage()
         val message = MimeMessageHelper(mimeMessage, "UTF-8")
         message.setSubject(subject)
         message.setFrom("night.fury.devs@gmail.com")
-        message.setTo(recipient)
+        for(recipient in recipients){
+            message.addTo(recipient)
+        }
 
         var template = templateProducer.produceTemplate(templateParameters, templateName)
 

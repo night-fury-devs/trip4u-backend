@@ -25,21 +25,35 @@ class TestSendMail {
     val SUBJECT = "trip4u: test message"
     val TEST_VALUE = "hello in trip4u"
     val RECIPIENT = "kuchumova.mary@gmail.com"
+    val RECIPIENT2 = "alex.vesy96@gmail.com"
 
     var parameters = HashMap<String, String>()
 
     @Autowired
     lateinit var mailingService: MailingService
 
+    fun getMultiUserRecipients(): List<String>{
+        var recipients = ArrayList<String>()
+        recipients.add(RECIPIENT)
+        recipients.add(RECIPIENT2)
+        return recipients
+    }
+
+    fun getSingleUserRecipients(): List<String>{
+        var recipients = ArrayList<String>()
+        recipients.add(RECIPIENT)
+        return recipients
+    }
+
     @Test
     fun testSendPlainTextMessage(){
-        mailingService.sendPlainTextEmail(SUBJECT, RECIPIENT, TEST_VALUE)
+        mailingService.sendPlainTextEmail(SUBJECT, getSingleUserRecipients(), TEST_VALUE)
     }
 
     @Test
     fun testSendHtmlMessage() {
         parameters.put(TEST_KEY, TEST_VALUE)
-        mailingService.sendTemplateEmail(SUBJECT, RECIPIENT, parameters, TEMPLATE_NAME)
+        mailingService.sendTemplateEmail(SUBJECT, getMultiUserRecipients(), parameters, TEMPLATE_NAME)
     }
 
 }
