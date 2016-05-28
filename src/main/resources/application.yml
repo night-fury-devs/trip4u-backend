@@ -8,3 +8,5 @@ spring:
     auth: true
     starttls: true
     quitwait: false
+logging:
+  file: logs/trip4u.log

@@ -1,5 +1,6 @@
 package com.nfd.trip4u.controller
 
+import org.apache.commons.logging.LogFactory
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 open class TestController {
+    val logger = LogFactory.getLog(this.javaClass)
 
     @RequestMapping("/")
-    fun testMapping() = "Your Heroku deployment is working."
+    fun testMapping(): String {
+        logger.debug("TEST CONTROLLER '/'")
+        return "Your Heroku deployment is working."
+    }
 }
