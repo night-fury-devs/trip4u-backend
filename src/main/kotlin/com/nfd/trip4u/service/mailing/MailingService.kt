@@ -2,6 +2,7 @@ package com.nfd.trip4u.service.mailing
 
 import com.nfd.trip4u.entity.mailing.Email
 import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
+import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service
 
 @Service
 open class MailingService {
+
+    val logger = LogFactory.getLog(this.javaClass)
 
     val IS_HTML_MESSAGE = true
     val DEFAULT_ENCODING = "UTF-8"
@@ -43,8 +46,7 @@ open class MailingService {
 
             mailSender.send(mimeMessage)
         }catch(e: Exception){
-            println(e.message)
-            //add logging
+            logger.warn("MailingService::sendMessage: " + e.message)
         }
     }
 }

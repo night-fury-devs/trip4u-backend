@@ -21,7 +21,7 @@ open class ThymeleafConfiguration{
 
     @Bean
     open fun templateEngine(): SpringTemplateEngine{
-        var templateEngine = SpringTemplateEngine()
+        val templateEngine = SpringTemplateEngine()
         templateEngine.addTemplateResolver(emailTemplateResolver())
         templateEngine.addMessageResolver(messageResolver())
         return templateEngine

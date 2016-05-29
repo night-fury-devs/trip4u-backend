@@ -26,7 +26,7 @@ open class MailConfiguration {
     open fun mailSender(): JavaMailSender {
         val mailSender = JavaMailSenderImpl()
         mailSender.host = mailingProperties.host
-        mailSender.port = Integer.parseInt(mailingProperties.port)
+        mailSender.port = mailingProperties.port.toInt()
         mailSender.protocol = mailingProperties.protocol
         mailSender.username = mailingProperties.username
         mailSender.password = mailingProperties.password
@@ -35,7 +35,7 @@ open class MailConfiguration {
     }
 
     fun javaMailProperties(): Properties {
-        var properties = Properties()
+        val properties = Properties()
         properties.setProperty("mail.smtp.auth", mailingProperties.auth)
         properties.setProperty("mail.smtp.starttls.enable", mailingProperties.starttls)
         properties.setProperty("mail.smtp.quitwait", mailingProperties.quitwait)

@@ -35,21 +35,21 @@ class TestTemplateGeneration {
     @Test
     fun testPassEmptyParameterMapToTemplate() {
         parameters.clear()
-        var templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
+        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
         Assert.assertEquals(templateResult?.indexOf(TEST_VALUE), -1)
     }
 
     @Test
     fun testNotExistingTemplate() {
         parameters.clear()
-        var templateResult = templateProducer.produceTemplate(parameters, NOT_EXISTING_TEMPLATE_NAME)
+        val templateResult = templateProducer.produceTemplate(parameters, NOT_EXISTING_TEMPLATE_NAME)
         Assert.assertNull(templateResult)
     }
 
     @Test
     fun testExistingTemplateGeneration(){
         parameters.put(TEST_KEY, TEST_VALUE)
-        var templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
+        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
         Assert.assertFalse(templateResult?.indexOf(TEST_VALUE)!!.equals(-1))
     }
 }
