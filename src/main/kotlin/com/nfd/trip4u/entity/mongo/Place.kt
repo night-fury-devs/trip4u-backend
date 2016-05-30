@@ -10,7 +10,7 @@ import java.util.*
  * Time: 16:35
  */
 
-@Document(collection = "place")
+@Document(collection = "places")
 data class Place(
         var id: Long,
         var name: String,

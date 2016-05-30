@@ -11,7 +11,7 @@ import java.util.*
  * Time: 15:55
  */
 
-@Document(collection = "User")
+@Document(collection = "users")
 data class User(
         var id: Long,
         var userName: String,

@@ -10,7 +10,7 @@ import java.util.*
  * Time: 16:59
  */
 
-@Document(collection = "Blog")
+@Document(collection = "blogs")
 data class Blog(
         var id: Long,
         var title: String,
