@@ -20,8 +20,8 @@ data class RouteEntry(
         var routeId: Long,
 
         @Field(value = "prev_entry")
-        var previousEntry: Long,
+        var previousEntry: Long?,
 
         @Field(value = "next_entry")
-        var nextEntry: Long
+        var nextEntry: Long?
         )

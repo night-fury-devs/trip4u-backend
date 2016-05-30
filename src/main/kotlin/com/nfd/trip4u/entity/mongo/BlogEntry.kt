@@ -19,17 +19,17 @@ data class BlogEntry(
         var blogId: Long,
 
         @Field(value = "route_entry_id")
-        var routeEntryId: Long,
+        var routeEntryId: Long?,
 
         @Field(value = "next_place")
-        var nextPlace: Long,
+        var nextPlace: Long?,
 
         @Field(value = "previous_place")
-        var previousPlace: Long,
+        var previousPlace: Long?,
 
-        var date: Date,
-        var text: String,
+        var date: Date?,
+        var text: String?,
 
         @Field(value = "media_sources")
-        var mediaSources: List<MediaSource>
+        var mediaSources: List<MediaSource>?
         )

@@ -19,10 +19,10 @@ data class Notification(
 
         var status: NotificationStatus,
         var date: Date,
-        var text: String,
+        var text: String?,
 
         @Field(value = "attached_picture")
-        var attachedPicture: String,
+        var attachedPicture: String?,
 
-        var link: String
+        var link: String?
         )

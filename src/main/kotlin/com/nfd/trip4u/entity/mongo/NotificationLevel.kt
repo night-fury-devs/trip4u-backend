@@ -8,5 +8,6 @@ package com.nfd.trip4u.entity.mongo
 
 enum class NotificationLevel(val value: String) {
     EMAIL("email"),
-    APP("app")
+    APP("app"),
+    NONE("none")
 }

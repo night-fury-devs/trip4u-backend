@@ -13,23 +13,23 @@ import java.util.*
 @Document(collection = "blogs")
 data class Blog(
         var id: Long,
-        var title: String,
+        var title: String?,
 
         @Field(value = "user_id")
         var userId: Long,
 
         @Field(value = "start_date")
-        var startDate: Date,
+        var startDate: Date?,
 
         @Field(value = "end_date")
-        var endDate: Date,
+        var endDate: Date?,
 
-        var tags: List<String>,
+        var tags: List<String>?,
         var status: VerificationStatus,
-        var rating: List<RatingEntry>,
+        var rating: List<RatingEntry>?,
 
         @Field(value = "route_id")
-        var routeId: Long,
+        var routeId: Long?,
 
-        var comments: List<Comment>
+        var comments: List<Comment>?
         )

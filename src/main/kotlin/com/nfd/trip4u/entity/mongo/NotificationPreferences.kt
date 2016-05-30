@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Field
  */
 
 data class NotificationPreferences(
-        var comments: List<NotificationLevel>,
-        var likes: List<NotificationLevel>,
-        var news: List<NotificationLevel>,
+        var comments: List<NotificationLevel>?,
+        var likes: List<NotificationLevel>?,
+        var news: List<NotificationLevel>?,
 
         @Field(value = "route_usage")
-        var routeUsage: List<NotificationLevel>
+        var routeUsage: List<NotificationLevel>?
 )

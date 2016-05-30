@@ -16,14 +16,14 @@ data class MediaSource(
         @Field(value = "date_added")
         var dateAdded: Date,
 
-        var link: String,
+        var link: String?,
         var status: VerificationStatus,
-        var geotag: Geotag,
+        var geotag: Geotag?,
 
         @Field(value = "type")
         var mediaType: MediaType,
 
-        var likes: List<Long>,
+        var likes: List<Long>?,
 
-        var comments: List<Comment>
+        var comments: List<Comment>?
         )

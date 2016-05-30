@@ -17,5 +17,5 @@ data class UserPreferences(
         @Field(value = "user_id")
         var userId: Long,
 
-        var notifications: NotificationPreferences
+        var notifications: NotificationPreferences?
 )

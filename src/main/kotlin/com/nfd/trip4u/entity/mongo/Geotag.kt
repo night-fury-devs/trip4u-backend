@@ -10,8 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Field
 
 data class Geotag(
         @Field(value = "lat")
-        var latitude: Double,
+        var latitude: Double?,
 
         @Field(value = "lon")
-        var longitude: Double
+        var longitude: Double?
 )

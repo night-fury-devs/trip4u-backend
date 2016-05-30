@@ -19,21 +19,21 @@ data class User(
         var password: String,
 
         @Field(value = "home_cities")
-        var homeCities: List<Long>,
+        var homeCities: List<Long>?,
 
         @Field(value = "last_name")
-        var lastName: String,
+        var lastName: String?,
 
         @Field(value = "first_name")
-        var firstName: String,
+        var firstName: String?,
 
         @Field(value = "middle_name")
-        var middleName: String,
+        var middleName: String?,
 
         var gender: Gender,
 
         @DateTimeFormat(pattern = "dd-MM-yyyy")
-        var birthday: Date,
+        var birthday: Date?,
 
         var role: List<Role>
 )

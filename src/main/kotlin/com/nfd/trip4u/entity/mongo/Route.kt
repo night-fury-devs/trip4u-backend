@@ -16,15 +16,15 @@ data class Route(
         @Field(value = "user_id")
         var userId: Long,
 
-        var name: String,
+        var name: String?,
         var status: RouteStatus,
-        var blogs: List<Long>,
-        var tags: List<String>,
+        var blogs: List<Long>?,
+        var tags: List<String>?,
 
         @Field(value = "added_to")
-        var addedTo: List<Long>,
+        var addedTo: List<Long>?,
 
-        var description: String,
-        var comments: List<Comment>,
-        var rating: List<RatingEntry>
+        var description: String?,
+        var comments: List<Comment>?,
+        var rating: List<RatingEntry>?
 )

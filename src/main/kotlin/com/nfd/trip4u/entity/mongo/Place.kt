@@ -13,7 +13,7 @@ import java.util.*
 @Document(collection = "places")
 data class Place(
         var id: Long,
-        var name: String,
+        var name: String?,
 
         @Field(value = "parent_place")
         var parentPlace: Long?,
@@ -21,25 +21,25 @@ data class Place(
         @Field(value = "type")
         var placeType: PlaceType,
 
-        var geotag: Geotag,
-        var rating: List<RatingEntry>,
-        var description: String,
-        var tags: List<String>,
+        var geotag: Geotag?,
+        var rating: List<RatingEntry>?,
+        var description: String?,
+        var tags: List<String>?,
 
         @Field(value = "last_edited")
-        var lastEdited: Date,
+        var lastEdited: Date?,
 
         @Field(value = "media_sources")
-        var mediaSources: List<MediaSource>,
+        var mediaSources: List<MediaSource>?,
 
         @Field(value = "native_users")
-        var nativeUsers: List<Long>,
+        var nativeUsers: List<Long>?,
 
         @Field(value = "planning_to_visit_users")
-        var planningToVisitUsers: List<Long>,
+        var planningToVisitUsers: List<Long>?,
 
         @Field(value = "visited_users")
-        var visitedUsers: List<Long>,
+        var visitedUsers: List<Long>?,
 
-        var comments: List<Comment>
+        var comments: List<Comment>?
 )
