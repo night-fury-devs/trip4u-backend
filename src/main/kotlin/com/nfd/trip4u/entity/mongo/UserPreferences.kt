@@ -18,4 +18,4 @@ data class UserPreferences(
         var userId: Long,
 
         var notifications: NotificationPreferences?
-)
+        )

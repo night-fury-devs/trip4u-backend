@@ -36,4 +36,4 @@ data class User(
         var birthday: Date?,
 
         var role: List<Role>
-)
+        )

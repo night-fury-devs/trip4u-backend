@@ -9,4 +9,4 @@ package com.nfd.trip4u.entity.mongo
 data class RatingEntry(
         var rating: Long?,
         var user: Long?
-)
+        )

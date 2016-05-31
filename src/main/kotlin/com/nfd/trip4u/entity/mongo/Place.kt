@@ -42,4 +42,4 @@ data class Place(
         var visitedUsers: List<Long>?,
 
         var comments: List<Comment>?
-)
+        )

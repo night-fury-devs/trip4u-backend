@@ -27,4 +27,4 @@ data class Route(
         var description: String?,
         var comments: List<Comment>?,
         var rating: List<RatingEntry>?
-)
+        )

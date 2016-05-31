@@ -14,4 +14,4 @@ data class Comment(
         var date: Date,
         var likes: List<Long>?,
         var status: VerificationStatus
-)
+        )

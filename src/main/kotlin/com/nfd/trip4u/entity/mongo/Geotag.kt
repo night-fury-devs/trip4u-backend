@@ -14,4 +14,4 @@ data class Geotag(
 
         @Field(value = "lon")
         var longitude: Double?
-)
+        )
