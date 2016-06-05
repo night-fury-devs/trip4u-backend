@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 @Component
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix="spring.mail")
-class MailingProperties {
+open class MailingProperties {
 
     lateinit var port: String
 
