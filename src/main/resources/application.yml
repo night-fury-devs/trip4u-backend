@@ -10,12 +10,27 @@ spring:
     quitwait: false
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017
-      database: trip4u_db
-      username: trip4u_user
-      password: regular_user
-      authentication-database: trip4u_db
       repositories:
         enabled: true
 logging:
   file: logs/trip4u.log
+
+---
+
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017
+      username: trip4u_user
+      password: regular_user
+      database: trip4u_db
+      authentication-database: trip4u_db
+
+---
+
+spring:
+  profiles: prod
+  data:
+    mongodb:
+      uri: mongodb://trip4u_user:regular_user@ds011943.mlab.com:11943/heroku_1c7lh3rw
