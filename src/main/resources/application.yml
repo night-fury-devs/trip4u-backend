@@ -8,5 +8,14 @@ spring:
     auth: true
     starttls: true
     quitwait: false
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017
+      database: trip4u_db
+      username: trip4u_user
+      password: regular_user
+      authentication-database: trip4u_db
+      repositories:
+        enabled: true
 logging:
   file: logs/trip4u.log
