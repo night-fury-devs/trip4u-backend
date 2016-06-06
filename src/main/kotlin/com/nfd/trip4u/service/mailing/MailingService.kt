@@ -45,7 +45,7 @@ open class MailingService {
             }
 
             mailSender.send(mimeMessage)
-        }catch(e: Exception){
+        } catch(e: Exception) {
             logger.warn("MailingService::sendMessage: " + e.message)
         }
     }

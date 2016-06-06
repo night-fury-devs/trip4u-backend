@@ -1,7 +1,6 @@
 package com.nfd.trip4u.configuration
 
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.thymeleaf.messageresolver.IMessageResolver
 import org.thymeleaf.messageresolver.StandardMessageResolver
@@ -16,7 +15,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver
  */
 
 @Configuration
-@ComponentScan(basePackages = arrayOf("com.nfd.trip4u"))
 open class ThymeleafConfiguration{
 
     @Bean

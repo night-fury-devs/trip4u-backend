@@ -26,6 +26,11 @@ spring:
       password: regular_user
       database: trip4u_db
       authentication-database: trip4u_db
+  rabbitmq:
+    username: trip4u_user
+    password: regular_user
+    host: localhost
+    port: 5672
 
 ---
 
@@ -34,3 +39,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://trip4u_user:regular_user@ds011943.mlab.com:11943/heroku_1c7lh3rw
+  rabbitmq:
+    username: ONA0AjsB
+    password: 7WsEaN7KoiWKD-hDG3zCzbVfgNbmp0vO
+    host: running-blackberry-60.bigwig.lshift.net
+    port: 10184
+    virtual-host: BItUyqwrb4Dq
