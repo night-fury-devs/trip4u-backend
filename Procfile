@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -cp target/classes:target/dependency/* com.nfd.trip4u.ApplicationKt
+web: java $JAVA_OPTS -Dserver.port=$PORT -Dspring.profiles.active=prod -cp target/classes:target/dependency/* com.nfd.trip4u.ApplicationKt
