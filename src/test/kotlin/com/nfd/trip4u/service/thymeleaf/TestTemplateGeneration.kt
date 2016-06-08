@@ -1,14 +1,9 @@
-package com.nfd.trip4u.thymeleaf
+package com.nfd.trip4u.service.thymeleaf
 
-import com.nfd.trip4u.Application
-import com.nfd.trip4u.configuration.ThymeleafConfiguration
-import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
+import com.nfd.trip4u.service.AbstractTestCase
 import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import java.util.*
 
 /**
@@ -17,9 +12,8 @@ import java.util.*
  * Time: 12:09
  */
 
-@RunWith(SpringJUnit4ClassRunner::class)
-@SpringApplicationConfiguration(classes = arrayOf(Application::class, ThymeleafConfiguration::class))
-class TestTemplateGeneration {
+
+class TestTemplateGeneration: AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
     val NOT_EXISTING_TEMPLATE_NAME = "this-template-name-doesnt-exist-in-resource-folder-18572927862923"

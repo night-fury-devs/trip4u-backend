@@ -2,7 +2,7 @@ package com.nfd.trip4u.service.amqp
 
 import com.nfd.trip4u.configuration.TOPIC_NAME
 import com.nfd.trip4u.entity.mailing.Email
-import org.springframework.amqp.core.AmqpAdmin
+import org.apache.commons.logging.LogFactory
 import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -16,13 +16,14 @@ import org.springframework.stereotype.Service
 @Service
 open class EmailAmqpProducer {
 
-    @Autowired
-    lateinit var amqpAdmin: AmqpAdmin
+    private val logger = LogFactory.getLog(this.javaClass)
 
     @Autowired
-    lateinit var amqpTemplate: AmqpTemplate
+    private lateinit var amqpTemplate: AmqpTemplate
 
-    fun sendMail(email: Email) {
+    fun sendMessage(email: Email) {
+        logger.debug("Send message $email")
+
         amqpTemplate.convertAndSend(TOPIC_NAME, TOPIC_NAME, email)
     }
 }
