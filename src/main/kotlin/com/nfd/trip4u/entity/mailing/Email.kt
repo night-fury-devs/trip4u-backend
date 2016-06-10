@@ -7,9 +7,9 @@ package com.nfd.trip4u.entity.mailing
  */
 
 data class Email(
-    var sender: String,
-    var recipients: List<String>,
-    var subject: String,
-    var messageBody: String?,
-    var template: Template?
+    var sender: String = "",
+    var recipients: List<String> = arrayListOf(),
+    var subject: String = "",
+    var messageBody: String? = "",
+    var template: Template? = null
 )

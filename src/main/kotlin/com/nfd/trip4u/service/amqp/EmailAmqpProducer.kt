@@ -3,8 +3,9 @@ package com.nfd.trip4u.service.amqp
 import com.nfd.trip4u.configuration.TOPIC_NAME
 import com.nfd.trip4u.entity.mailing.Email
 import org.apache.commons.logging.LogFactory
-import org.springframework.amqp.core.AmqpTemplate
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.messaging.converter.MessageConverter
 import org.springframework.stereotype.Service
 
 /**
@@ -19,11 +20,16 @@ open class EmailAmqpProducer {
     private val logger = LogFactory.getLog(this.javaClass)
 
     @Autowired
-    private lateinit var amqpTemplate: AmqpTemplate
+    private lateinit var rabbitTemplate: RabbitMessagingTemplate
+
+    @Autowired
+    private lateinit var jsonConverter: MessageConverter
 
     fun sendMessage(email: Email) {
         logger.debug("Send message $email")
 
-        amqpTemplate.convertAndSend(TOPIC_NAME, TOPIC_NAME, email)
+        rabbitTemplate.messageConverter = jsonConverter
+
+        rabbitTemplate.convertAndSend(TOPIC_NAME, TOPIC_NAME, email)
     }
 }
