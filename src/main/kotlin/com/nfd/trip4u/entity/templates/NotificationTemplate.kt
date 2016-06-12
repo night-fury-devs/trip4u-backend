@@ -10,22 +10,22 @@ package com.nfd.trip4u.entity.templates
 open class NotificationTemplate : BaseTemplate {
 
     private var imageLink: String
-    get() = imageLink
-    set(value) {
-        imageLink = value
-    }
+//    get() = imageLink
+//    set(value) {
+//        imageLink = value
+//    }
 
     private var text: String
-    get() = text
-    set(value) {
-        text = value
-    }
+//    get() = text
+//    set(value) {
+//        text = value
+//    }
 
     private var accessLink: String
-    get() = accessLink
-    set(value) {
-        accessLink = value
-    }
+//    get() = accessLink
+//    set(value) {
+//        accessLink = value
+//    }
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 logoImageLink: String, imageLink: String, text: String, accessLink: String)

@@ -9,28 +9,28 @@ package com.nfd.trip4u.entity.templates
 
 open class BaseTemplate {
     private var websiteLink: String
-    get() = websiteLink
-    set(value) {
-        websiteLink = value
-    }
+//    get() = websiteLink
+//    set(value) {
+//        websiteLink = value
+//    }
 
     private var contactLink: String
-    get() = contactLink
-    set(value) {
-        contactLink = value
-    }
+//    get() = contactLink
+//    set(value) {
+//        contactLink = value
+//    }
 
     private var username: String
-    get() = username
-    set(value) {
-        username = value
-    }
+//    get() = username
+//    set(value) {
+//        username = value
+//    }
 
     private var logoImageLink: String
-    get() = logoImageLink
-    set(value) {
-        logoImageLink = value
-    }
+//    get() = logoImageLink
+//    set(value) {
+//        logoImageLink = value
+//    }
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 logoImageLink: String) {

@@ -9,10 +9,10 @@ package com.nfd.trip4u.entity.templates
 open class EmailConfirmationTemplate : BaseTemplate {
 
     private var confirmationLink: String
-        get() = confirmationLink
-        set(value) {
-            confirmationLink = value
-        }
+//        get() = confirmationLink
+//        set(value) {
+//            confirmationLink = value
+//        }
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 confirmationLink: String, logoImageLink: String)
