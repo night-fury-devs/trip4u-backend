@@ -8,7 +8,7 @@
 <div style="background-color: #379b81;
             color: #434343;
             padding: 1% 1%;">
-    <img src="http://s.navi-gaming.com/uploads/userfiles/images/read/news/no-logo(1).png"
+    <img src="@{content.logoImageLink}"
          style="display: inline-block;
                 max-height: 80px;">
     <div style="display: inline-block;
@@ -23,7 +23,7 @@
                 width: auto;
                 background: #ffffff;
                 color: #050c0e;">
-        <h2>${user}, you have new comment for ${commentedItem}!</h2>
+        <h2>${content.user}, you have new comment for ${content.commentedItem}!</h2>
         <div>
             <div style="width: 20%;
                         display: inline-block;">
@@ -31,13 +31,12 @@
             </div>
             <div style="width: 80%;
                         display: inline-block;">
-                ${comment.name}
-                ${comment.date}
-                ${comment.content}
-                something valuable for you
+                ${content.comment.name}
+                ${content.comment.date}
+                ${content.comment.text}
             </div>
         </div>
-        <p><a href="nothing">View on trip4u website</a></p>
+        <p><a href="@{content.accessLink}">View on trip4u website</a></p>
 
         <h4>Sincerely your,</h4>
         <h4>Trip4U Team.</h4>
@@ -48,6 +47,7 @@
             color: #434343;
             clear:both;
             padding: 1% 5%;">
+    <h4>Contact us: <a href="@{content.contactLink}">${content.contactLink}</a></h4>
     <h4>Trip4U &copy; 2016</h4>
 </div>
 
