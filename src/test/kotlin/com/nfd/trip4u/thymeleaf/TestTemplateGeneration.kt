@@ -2,6 +2,7 @@ package com.nfd.trip4u.thymeleaf
 
 import com.nfd.trip4u.Application
 import com.nfd.trip4u.configuration.ThymeleafConfiguration
+import com.nfd.trip4u.configuration.properties.TemplateProperties
 import com.nfd.trip4u.entity.templates.CommentTemplate
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.entity.templates.NotificationTemplate
@@ -50,7 +51,10 @@ class TestTemplateGeneration {
     private lateinit var commentNotificationTemplate: CommentTemplate
 
     @Autowired
-    lateinit var templateProducer: TemplateProducerService
+    private lateinit var templateProducer: TemplateProducerService
+
+    @Autowired
+    private lateinit var templateProperties: TemplateProperties
 
     @Test
     fun testPassEmptyParameterMapToTemplate() {
@@ -80,8 +84,13 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
                 EMAIL_CONFIRMATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
+        println(templateResult)
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.confirmationLink)!!.equals(-1))
 
-        //TODO: add checking for all props after extracting template props to property file
     }
 
     @Test
@@ -89,7 +98,13 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(notificationTemplate,
                 NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        //TODO: add checking for all props after extracting template props to property file
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.accessLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.imageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.text)!!.equals(-1))
     }
 
     @Test
@@ -97,6 +112,14 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(commentNotificationTemplate,
                 COMMENT_NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        //TODO: add checking for all props after extracting template props to property file
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.accessLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.text)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.name)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.text)!!.equals(-1))
+
     }
 }

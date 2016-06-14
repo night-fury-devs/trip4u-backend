@@ -3,12 +3,12 @@
 <!--TODO: add picture as a header background-->
 <!--TODO: fix layout-->
 <!--TODO: rewrite template in table layout-->
-<HTML>
-<body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><body>
 <div style="background-color: #379b81;
             color: #434343;
             padding: 1% 1%;">
-    <img src="@{content.logoImageLink}"
+    <img th:src="${content.logoImageLink}"
          style="display: inline-block;
                 max-height: 80px;"/>
     <div style="display: inline-block;
@@ -23,21 +23,21 @@
                 width: auto;
                 background: #ffffff;
                 color: #050c0e;">
-        <h2>${content.user}, you have new notification!</h2>
+        <h2 th:text="${content.username} + ', you have new notification!'"></h2>
         <div>
             <div style="width: 20%;
                         display: inline-block;">
-                <img src="@{content.imageLink}"/>
+                <img th:src="${content.imageLink}"/>
             </div>
             <div style="width: 80%;
                         display: inline-block;">
-                ${content.text}
-                <p><a href="@{content.accessLink}">View on trip4u website</a></p>
+                <span th:text="${content.text}"></span>
+                <p><a th:href="${content.accessLink}">View on trip4u website</a></p>
             </div>
         </div>
 
         <h4>Sincerely your,</h4>
-        <h4><a href="@{content.websiteLink}">Trip4U</a> Team.</h4>
+        <h4><a th:href="${content.websiteLink}">Trip4U</a> Team.</h4>
     </div>
 </div>
 
@@ -45,9 +45,9 @@
             color: #434343;
             clear:both;
             padding: 1% 5%;">
-    <h4>Contact us: <a href="@{content.contactLink}">${content.contactLink}</a></h4>
+    <h4>Contact us: <a th:href="${content.contactLink}"><span th:text="${content.contactLink}"></span></a></h4>
     <h4>Trip4U &copy; 2016</h4>
 </div>
 
 </body>
-</HTML>
+</html>

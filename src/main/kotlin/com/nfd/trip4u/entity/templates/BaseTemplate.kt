@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component
 
 @Component
 open class BaseTemplate {
-    private lateinit var websiteLink: String
-    private lateinit var contactLink: String
-    private lateinit var username: String
-    private lateinit var logoImageLink: String
+    lateinit var websiteLink: String
+    lateinit var contactLink: String
+    lateinit var username: String
+    lateinit var logoImageLink: String
 
     constructor(){}
 

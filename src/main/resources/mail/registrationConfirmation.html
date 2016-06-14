@@ -1,4 +1,5 @@
-<HTML>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 <!--TODO: add font-->
 <!--TODO: add picture as a header background-->
@@ -7,7 +8,7 @@
 <div  style="background-color: #379b81;
             color: #434343;
             padding: 1% 1%;">
-    <img src="@{content.logoImageLink}"
+    <img th:src="${content.logoImageLink}"
          style="display: inline-block;
                 max-height: 80px;"/>
     <div style="display: inline-block;
@@ -22,12 +23,12 @@
                 width: auto;
                 background: #ffffff;
                 color: #050c0e">
-        <h2>${content.user}, your registration is almost done</h2>
+        <h2>${content.username}, your registration is almost done</h2>
         <h4>To complete your registration click the link below:</h4>
-        <a href="@{content.confirmationLink}"></a>
+        <a th:href="${content.confirmationLink}"></a>
         <br/>
         <h2>You've received this email because someone provided this email address during the registration in
-            <a href="@{content.websiteLink}">trip4U website</a>. If it wasn't you, just ignore this email.
+            <a th:href="${content.websiteLink}">trip4U website</a>. If it wasn't you, just ignore this email.
         </h2>
         <br/>
         <br/>
@@ -40,9 +41,9 @@
             color: #434343;
             clear:both;
             padding: 1% 5%;">
-    <h4>Contact us: <a href="@{content.contactLink}">${content.contactLink}</a></h4>
+    <h4>Contact us: <a th:href="${content.contactLink}"><span th:text="${content.contactLink}"></span></a></h4>
     <h4>Trip4U &copy; 2016</h4>
 </div>
 
 </body>
-</HTML>
+</html>

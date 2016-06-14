@@ -20,19 +20,19 @@ open class TemplateProperties {
     val websiteLink: String = "website"
     val contactLink: String = "contact@gmail.com"
     val username: String = "user"
-    val logoImageLink: String = "logo.jpg"
+    val logoImageLink: String = "http://logo.jpg"
 
     //email confirmation specific props
     val confirmationLink: String = "http://confirm.com"
 
     //notification specific props
-    val imageLink: String = "image.jpg"
+    val imageLink: String = "http://image.jpg"
     val text: String = "notification_text"
     val accessLink: String = "http://access.com"
 
     //comment specific props
     val commentName: String = "username"
-    val commentDate: Date = Date("01.01.1970")
+    val commentDate: Date = Date()
     val commentText: String = "comment"
 
 }

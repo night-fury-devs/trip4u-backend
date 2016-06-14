@@ -1,5 +1,7 @@
 package com.nfd.trip4u.entity.templates
 
+import org.springframework.stereotype.Component
+
 
 /**
  * Author: Mary Kuchumova
@@ -7,11 +9,14 @@ package com.nfd.trip4u.entity.templates
  * Time: 14:28
  */
 
+@Component
 open class NotificationTemplate : BaseTemplate {
 
-    private lateinit var imageLink: String
-    private lateinit var text: String
-    private lateinit  var accessLink: String
+    lateinit var imageLink: String
+    lateinit var text: String
+    lateinit  var accessLink: String
+
+    constructor() : super() {}
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 logoImageLink: String, imageLink: String, text: String, accessLink: String)

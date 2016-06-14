@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 open class EmailConfirmationTemplate : BaseTemplate {
 
-    private lateinit var confirmationLink: String
+    lateinit var confirmationLink: String
 
     constructor() : super() { }
 

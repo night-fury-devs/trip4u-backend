@@ -1,14 +1,19 @@
 package com.nfd.trip4u.entity.templates
 
+import org.springframework.stereotype.Component
+
 /**
  * Author: Mary Kuchumova
  * Date: 12 June 2016
  * Time: 14:29
  */
 
+@Component
 open class CommentTemplate : NotificationTemplate {
 
-    private lateinit var comment: Comment
+    lateinit var comment: Comment
+
+    constructor() : super() {}
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 logoImageLink: String, imageLink: String, text: String, accessLink: String,
