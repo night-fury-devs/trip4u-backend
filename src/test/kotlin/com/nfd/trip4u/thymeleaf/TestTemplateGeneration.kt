@@ -80,6 +80,7 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
                 EMAIL_CONFIRMATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
+
         //TODO: add checking for all props after extracting template props to property file
     }
 

@@ -8,11 +8,7 @@ package com.nfd.trip4u.entity.templates
 
 open class CommentTemplate : NotificationTemplate {
 
-    private var comment: Comment
-//    get() = comment
-//    set(value) {
-//        comment = value
-//    }
+    private lateinit var comment: Comment
 
     constructor(websiteLink: String, contactLink: String, username: String,
                 logoImageLink: String, imageLink: String, text: String, accessLink: String,
