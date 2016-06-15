@@ -84,7 +84,6 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
                 EMAIL_CONFIRMATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        println(templateResult)
         Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.websiteLink)!!.equals(-1))
         Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.contactLink)!!.equals(-1))
         Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.username)!!.equals(-1))
@@ -112,6 +111,7 @@ class TestTemplateGeneration {
         val templateResult = templateProducer.produceTemplate(commentNotificationTemplate,
                 COMMENT_NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
+        println(templateResult)
         Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.websiteLink)!!.equals(-1))
         Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.contactLink)!!.equals(-1))
         Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.username)!!.equals(-1))
