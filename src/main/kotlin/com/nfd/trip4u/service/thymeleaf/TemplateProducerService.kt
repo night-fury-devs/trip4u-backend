@@ -1,5 +1,6 @@
 package com.nfd.trip4u.service.thymeleaf
 
+import com.nfd.trip4u.entity.templates.BaseTemplate
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -17,16 +18,29 @@ open class TemplateProducerService{
 
     val logger = LogFactory.getLog(this.javaClass)
 
+    private val TEMPLATE_ENTITY_KEY = "content"
+
     @Autowired
     lateinit var templateEngine: TemplateEngine
 
     open fun produceTemplate(parameters: Map<String, String>, templateName: String): String? {
-        try{
-            val context = Context()
-            for (parameterEntry in parameters) {
-                context.setVariable(parameterEntry.key, parameterEntry.value)
-            }
+        val context = Context()
+        for (parameterEntry in parameters) {
+            context.setVariable(parameterEntry.key, parameterEntry.value)
+        }
 
+        return processTemplate(context, templateName)
+    }
+
+    open fun produceTemplate(template: BaseTemplate, templateName: String): String? {
+        val context = Context()
+        context.setVariable(TEMPLATE_ENTITY_KEY, template)
+
+        return processTemplate(context, templateName)
+    }
+
+    private fun processTemplate(context: Context, templateName: String): String? {
+        try{
             return templateEngine.process(templateName, context)
         } catch(e: Exception) {
             logger.warn("TemplateProducerService::produceTemplate: " + e.message)
