@@ -6,6 +6,7 @@ import com.nfd.trip4u.configuration.properties.TemplateProperties
 import com.nfd.trip4u.entity.templates.CommentTemplate
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.entity.templates.NotificationTemplate
+import com.nfd.trip4u.service.AbstractTestCase
 import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
 import org.junit.Assert
 import org.junit.Before
@@ -25,7 +26,7 @@ import java.util.*
 
 @RunWith(SpringJUnit4ClassRunner::class)
 @SpringApplicationConfiguration(classes = arrayOf(Application::class, ThymeleafConfiguration::class))
-class TestTemplateGeneration {
+class TestTemplateGeneration : AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
     val NOT_EXISTING_TEMPLATE_NAME = "this-template-name-doesnt-exist-in-resource-folder-18572927862923"
@@ -35,8 +36,6 @@ class TestTemplateGeneration {
     val EMAIL_CONFIRMATION_TEMPLATE_NAME = "registrationConfirmation"
     val COMMENT_NOTIFICATION_TEMPLATE_NAME = "newCommentNotification"
     val NOTIFICATION_TEMPLATE_NAME = "notification"
-
-    private var parameters = HashMap<String, String>()
 
     @Autowired
     @Qualifier("emailConfirmationTemplate")
@@ -57,26 +56,9 @@ class TestTemplateGeneration {
     private lateinit var templateProperties: TemplateProperties
 
     @Test
-    fun testPassEmptyParameterMapToTemplate() {
-        parameters.clear()
-        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
-        Assert.assertNotNull(templateResult)
-        Assert.assertEquals(templateResult?.indexOf(TEST_VALUE), -1)
-    }
-
-    @Test
     fun testNotExistingTemplate() {
-        parameters.clear()
-        val templateResult = templateProducer.produceTemplate(parameters, NOT_EXISTING_TEMPLATE_NAME)
+        val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate, NOT_EXISTING_TEMPLATE_NAME)
         Assert.assertNull(templateResult)
-    }
-
-    @Test
-    fun testExistingTemplateGeneration(){
-        parameters.put(TEST_KEY, TEST_VALUE)
-        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
-        Assert.assertNotNull(templateResult)
-        Assert.assertFalse(templateResult?.indexOf(TEST_VALUE)!!.equals(-1))
     }
 
     @Test

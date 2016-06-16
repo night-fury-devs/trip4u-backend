@@ -37,8 +37,8 @@ open class MailingService {
             for (recipient in email.recipients) {
                 message.addTo(recipient)
             }
-            if (email.template != null) {
-                val template = templateProducer.produceTemplate(email.template?.parameters!!, email.template?.templateName!!)
+            if (email.templateWrapper != null) {
+                val template = templateProducer.produceTemplate(email.templateWrapper?.template!!, email.templateWrapper?.templateName!!)
                 message.setText(template, IS_HTML_MESSAGE);
             } else {
                 message.setText(email.messageBody, !IS_HTML_MESSAGE)
