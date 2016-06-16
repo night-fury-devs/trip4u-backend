@@ -3,6 +3,7 @@ package com.nfd.trip4u.configuration.security
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -32,8 +33,6 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             ?.anonymous()?.disable()
             ?.exceptionHandling()?.authenticationEntryPoint(authenticationEntryPoint())?.and()
             ?.addFilterBefore(AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter::class.java)
-            ?.addFilterBefore(ManagementEndpointAuthenticationFilter(authenticationManager()),
-                    BasicAuthenticationFilter::class.java)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
@@ -43,10 +42,22 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Bean
     open fun authenticationEntryPoint(): AuthenticationEntryPoint
-            = AuthenticationEntryPoint { request, response,
-                                         exception ->
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            = AuthenticationEntryPoint { request, response, exception ->
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
     }
 
+    @Bean
+    open fun tokenService(): TokenService {
+        return TokenService()
+    }
 
+    @Bean
+    open fun usernamePasswordAuthenticationProvider(): AuthenticationProvider {
+        return UsernamePasswordAuthenticationProvider(tokenService())
+    }
+
+    @Bean
+    open fun tokenAuthenticationProvider(): AuthenticationProvider {
+        return TokenAuthenticationProvider(tokenService())
+    }
 }

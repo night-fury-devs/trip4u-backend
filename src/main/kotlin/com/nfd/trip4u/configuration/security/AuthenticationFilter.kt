@@ -1,7 +1,8 @@
 package com.nfd.trip4u.configuration.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.apache.commons.logging.LogFactory
+import com.nfd.trip4u.configuration.AUTHENTICATE_URL
+import com.nfd.trip4u.configuration.HTTP_POST
 import org.slf4j.MDC
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.InternalAuthenticationServiceException
@@ -51,7 +52,6 @@ class AuthenticationFilter() : GenericFilterBean() {
 
         val resourcePath = UrlPathHelper().getPathWithinApplication(httpRequest)
 
-        //TODO: Review code in try block to change its executing order.
         try {
             if (postToAuthenticate(httpRequest, resourcePath)) {
                 logger.debug("Trying to authenticate user $username by X-Auth-Username method.")
@@ -81,6 +81,10 @@ class AuthenticationFilter() : GenericFilterBean() {
             MDC.remove(TOKEN_SESSION_KEY)
             MDC.remove(USER_SESSION_KEY)
         }
+    }
+
+    private fun postToAuthenticate(request: HttpServletRequest, path: String): Boolean {
+        return AUTHENTICATE_URL.equals(path, true) && HTTP_POST.equals(request.method, true)
     }
 
     private fun addSessionContextToLogging() {
@@ -129,7 +133,7 @@ class AuthenticationFilter() : GenericFilterBean() {
     private fun tryToAuthenticate(requestAuthentication: Authentication): Authentication {
         val responseAuthentication = authenticationManager?.authenticate(requestAuthentication)
 
-        if (responseAuthentication == null || !responseAuthentication.isAuthenticated()) {
+        if (responseAuthentication == null || !responseAuthentication.isAuthenticated) {
             throw InternalAuthenticationServiceException("Unable to authenticate user for provided credentials")
         }
 
@@ -138,3 +142,5 @@ class AuthenticationFilter() : GenericFilterBean() {
         return responseAuthentication
     }
 }
+
+private data class TokenResponse(val token: String)
