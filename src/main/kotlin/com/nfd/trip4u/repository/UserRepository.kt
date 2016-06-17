@@ -1,6 +1,6 @@
 package com.nfd.trip4u.repository
 
-import com.nfd.trip4u.entity.mongo.User
+import com.nfd.trip4u.entity.domain.User
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository

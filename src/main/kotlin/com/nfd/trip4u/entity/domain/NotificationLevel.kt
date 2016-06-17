@@ -1,4 +1,4 @@
-package com.nfd.trip4u.entity.mongo
+package com.nfd.trip4u.entity.domain
 
 /**
  * Author: Mary Kuchumova

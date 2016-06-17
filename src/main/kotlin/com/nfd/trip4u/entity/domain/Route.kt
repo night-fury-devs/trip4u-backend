@@ -1,4 +1,4 @@
-package com.nfd.trip4u.entity.mongo
+package com.nfd.trip4u.entity.domain
 
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
