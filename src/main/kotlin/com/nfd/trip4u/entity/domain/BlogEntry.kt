@@ -13,7 +13,7 @@ import java.util.*
 
 @Document(collection = "blog_entries")
 data class BlogEntry(
-        var id: Long,
+        var id: Long?,
 
         @Field(value = "blog_id")
         var blogId: Long,

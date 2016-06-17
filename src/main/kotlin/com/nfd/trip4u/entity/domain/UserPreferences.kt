@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field
 
 @Document(collection = "user_preferences")
 data class UserPreferences(
-        var id: Long,
+        var id: Long?,
         var locale: String,
 
         @Field(value = "user_id")
