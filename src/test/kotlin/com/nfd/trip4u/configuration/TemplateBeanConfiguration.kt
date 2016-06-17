@@ -6,13 +6,8 @@ import com.nfd.trip4u.entity.templates.CommentTemplate
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.entity.templates.NotificationTemplate
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.stereotype.Component
-import org.thymeleaf.processor.CommentNodeProcessorMatcher
-import java.util.*
 
 /**
  * Author: Mary Kuchumova

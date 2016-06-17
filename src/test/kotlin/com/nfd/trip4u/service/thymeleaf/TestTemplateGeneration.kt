@@ -9,14 +9,12 @@ import com.nfd.trip4u.entity.templates.NotificationTemplate
 import com.nfd.trip4u.service.AbstractTestCase
 import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-import java.util.*
 
 /**
  * Author: Mary Kuchumova
