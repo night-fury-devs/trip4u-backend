@@ -18,9 +18,9 @@ class TokenAuthenticationProvider(val tokenService: TokenService): Authenticatio
             throw BadCredentialsException("Invalid token provided.")
         }
 
-        if (!tokenService.contains(token)) {
-            throw BadCredentialsException("Invalid token provided or token expired.")
-        }
+//        if (!tokenService.contains(token)) {
+//            throw BadCredentialsException("Invalid token provided or token expired.")
+//        }
 
         return tokenService.retrieve(token)
     }
