@@ -17,44 +17,48 @@ import java.awt.print.Pageable
 @Service
 open class UserServiceImpl {
 
-//    @Autowired
-//    @Qualifier("userRepository")
-//    lateinit var userRepository: UserRepository
+    @Autowired
+    @Qualifier("userRepository")
+    lateinit var userRepository: UserRepository
 
     fun save(user: User): User {
-        throw UnsupportedOperationException()
+        return userRepository.save(user)
     }
 
     fun delete(user: User) {
-        throw UnsupportedOperationException()
+        userRepository.delete(user)
+    }
+
+    fun delete(id: Long) {
+        userRepository.delete(id)
     }
 
     fun findAll(): Iterable<User> {
-        throw UnsupportedOperationException()
+        return userRepository.findAll()
     }
 
     fun findAll(pageable: Pageable): Page<User> {
-        throw UnsupportedOperationException()
+        return userRepository.findAll(pageable)
     }
 
     fun findById(id: Long): User {
-        throw UnsupportedOperationException()
+        return userRepository.findOne(id)
     }
 
     fun findByUserName(userName: String): User {
-        throw UnsupportedOperationException()
+        return userRepository.findUserByUserName(userName)
     }
 
     fun findByEmail(email: String): User {
-        throw UnsupportedOperationException()
+        return userRepository.findUserByEmail(email)
     }
 
     fun findByUserNameAndPassword(userName: String, password: String): User {
-        throw UnsupportedOperationException()
+        return userRepository.findUserByUserNameAndPassword(userName, password)
     }
 
     fun count(): Long {
-        throw UnsupportedOperationException()
+        return userRepository.count()
     }
 
 }
