@@ -12,7 +12,7 @@ import java.util.*
 
 @Document(collection = "places")
 data class Place(
-        var id: Long,
+        var id: Long?,
         var name: String?,
 
         @Field(value = "parent_place")

@@ -13,7 +13,7 @@ import java.util.*
 
 @Document(collection = "users")
 data class User(
-        var id: Long,
+        var id: Long?,
         var userName: String,
         var email: String,
         var password: String,

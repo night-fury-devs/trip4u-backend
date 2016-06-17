@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field
 
 @Document(collection = "routes")
 data class Route(
-        var id: Long,
+        var id: Long?,
 
         @Field(value = "user_id")
         var userId: Long,

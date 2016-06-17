@@ -12,7 +12,7 @@ import java.util.*
 
 @Document(collection = "notifications")
 data class Notification(
-        var id: Long,
+        var id: Long?,
 
         @Field(value = "user_id")
         var userId: Long,
