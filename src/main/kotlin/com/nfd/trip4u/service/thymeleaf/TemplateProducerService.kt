@@ -23,15 +23,6 @@ open class TemplateProducerService{
     @Autowired
     lateinit var templateEngine: TemplateEngine
 
-    open fun produceTemplate(parameters: Map<String, String>, templateName: String): String? {
-        val context = Context()
-        for (parameterEntry in parameters) {
-            context.setVariable(parameterEntry.key, parameterEntry.value)
-        }
-
-        return processTemplate(context, templateName)
-    }
-
     open fun produceTemplate(template: BaseTemplate, templateName: String): String? {
         val context = Context()
         context.setVariable(TEMPLATE_ENTITY_KEY, template)

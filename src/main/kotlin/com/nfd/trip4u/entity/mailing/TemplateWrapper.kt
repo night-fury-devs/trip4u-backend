@@ -1,12 +1,14 @@
 package com.nfd.trip4u.entity.mailing
 
+import com.nfd.trip4u.entity.templates.BaseTemplate
+
 /**
  * Author: Mary Kuchumova
  * Date: 27 Май 2016
  * Time: 17:38
  */
 
-data class Template(
+data class TemplateWrapper(
     var templateName: String,
-    var parameters: Map<String, String>
+    var template: BaseTemplate
 )
