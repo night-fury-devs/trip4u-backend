@@ -13,9 +13,8 @@ import java.awt.print.Pageable
  */
 
 @Repository
-interface UserRepository : MongoRepository<User, Long> {
+interface UserRepository : MongoRepository<User, String> {
 
-    fun findAll(pageable: Pageable): Page<User>
     fun findUserByUserNameAndPassword(userName: String, password: String): User
     fun findUserByUserName(userName: String): User
     fun findUserByEmail(email: String): User

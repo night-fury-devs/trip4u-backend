@@ -29,7 +29,7 @@ open class UserServiceImpl {
         userRepository.delete(user)
     }
 
-    fun delete(id: Long) {
+    fun delete(id: String) {
         userRepository.delete(id)
     }
 
@@ -37,11 +37,7 @@ open class UserServiceImpl {
         return userRepository.findAll()
     }
 
-    fun findAll(pageable: Pageable): Page<User> {
-        return userRepository.findAll(pageable)
-    }
-
-    fun findById(id: Long): User {
+    fun findById(id: String?): User {
         return userRepository.findOne(id)
     }
 
