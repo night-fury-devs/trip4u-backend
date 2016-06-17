@@ -13,10 +13,8 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserRepository : MongoRepository<User, Long> {
 
-    fun findUserByLoginAndPassword(login: String, password: String): User
-
-    fun findUserByLogin(login: String): User
-
+    fun findUserByUserNameAndPassword(userName: String, password: String): User
+    fun findUserByUserName(userName: String): User
     fun findUserByEmail(email: String): User
 
 }
