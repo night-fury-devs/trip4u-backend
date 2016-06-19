@@ -26,7 +26,7 @@ class UserRepositoryTest : AbstractTestCase() {
     private lateinit var user: User
 
     @Autowired
-    private lateinit var userService: UserServiceImpl
+    private lateinit var userService: UserService
 
     @Before
     fun beforeRepositoryTestStart() {
