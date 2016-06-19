@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.templates
  * Time: 14:29
  */
 
-open class CommentTemplate : NotificationTemplate {
+class CommentTemplate : NotificationTemplate {
 
     lateinit var comment: Comment
 

@@ -25,7 +25,7 @@ open class AuthenticationService {
     fun login(username: String, password: String): Authentication {
         val user = userService.findByUserName(username)
 
-        return if (passwordEncoder.matches(password, user.password)) {
+        return if (passwordEncoder.matches(password, user?.password)) {
             UsernamePasswordAuthenticationToken(username, null)
         } else {
             throw BadCredentialsException("Username and password are not match.")
