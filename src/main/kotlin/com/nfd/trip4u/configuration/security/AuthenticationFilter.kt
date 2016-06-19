@@ -3,6 +3,7 @@ package com.nfd.trip4u.configuration.security
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nfd.trip4u.configuration.AUTHENTICATE_URL
 import com.nfd.trip4u.configuration.HTTP_POST
+import org.apache.commons.logging.LogFactory
 import org.slf4j.MDC
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.InternalAuthenticationServiceException
@@ -29,12 +30,14 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationFilter() : GenericFilterBean() {
 
-    private val USERNAME_HEADER = "X-Auth-Username"
-    private val PASSWORD_HEADER = "X-Auth-Password"
+    private val USERNAME_PARAMETER = "username"
+    private val PASSWORD_PARAMETER = "password"
     private val TOKEN_HEADER = "X-Auth-Token"
 
     private val TOKEN_SESSION_KEY = "token_session_key"
     private val USER_SESSION_KEY = "user_session_key"
+
+    private val log = LogFactory.getLog(this.javaClass)
 
     private var authenticationManager: AuthenticationManager? = null
 
@@ -46,33 +49,33 @@ class AuthenticationFilter() : GenericFilterBean() {
         val httpRequest = request as HttpServletRequest
         val httpResponse = response as HttpServletResponse
 
-        val username = httpRequest.getHeader(USERNAME_HEADER)
-        val password = httpRequest.getHeader(PASSWORD_HEADER)
+        val username = httpRequest.getParameter(USERNAME_PARAMETER)
+        val password = httpRequest.getParameter(PASSWORD_PARAMETER)
         val token = httpRequest.getHeader(TOKEN_HEADER)
 
         val resourcePath = UrlPathHelper().getPathWithinApplication(httpRequest)
 
         try {
             if (postToAuthenticate(httpRequest, resourcePath)) {
-                logger.debug("Trying to authenticate user $username by X-Auth-Username method.")
+                log.debug("Trying to authenticate user $username by X-Auth-Username method.")
 
                 processUsernamePasswordAuthentication(httpResponse, username, password)
                 return
             }
 
             if (token != null) {
-                logger.debug("Trying to authenticate user by X-Auth-Token method (Token: $token).")
+                log.debug("Trying to authenticate user by X-Auth-Token method (Token: $token).")
 
                 processTokenAuthentication(token)
             }
 
-            logger.debug("Passing request down the filter chain.")
+            log.debug("Passing request down the filter chain.")
 
             addSessionContextToLogging()
             chain?.doFilter(request, response)
         } catch (ex: InternalAuthenticationServiceException) {
             SecurityContextHolder.clearContext()
-            logger.error("Internal Authentication error occurred.", ex)
+            log.error("Internal Authentication error occurred.", ex)
             httpResponse.sendError((HttpServletResponse.SC_INTERNAL_SERVER_ERROR))
         } catch (ex: AuthenticationException) {
             SecurityContextHolder.clearContext()
@@ -137,7 +140,7 @@ class AuthenticationFilter() : GenericFilterBean() {
             throw InternalAuthenticationServiceException("Unable to authenticate user for provided credentials")
         }
 
-        logger.debug("User successfully authenticated.")
+        log.debug("User successfully authenticated.")
 
         return responseAuthentication
     }
