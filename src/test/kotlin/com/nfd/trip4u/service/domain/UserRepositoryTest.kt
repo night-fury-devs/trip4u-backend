@@ -21,8 +21,6 @@ import java.util.*
  * Time: 22:56
  */
 
-@RunWith(SpringJUnit4ClassRunner::class)
-@SpringApplicationConfiguration(classes = arrayOf(Application::class))
 class UserRepositoryTest : AbstractTestCase() {
 
     private lateinit var user: User

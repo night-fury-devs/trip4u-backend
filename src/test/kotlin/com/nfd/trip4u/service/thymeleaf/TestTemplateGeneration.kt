@@ -22,8 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
  * Time: 12:09
  */
 
-@RunWith(SpringJUnit4ClassRunner::class)
-@SpringApplicationConfiguration(classes = arrayOf(Application::class, ThymeleafConfiguration::class))
 class TestTemplateGeneration : AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
