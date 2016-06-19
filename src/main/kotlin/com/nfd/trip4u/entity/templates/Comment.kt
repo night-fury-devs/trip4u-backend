@@ -1,6 +1,5 @@
 package com.nfd.trip4u.entity.templates
 
-import org.springframework.stereotype.Component
 import java.util.*
 
 /**
@@ -9,7 +8,6 @@ import java.util.*
  * Time: 16:02
  */
 
-@Component
 data class Comment(
         var name: String,
         var date: Date,
