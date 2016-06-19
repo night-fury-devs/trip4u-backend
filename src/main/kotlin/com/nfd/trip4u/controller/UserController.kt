@@ -45,19 +45,19 @@ open class UserController {
         }
     }
 
-    @RequestMapping(value = "/validateLogin", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/isLoginAvailable", method = arrayOf(RequestMethod.GET))
     @ResponseBody
-    open fun validateLogin(@RequestBody login: String): Boolean {
-        return userService.findByUserName(login) != null
+    open fun validateLogin(@RequestParam login: String): Boolean {
+        return userService.findByUserName(login) == null
     }
 
-    @RequestMapping(value = "/validateEmail", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/isEmailAvailable", method = arrayOf(RequestMethod.GET))
     @ResponseBody
-    open fun validateEmai(@RequestBody email: String): Boolean {
-        return userService.findByEmail(email) != null
+    open fun validateEmail(@RequestParam email: String): Boolean {
+        return userService.findByEmail(email) == null
     }
 
-    @RequestMapping(value = "/:id", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/{id}", method = arrayOf(RequestMethod.GET))
     @ResponseBody
     open fun getUserInfo(@PathVariable id: String): User? {
         return userService.findById(id)
@@ -65,12 +65,12 @@ open class UserController {
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     @ResponseBody
-    open fun getUserInfoByToken(@RequestBody token: String): User? {
-        //TODO: add token ased implementation
+    open fun getUserInfoByToken(@RequestParam token: String): User? {
+        //TODO: add token based implementation
         return null
     }
 
-    @RequestMapping(value = "/token")
+    @RequestMapping(value = "/token", method = arrayOf(RequestMethod.GET))
     @ResponseBody
     open fun token(@RequestParam userName: String, @RequestParam password: String){
         //TODO: add implementation

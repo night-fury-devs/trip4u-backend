@@ -2,6 +2,7 @@ package com.nfd.trip4u.controller.validation
 
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotEmpty
+import org.springframework.validation.annotation.Validated
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.Size
  * Time: 20:02
  */
 
+@Validated
 open class ValidatedUser {
 
     @Size(min = 3, max = 30)
