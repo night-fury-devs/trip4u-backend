@@ -1,5 +1,6 @@
 package com.nfd.trip4u.configuration.security
 
+import com.nfd.trip4u.configuration.properties.CorsProperties
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import javax.servlet.http.HttpServletResponse
 
 /**
@@ -29,6 +32,9 @@ import javax.servlet.http.HttpServletResponse
 open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     private val BCRYPT_STRENGTH = 15
+
+    @Autowired
+    private lateinit var corsProperties: CorsProperties
 
     @Autowired
     private lateinit var usernamePasswordAuthenticationProvider: UsernamePasswordAuthenticationProvider
@@ -48,14 +54,26 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth?.authenticationProvider(usernamePasswordAuthenticationProvider)
             ?.authenticationProvider(tokenAuthenticationProvider)
+    }
 
-        println("AUTH_BUILDER: $auth")
+    @Bean
+    open fun corsConfigurer(): WebMvcConfigurerAdapter {
+        return object: WebMvcConfigurerAdapter() {
+            override fun addCorsMappings(registry: CorsRegistry?) {
+                registry?.addMapping("/**")
+                        ?.allowedHeaders("*")
+                        ?.allowedMethods("*")
+                        ?.allowedOrigins(*corsProperties.origins)
+                        ?.maxAge(3600)
+                println(corsProperties.origins)
+            }
+        }
     }
 
     @Bean
     open fun authenticationEntryPoint(): AuthenticationEntryPoint
             = AuthenticationEntryPoint { request, response, exception ->
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.message)
     }
 
     @Bean

@@ -31,6 +31,10 @@ spring:
     password: regular_user
     host: localhost
     port: 5672
+  security:
+    cors:
+      origins:
+        - "http://localhost:3000"
 
 ---
 
@@ -45,3 +49,7 @@ spring:
     host: running-blackberry-60.bigwig.lshift.net
     port: 10184
     virtual-host: BItUyqwrb4Dq
+  security:
+    cors:
+      origins:
+        - https://project-762377074824993679.firebaseapp.com
