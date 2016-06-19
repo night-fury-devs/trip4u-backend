@@ -1,15 +1,11 @@
 package com.nfd.trip4u.entity.templates
 
-import org.springframework.stereotype.Component
-
-
 /**
  * Author: Mary Kuchumova
  * Date: 12 June 2016
  * Time: 14:28
  */
 
-@Component
 open class NotificationTemplate : BaseTemplate {
 
     lateinit var imageLink: String

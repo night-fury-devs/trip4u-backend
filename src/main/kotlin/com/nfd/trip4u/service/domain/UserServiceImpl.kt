@@ -37,19 +37,19 @@ open class UserServiceImpl {
         return userRepository.findAll()
     }
 
-    fun findById(id: String?): User {
+    fun findById(id: String?): User? {
         return userRepository.findOne(id)
     }
 
-    fun findByUserName(userName: String): User {
+    fun findByUserName(userName: String): User? {
         return userRepository.findUserByUserName(userName)
     }
 
-    fun findByEmail(email: String): User {
+    fun findByEmail(email: String): User? {
         return userRepository.findUserByEmail(email)
     }
 
-    fun findByUserNameAndPassword(userName: String, password: String): User {
+    fun findByUserNameAndPassword(userName: String, password: String): User? {
         return userRepository.findUserByUserNameAndPassword(userName, password)
     }
 
