@@ -8,5 +8,6 @@ package com.nfd.trip4u.entity.domain
 
 enum class Gender(val value: String) {
     MALE("m"),
-    FEMALE("f")
+    FEMALE("f"),
+    NOT_DEFINED("n")
 }

@@ -15,7 +15,7 @@ import java.awt.print.Pageable
  */
 
 @Service
-open class UserServiceImpl {
+open class UserService {
 
     @Autowired
     @Qualifier("userRepository")
