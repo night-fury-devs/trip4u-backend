@@ -1,0 +1,12 @@
+template:
+    websiteLink: website
+    contactLink: contact@gmail.com
+    username: user
+    logoImageLink: logo.jpg
+    confirmationLink: http://confirm.com
+    imageLink: image.jpg
+    text: notification_text
+    accessLink: http://access.com
+    commentName: username
+    commentDate: 01.01.1970
+    commentText: comment

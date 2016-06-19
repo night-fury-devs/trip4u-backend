@@ -1,10 +1,20 @@
-package com.nfd.trip4u.service.thymeleaf
+package com.nfd.trip4u.thymeleaf
 
+import com.nfd.trip4u.Application
+import com.nfd.trip4u.configuration.ThymeleafConfiguration
+import com.nfd.trip4u.configuration.properties.TemplateProperties
+import com.nfd.trip4u.entity.templates.CommentTemplate
+import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
+import com.nfd.trip4u.entity.templates.NotificationTemplate
 import com.nfd.trip4u.service.AbstractTestCase
+import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
 import org.junit.Assert
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import java.util.*
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.test.SpringApplicationConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 /**
  * Author: Mary Kuchumova
@@ -12,38 +22,83 @@ import java.util.*
  * Time: 12:09
  */
 
-
-class TestTemplateGeneration: AbstractTestCase() {
+@RunWith(SpringJUnit4ClassRunner::class)
+@SpringApplicationConfiguration(classes = arrayOf(Application::class, ThymeleafConfiguration::class))
+class TestTemplateGeneration : AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
     val NOT_EXISTING_TEMPLATE_NAME = "this-template-name-doesnt-exist-in-resource-folder-18572927862923"
     val TEST_KEY = "message"
     val TEST_VALUE = "hello in trip4u"
 
-    var parameters = HashMap<String, String>()
+    val EMAIL_CONFIRMATION_TEMPLATE_NAME = "registrationConfirmation"
+    val COMMENT_NOTIFICATION_TEMPLATE_NAME = "newCommentNotification"
+    val NOTIFICATION_TEMPLATE_NAME = "notification"
 
     @Autowired
-    lateinit var templateProducer: TemplateProducerService
+    @Qualifier("emailConfirmationTemplate")
+    lateinit var emailConfirmationTemplate: EmailConfirmationTemplate
 
+    @Autowired
+    @Qualifier("notificationTemplate")
+    private lateinit var notificationTemplate: NotificationTemplate
 
-    @Test
-    fun testPassEmptyParameterMapToTemplate() {
-        parameters.clear()
-        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
-        Assert.assertEquals(templateResult?.indexOf(TEST_VALUE), -1)
-    }
+    @Autowired
+    @Qualifier("commentNotificationTemplate")
+    private lateinit var commentNotificationTemplate: CommentTemplate
+
+    @Autowired
+    private lateinit var templateProducer: TemplateProducerService
+
+    @Autowired
+    private lateinit var templateProperties: TemplateProperties
 
     @Test
     fun testNotExistingTemplate() {
-        parameters.clear()
-        val templateResult = templateProducer.produceTemplate(parameters, NOT_EXISTING_TEMPLATE_NAME)
+        val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate, NOT_EXISTING_TEMPLATE_NAME)
         Assert.assertNull(templateResult)
     }
 
     @Test
-    fun testExistingTemplateGeneration(){
-        parameters.put(TEST_KEY, TEST_VALUE)
-        val templateResult = templateProducer.produceTemplate(parameters, EXISTING_TEMPLATE_NAME)
-        Assert.assertFalse(templateResult?.indexOf(TEST_VALUE)!!.equals(-1))
+    fun testEmailConfirmationTemplateGeneration(){
+        val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
+                EMAIL_CONFIRMATION_TEMPLATE_NAME)
+        Assert.assertNotNull(templateResult)
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.confirmationLink)!!.equals(-1))
+
+    }
+
+    @Test
+    fun testNotificationTemplateGeneration(){
+        val templateResult = templateProducer.produceTemplate(notificationTemplate,
+                NOTIFICATION_TEMPLATE_NAME)
+        Assert.assertNotNull(templateResult)
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.accessLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.imageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.text)!!.equals(-1))
+    }
+
+    @Test
+    fun testCommentNotificationTemplateGeneration(){
+        val templateResult = templateProducer.produceTemplate(commentNotificationTemplate,
+                COMMENT_NOTIFICATION_TEMPLATE_NAME)
+        Assert.assertNotNull(templateResult)
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.websiteLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.contactLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.username)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.logoImageLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.accessLink)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.text)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.name)!!.equals(-1))
+        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.text)!!.equals(-1))
+
     }
 }

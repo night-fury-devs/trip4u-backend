@@ -11,5 +11,5 @@ data class Email(
     var recipients: List<String> = arrayListOf(),
     var subject: String = "",
     var messageBody: String? = "",
-    var template: Template? = null
+    var templateWrapper: TemplateWrapper? = null
 )
