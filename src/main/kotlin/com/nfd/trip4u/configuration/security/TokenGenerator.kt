@@ -1,6 +1,7 @@
 package com.nfd.trip4u.configuration.security
 
 import com.nfd.trip4u.configuration.SERVER_URL
+import com.nfd.trip4u.entity.domain.User
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.SignatureException
@@ -26,16 +27,26 @@ class TokenGenerator {
 
     fun generateForAuthentication(authentication: Authentication): String {
         return Jwts.builder()
-                   .setIssuer(SERVER_URL)
-                   .setSubject(authentication.principal.toString())
-                   //TODO: Add roles to token
-                   .setExpiration(Date(System.currentTimeMillis() + EXPIRED_TROUGH))
-                   .signWith(SignatureAlgorithm.HS512, KEY)
-                   .compact()
+                .setIssuer(SERVER_URL)
+                .setSubject(authentication.principal.toString())
+                //TODO: Add roles to token
+                .setExpiration(Date(System.currentTimeMillis() + EXPIRED_TROUGH))
+                .signWith(SignatureAlgorithm.HS512, KEY)
+                .compact()
     }
 
+    fun generateForConfirmation(user: User): String {
+        return Jwts.builder()
+                .setIssuer(SERVER_URL)
+                .setExpiration(Date(System.currentTimeMillis() + EXPIRED_TROUGH))
+                .setSubject(user.userName)
+                .setIssuedAt(Date())
+                .claim(EMAIL_CLAIM, user.email)
+                .signWith(SignatureAlgorithm.HS512, KEY)
+                .compact()
+    }
 
-    fun parseAuthenticationToken(token: String): Authentication? {
+    fun parseAuthenticationToken(token: String): Authentication {
         try {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
@@ -47,9 +58,21 @@ class TokenGenerator {
 
             return UsernamePasswordAuthenticationToken(claims.subject, null)
         } catch (ex: SignatureException) {
-            logger.warn("Invalid token provided.", ex)
+            throw BadCredentialsException("Invalid token provided.", ex)
         }
-        return null
     }
 
+    fun parseConfirmationToken(token: String): String {
+        try {
+            val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
+
+            if (claims.expiration.before(Date())) {
+                throw BadCredentialsException("Provided token expired.")
+            }
+
+            return claims.subject
+        } catch (ex: SignatureException) {
+            throw BadCredentialsException("Invalid token provided.", ex)
+        }
+    }
 }
