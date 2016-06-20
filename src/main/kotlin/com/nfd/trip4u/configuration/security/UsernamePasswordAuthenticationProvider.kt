@@ -1,5 +1,6 @@
 package com.nfd.trip4u.configuration.security
 
+import com.nfd.trip4u.service.security.AuthenticationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component
 open class UsernamePasswordAuthenticationProvider: AuthenticationProvider {
 
     @Autowired
-    private lateinit var tokenService: TokenService
+    private lateinit var tokenGenerator: TokenGenerator
 
     @Autowired
     private lateinit var authService: AuthenticationService
@@ -31,7 +32,7 @@ open class UsernamePasswordAuthenticationProvider: AuthenticationProvider {
         }
 
         val auth = authService.login(username, password)
-        val token = tokenService.generateTokenFor(auth)
+        val token = tokenGenerator.generateForAuthentication(auth)
 
         return PreAuthenticatedAuthenticationToken(token, null)
     }

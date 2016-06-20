@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component
 open class TokenAuthenticationProvider: AuthenticationProvider {
 
     @Autowired
-    private lateinit var tokenService: TokenService
+    private lateinit var tokenGenerator: TokenGenerator
 
     override fun authenticate(authentication: Authentication?): Authentication? {
         val token = authentication?.principal
@@ -25,7 +25,7 @@ open class TokenAuthenticationProvider: AuthenticationProvider {
             throw BadCredentialsException("Invalid token provided.")
         }
 
-        return tokenService.retrieve(token)
+        return tokenGenerator.parseAuthenticationToken(token)
     }
 
     override fun supports(authenticationClass: Class<*>?): Boolean {

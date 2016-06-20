@@ -15,15 +15,16 @@ import java.util.*
  * Date: 16 Jun 2016
  * Time: 22:17
  */
-class TokenService {
+class TokenGenerator {
 
     private val EXPIRED_TROUGH = 24 * 60 * 60 * 1000
+    private val EMAIL_CLAIM = "email"
     private val ROLES = "roles"
     private val KEY = "5E3b86m26SKXhet8d9Y1UVl2p62AUoYRhLmXd6S6mh7dM0AMd6LXEC22VHSVb7hk"
 
     private val logger = LogFactory.getLog(this.javaClass)
 
-    fun generateTokenFor(authentication: Authentication): String {
+    fun generateForAuthentication(authentication: Authentication): String {
         return Jwts.builder()
                    .setIssuer(SERVER_URL)
                    .setSubject(authentication.principal.toString())
@@ -33,7 +34,8 @@ class TokenService {
                    .compact()
     }
 
-    fun retrieve(token: String): Authentication? {
+
+    fun parseAuthenticationToken(token: String): Authentication? {
         try {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
@@ -45,8 +47,9 @@ class TokenService {
 
             return UsernamePasswordAuthenticationToken(claims.subject, null)
         } catch (ex: SignatureException) {
-            logger.warn("Invalid token provided!", ex)
+            logger.warn("Invalid token provided.", ex)
         }
         return null
     }
+
 }

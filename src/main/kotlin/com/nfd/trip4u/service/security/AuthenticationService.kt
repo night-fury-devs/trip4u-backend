@@ -1,6 +1,6 @@
-package com.nfd.trip4u.configuration.security
+package com.nfd.trip4u.service.security
 
-import com.nfd.trip4u.service.domain.UserServiceImpl
+import com.nfd.trip4u.service.domain.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 open class AuthenticationService {
 
     @Autowired
-    private lateinit var userService: UserServiceImpl
+    private lateinit var userService: UserService
 
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder

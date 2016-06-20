@@ -21,7 +21,7 @@ class TokenServiceTestCase: AbstractTestCase() {
     private val ROLE_COUNT = 1
 
     @Autowired
-    private lateinit var tokenService: TokenService
+    private lateinit var tokenGenerator: TokenGenerator
 
     private lateinit var authentication: Authentication
 
@@ -33,7 +33,7 @@ class TokenServiceTestCase: AbstractTestCase() {
 
     @Test
     fun generateNewToken() {
-        val token = tokenService.generateTokenFor(authentication)
+        val token = tokenGenerator.generateForAuthentication(authentication)
 
         println("Generated token: $token")
 
@@ -42,11 +42,11 @@ class TokenServiceTestCase: AbstractTestCase() {
 
     @Test
     fun parseToken() {
-        val token = tokenService.generateTokenFor(authentication)
+        val token = tokenGenerator.generateForAuthentication(authentication)
 
         println("Generated token: $token")
 
-        val authentication = tokenService.retrieve(token)
+        val authentication = tokenGenerator.parseAuthenticationToken(token)
 
         assertNotNull(authentication)
         assertNotNull(authentication?.principal)
