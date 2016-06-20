@@ -49,7 +49,7 @@ class TokenServiceTestCase: AbstractTestCase() {
         val authentication = tokenGenerator.parseAuthenticationToken(token)
 
         assertNotNull(authentication)
-        assertNotNull(authentication?.principal)
-        assertNull(authentication?.credentials)
+        assertNotNull(authentication.principal)
+        assertNull(authentication.credentials)
     }
 }

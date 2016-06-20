@@ -35,5 +35,6 @@ data class User(
         @DateTimeFormat(pattern = "dd-MM-yyyy")
         var birthday: Date?,
 
-        var role: List<Role>
+        var role: List<Role>,
+        var activated: Boolean = false
         )
