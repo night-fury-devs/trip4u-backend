@@ -1,10 +1,10 @@
 package com.nfd.trip4u.service.thymeleaf
 
+import com.nfd.trip4u.AbstractTestCase
 import com.nfd.trip4u.configuration.properties.TemplateProperties
 import com.nfd.trip4u.entity.templates.CommentTemplate
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.entity.templates.NotificationTemplate
-import com.nfd.trip4u.service.AbstractTestCase
 import org.junit.Assert
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired

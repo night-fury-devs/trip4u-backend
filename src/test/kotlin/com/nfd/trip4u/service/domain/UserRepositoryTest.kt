@@ -1,18 +1,14 @@
 package com.nfd.trip4u.service.domain
 
-import com.nfd.trip4u.Application
+import com.nfd.trip4u.AbstractTestCase
 import com.nfd.trip4u.entity.domain.Gender
 import com.nfd.trip4u.entity.domain.Role
 import com.nfd.trip4u.entity.domain.User
-import com.nfd.trip4u.service.AbstractTestCase
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import java.util.*
 
 /**

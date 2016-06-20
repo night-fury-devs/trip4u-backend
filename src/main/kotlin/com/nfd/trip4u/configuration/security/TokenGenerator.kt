@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.stereotype.Component
 import java.util.*
 
 /**
@@ -16,6 +17,7 @@ import java.util.*
  * Date: 16 Jun 2016
  * Time: 22:17
  */
+@Component
 class TokenGenerator {
 
     private val EXPIRED_TROUGH = 24 * 60 * 60 * 1000

@@ -1,6 +1,5 @@
-package com.nfd.trip4u.service
+package com.nfd.trip4u
 
-import com.nfd.trip4u.Application
 import org.junit.runner.RunWith
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner

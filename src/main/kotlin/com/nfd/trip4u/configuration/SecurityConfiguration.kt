@@ -3,7 +3,6 @@ package com.nfd.trip4u.configuration
 import com.nfd.trip4u.configuration.properties.CorsProperties
 import com.nfd.trip4u.configuration.security.AuthenticationFilter
 import com.nfd.trip4u.configuration.security.TokenAuthenticationProvider
-import com.nfd.trip4u.configuration.security.TokenGenerator
 import com.nfd.trip4u.configuration.security.UsernamePasswordAuthenticationProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -78,11 +77,6 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     open fun authenticationEntryPoint(): AuthenticationEntryPoint
             = AuthenticationEntryPoint { request, response, exception ->
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.message)
-    }
-
-    @Bean
-    open fun tokenService(): TokenGenerator {
-        return TokenGenerator()
     }
 
     @Bean

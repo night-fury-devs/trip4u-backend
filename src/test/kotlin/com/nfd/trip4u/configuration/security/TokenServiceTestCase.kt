@@ -1,6 +1,6 @@
 package com.nfd.trip4u.configuration.security
 
-import com.nfd.trip4u.service.AbstractTestCase
+import com.nfd.trip4u.AbstractTestCase
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
