@@ -48,8 +48,8 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {
         http?.csrf()?.disable()
             ?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)?.and()
+            ?.antMatcher(REGISTER_URL)?.anonymous()?.and()
             ?.authorizeRequests()?.anyRequest()?.authenticated()?.and()
-            ?.anonymous()?.disable()
             ?.exceptionHandling()?.authenticationEntryPoint(authenticationEntryPoint())?.and()
             ?.addFilterBefore(AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter::class.java)
     }

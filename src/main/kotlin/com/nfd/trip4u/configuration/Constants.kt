@@ -14,4 +14,5 @@ const val HOST = "http://localhost:8080"
 const val CONTACT_US = "mailto:night.fury.devs@gmail.com"
 
 const val AUTHENTICATE_URL = "/auth/login"
+const val REGISTER_URL = "/user/register"
 const val HTTP_POST = "POST"
