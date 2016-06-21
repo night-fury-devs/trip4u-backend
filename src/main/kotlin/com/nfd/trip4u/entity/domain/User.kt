@@ -36,5 +36,5 @@ data class User(
         var birthday: Date?,
 
         var role: List<Role>,
-        var activated: Boolean = false
+        var activated: Boolean
         )

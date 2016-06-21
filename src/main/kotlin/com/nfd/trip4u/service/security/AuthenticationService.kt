@@ -63,7 +63,7 @@ open class AuthenticationService {
 
         val domainUser = User(null, user.userName, user.email, user.password, null,
                 user.lastName, user.firstName, null, Gender.NOT_DEFINED, null,
-                arrayListOf(Role.USER))
+                arrayListOf(Role.USER), false)
 
         userService.save(domainUser)
 

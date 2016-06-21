@@ -26,7 +26,8 @@ class UserRepositoryTest : AbstractTestCase() {
 
     @Before
     fun beforeRepositoryTestStart() {
-        user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, Gender.MALE, null, ArrayList<Role>())
+        user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, Gender.MALE, null,
+                ArrayList<Role>(), true)
         user = userService.save(user)
         Assert.assertNotNull(user.id)
     }
