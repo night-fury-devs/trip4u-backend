@@ -1,10 +1,8 @@
 package com.nfd.trip4u.repository.domain
 
 import com.nfd.trip4u.entity.domain.User
-import org.springframework.data.domain.Page
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
-import java.awt.print.Pageable
 
 /**
  * Author: Mary Kuchumova
@@ -18,5 +16,6 @@ interface UserRepository : MongoRepository<User, String> {
     fun findUserByUserNameAndPassword(userName: String, password: String): User?
     fun findUserByUserName(userName: String): User?
     fun findUserByEmail(email: String): User?
+    fun findUserByUserNameOrEmail(userName: String, email: String): User?
 
 }

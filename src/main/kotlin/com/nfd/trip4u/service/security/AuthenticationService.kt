@@ -3,6 +3,9 @@ package com.nfd.trip4u.service.security
 import com.nfd.trip4u.configuration.CONTACT_US
 import com.nfd.trip4u.configuration.HOST
 import com.nfd.trip4u.configuration.security.TokenGenerator
+import com.nfd.trip4u.controller.validation.ValidatedUser
+import com.nfd.trip4u.entity.domain.Gender
+import com.nfd.trip4u.entity.domain.Role
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.entity.mailing.Email
 import com.nfd.trip4u.entity.mailing.TemplateWrapper
@@ -51,6 +54,20 @@ open class AuthenticationService {
         } else {
             throw BadCredentialsException("Username and password are not match.")
         }
+    }
+
+    fun register(user: ValidatedUser) {
+        if (userService.exists(user)) {
+            throw BadCredentialsException("User with provided username or email already exists.")
+        }
+
+        val domainUser = User(null, user.userName, user.email, user.password, null,
+                user.lastName, user.firstName, null, Gender.NOT_DEFINED, null,
+                arrayListOf(Role.USER))
+
+        userService.save(domainUser)
+
+        sendConfirmationEmail(domainUser)
     }
 
     fun confirm(encodedToken: String): Boolean {

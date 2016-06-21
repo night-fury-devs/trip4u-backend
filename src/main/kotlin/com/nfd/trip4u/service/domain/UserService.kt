@@ -1,12 +1,11 @@
 package com.nfd.trip4u.service.domain
 
+import com.nfd.trip4u.controller.validation.ValidatedUser
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
-import java.awt.print.Pageable
 
 /**
  * Author: Mary Kuchumova
@@ -55,6 +54,10 @@ open class UserService {
 
     fun count(): Long {
         return userRepository.count()
+    }
+
+    fun exists(user: ValidatedUser): Boolean {
+        return userRepository.findUserByUserNameOrEmail(user.userName, user.email) != null
     }
 
 }
