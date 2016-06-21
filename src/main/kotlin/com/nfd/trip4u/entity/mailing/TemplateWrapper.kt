@@ -9,6 +9,6 @@ import com.nfd.trip4u.entity.templates.BaseTemplate
  */
 
 data class TemplateWrapper(
-    var templateName: String,
-    var template: BaseTemplate
+    var templateName: String? = null,
+    var template: BaseTemplate? = null
 )
