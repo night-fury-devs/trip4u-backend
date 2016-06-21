@@ -1,20 +1,14 @@
-package com.nfd.trip4u.thymeleaf
+package com.nfd.trip4u.service.thymeleaf
 
-import com.nfd.trip4u.Application
-import com.nfd.trip4u.configuration.ThymeleafConfiguration
+import com.nfd.trip4u.AbstractTestCase
 import com.nfd.trip4u.configuration.properties.TemplateProperties
 import com.nfd.trip4u.entity.templates.CommentTemplate
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.entity.templates.NotificationTemplate
-import com.nfd.trip4u.service.AbstractTestCase
-import com.nfd.trip4u.service.thymeleaf.TemplateProducerService
 import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.boot.test.SpringApplicationConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 /**
  * Author: Mary Kuchumova

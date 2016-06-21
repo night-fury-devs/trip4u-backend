@@ -37,16 +37,18 @@ open class MailingService {
             for (recipient in email.recipients) {
                 message.addTo(recipient)
             }
-            if (email.templateWrapper != null) {
-                val template = templateProducer.produceTemplate(email.templateWrapper?.template!!, email.templateWrapper?.templateName!!)
-                message.setText(template, IS_HTML_MESSAGE);
+            val template = email.templateWrapper?.template
+            val templateName = email.templateWrapper?.templateName
+            if (template != null && templateName != null) {
+                val processedTemplate = templateProducer.produceTemplate(template, templateName)
+                message.setText(processedTemplate, IS_HTML_MESSAGE);
             } else {
                 message.setText(email.messageBody, !IS_HTML_MESSAGE)
             }
 
             mailSender.send(mimeMessage)
         } catch(e: Exception) {
-            logger.warn("MailingService::sendMessage: " + e.message)
+            logger.warn("MailingService::sendMessage: ", e)
         }
     }
 }

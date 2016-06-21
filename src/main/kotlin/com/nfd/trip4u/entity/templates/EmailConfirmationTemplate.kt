@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.templates
  * Time: 14:29
  */
 
-open class EmailConfirmationTemplate : BaseTemplate {
+class EmailConfirmationTemplate : BaseTemplate {
 
     lateinit var confirmationLink: String
 

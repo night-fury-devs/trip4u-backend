@@ -8,3 +8,10 @@ package com.nfd.trip4u.configuration
 
 const val QUEUE_NAME = "email_queue"
 const val TOPIC_NAME = "email_default"
+
+const val SERVER_URL = "http://trip4u.com"
+const val HOST = "http://localhost:8080"
+
+const val AUTHENTICATE_URL = "/auth/login"
+const val REGISTER_URL = "/user/register"
+const val HTTP_POST = "POST"
