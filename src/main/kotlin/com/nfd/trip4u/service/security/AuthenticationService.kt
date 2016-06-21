@@ -1,7 +1,7 @@
 package com.nfd.trip4u.service.security
 
-import com.nfd.trip4u.configuration.CONTACT_US
 import com.nfd.trip4u.configuration.HOST
+import com.nfd.trip4u.configuration.properties.MailingProperties
 import com.nfd.trip4u.configuration.security.TokenGenerator
 import com.nfd.trip4u.controller.validation.ValidatedUser
 import com.nfd.trip4u.entity.domain.Gender
@@ -45,6 +45,9 @@ open class AuthenticationService {
 
     @Autowired
     private lateinit var emailQueueService: EmailQueueService
+
+    @Autowired
+    private lateinit var mailingProperties: MailingProperties
 
     fun login(username: String, password: String): Authentication {
         val user = userService.findByUserName(username)
@@ -93,9 +96,10 @@ open class AuthenticationService {
 
         val url = "$HOST/auth/confirm?id=$encodedToken"
 
-        val template = EmailConfirmationTemplate(HOST, CONTACT_US, user.userName, url, "")
+        val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.userName, url, "")
         val templateWrapper = TemplateWrapper("registrationConfirmation", template)
-        val email = Email(CONTACT_US, arrayListOf(user.email), "Trip4U registration confirmation.", null, templateWrapper)
+        val email = Email(mailingProperties.username, arrayListOf(user.email), "Trip4U registration confirmation.", null,
+                templateWrapper)
 
         emailQueueService.sendMessage(email)
     }
