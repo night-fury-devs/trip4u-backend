@@ -114,7 +114,7 @@ class AuthenticationFilter() : GenericFilterBean() {
 
         response.status = HttpServletResponse.SC_OK
 
-        val tokenResponse = TokenResponse(resultOfAuthentication.details.toString())
+        val tokenResponse = TokenResponse(resultOfAuthentication.principal.toString())
         val tokenJsonResponse = ObjectMapper().writeValueAsString(tokenResponse)
 
         response.addHeader("Content-Type", "application/json")

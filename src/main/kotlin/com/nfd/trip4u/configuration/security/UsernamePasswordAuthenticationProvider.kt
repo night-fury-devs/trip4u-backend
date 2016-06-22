@@ -34,7 +34,10 @@ open class UsernamePasswordAuthenticationProvider: AuthenticationProvider {
         val auth = authService.login(username, password)
         val token = tokenGenerator.generateForAuthentication(auth)
 
-        return PreAuthenticatedAuthenticationToken(token, null)
+        val resultAuth = PreAuthenticatedAuthenticationToken(token, null)
+        resultAuth.isAuthenticated = true
+
+        return resultAuth
     }
 
     override fun supports(authenticationClass: Class<*>?): Boolean {
