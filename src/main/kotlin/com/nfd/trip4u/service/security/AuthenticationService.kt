@@ -64,7 +64,7 @@ open class AuthenticationService {
             throw BadCredentialsException("User with provided username or email already exists.")
         }
 
-        val domainUser = User(null, user.userName, user.email, user.password, null,
+        val domainUser = User(null, user.userName, user.email, passwordEncoder.encode(user.password), null,
                 user.lastName, user.firstName, null, Gender.NOT_DEFINED, null,
                 arrayListOf(Role.USER), false)
 
