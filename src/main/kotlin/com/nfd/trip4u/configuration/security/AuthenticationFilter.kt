@@ -71,7 +71,7 @@ class AuthenticationFilter() : GenericFilterBean() {
 
             log.debug("Passing request down the filter chain.")
 
-            addSessionContextToLogging()
+//            addSessionContextToLogging()
             chain?.doFilter(request, response)
         } catch (ex: InternalAuthenticationServiceException) {
             SecurityContextHolder.clearContext()
