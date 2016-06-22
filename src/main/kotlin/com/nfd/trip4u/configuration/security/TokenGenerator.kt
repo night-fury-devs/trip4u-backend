@@ -7,8 +7,8 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.SignatureException
 import org.apache.commons.logging.LogFactory
 import org.springframework.security.authentication.BadCredentialsException
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -58,7 +58,10 @@ class TokenGenerator {
 
             //TODO: Add retrieving roles from token
 
-            return UsernamePasswordAuthenticationToken(claims.subject, null)
+            val resultAuth = PreAuthenticatedAuthenticationToken(claims.subject, null)
+            resultAuth.isAuthenticated = true
+
+            return resultAuth
         } catch (ex: SignatureException) {
             throw BadCredentialsException("Invalid token provided.", ex)
         }
