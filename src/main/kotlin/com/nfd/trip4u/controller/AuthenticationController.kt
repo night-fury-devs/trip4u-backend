@@ -1,5 +1,6 @@
 package com.nfd.trip4u.controller
 
+import com.nfd.trip4u.controller.exception.BadRegistrationDataException
 import com.nfd.trip4u.dto.ValidatedUser
 import com.nfd.trip4u.service.security.AuthenticationService
 import org.apache.commons.logging.LogFactory
@@ -32,18 +33,18 @@ class AuthenticationController {
     }
 
     @RequestMapping(AUTH_REGISTER)
-    fun register(@Valid @RequestBody user: ValidatedUser, bindingResult: BindingResult): HttpStatus {
+    fun register(@Valid @RequestBody user: ValidatedUser, bindingResult: BindingResult): Boolean {
         if (bindingResult.hasErrors()) {
-            return HttpStatus.BAD_REQUEST
+            throw BadRegistrationDataException()
         }
 
         try {
             authService.register(user)
         } catch (ex: BadCredentialsException) {
             log.warn("Can't register user due to an error.", ex)
-            return HttpStatus.BAD_REQUEST
+            throw BadRegistrationDataException()
         }
 
-        return HttpStatus.CREATED
+        return true
     }
 }
