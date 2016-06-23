@@ -94,7 +94,7 @@ open class AuthenticationService {
         val token = tokenGenerator.generateForConfirmation(user)
         val encodedToken = Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
 
-        val url = "$HOST/auth/confirm?id=" + "$encodedToken"
+        val url = "$HOST/auth/confirm?id=$encodedToken"
 
         val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.userName, url, "")
         val templateWrapper = TemplateWrapper("registrationConfirmation", template)
