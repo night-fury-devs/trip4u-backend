@@ -56,12 +56,14 @@ class TemplateGenerationTestCase : AbstractTestCase() {
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
                 EMAIL_CONFIRMATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.websiteLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.contactLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.username)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.logoImageLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(emailConfirmationTemplate.confirmationLink)!!.equals(-1))
-
+        val template = templateResult
+        if(template != null) {
+            Assert.assertTrue(!template.indexOf(emailConfirmationTemplate.websiteLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(emailConfirmationTemplate.contactLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(emailConfirmationTemplate.username).equals(-1))
+            Assert.assertTrue(!template.indexOf(emailConfirmationTemplate.logoImageLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(emailConfirmationTemplate.confirmationLink).equals(-1))
+        }
     }
 
     @Test
@@ -69,13 +71,16 @@ class TemplateGenerationTestCase : AbstractTestCase() {
         val templateResult = templateProducer.produceTemplate(notificationTemplate,
                 NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.websiteLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.contactLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.username)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.logoImageLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.accessLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.imageLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(notificationTemplate.text)!!.equals(-1))
+        val template = templateResult
+        if(template != null) {
+            Assert.assertTrue(!template.indexOf(notificationTemplate.websiteLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.contactLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.username).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.logoImageLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.accessLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.imageLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(notificationTemplate.text).equals(-1))
+        }
     }
 
     @Test
@@ -83,14 +88,16 @@ class TemplateGenerationTestCase : AbstractTestCase() {
         val templateResult = templateProducer.produceTemplate(commentNotificationTemplate,
                 COMMENT_NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.websiteLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.contactLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.username)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.logoImageLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.accessLink)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.text)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.name)!!.equals(-1))
-        Assert.assertTrue(!templateResult?.indexOf(commentNotificationTemplate.comment.text)!!.equals(-1))
-
+        val template = templateResult
+        if(template != null) {
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.websiteLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.contactLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.username).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.logoImageLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.accessLink).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.text).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.comment.name).equals(-1))
+            Assert.assertTrue(!template.indexOf(commentNotificationTemplate.comment.text).equals(-1))
+        }
     }
 }
