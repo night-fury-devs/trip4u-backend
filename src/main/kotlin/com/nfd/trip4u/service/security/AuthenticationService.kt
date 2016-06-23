@@ -3,7 +3,7 @@ package com.nfd.trip4u.service.security
 import com.nfd.trip4u.configuration.HOST
 import com.nfd.trip4u.configuration.properties.MailingProperties
 import com.nfd.trip4u.configuration.security.TokenGenerator
-import com.nfd.trip4u.dto.ValidatedUser
+import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.Gender
 import com.nfd.trip4u.entity.domain.Role
 import com.nfd.trip4u.entity.domain.User
@@ -59,13 +59,13 @@ open class AuthenticationService {
         }
     }
 
-    fun register(user: ValidatedUser) {
-        if (userService.exists(user)) {
+    fun register(userDto: UserDto) {
+        if (userService.exists(userDto)) {
             throw BadCredentialsException("User with provided username or email already exists.")
         }
 
-        val domainUser = User(null, user.userName, user.email, passwordEncoder.encode(user.password), null,
-                user.lastName, user.firstName, null, Gender.NOT_DEFINED, null,
+        val domainUser = User(null, userDto.userName, userDto.email, passwordEncoder.encode(userDto.password), null,
+                userDto.lastName, userDto.firstName, null, Gender.NOT_DEFINED, null,
                 arrayListOf(Role.USER), false)
 
         userService.save(domainUser)

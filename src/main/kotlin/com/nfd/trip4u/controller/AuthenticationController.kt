@@ -1,11 +1,10 @@
 package com.nfd.trip4u.controller
 
 import com.nfd.trip4u.controller.exception.BadRegistrationDataException
-import com.nfd.trip4u.dto.ValidatedUser
+import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.security.AuthenticationService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.RequestBody
@@ -33,13 +32,13 @@ class AuthenticationController {
     }
 
     @RequestMapping(AUTH_REGISTER)
-    fun register(@Valid @RequestBody user: ValidatedUser, bindingResult: BindingResult): Boolean {
+    fun register(@Valid @RequestBody userDto: UserDto, bindingResult: BindingResult): Boolean {
         if (bindingResult.hasErrors()) {
             throw BadRegistrationDataException()
         }
 
         try {
-            authService.register(user)
+            authService.register(userDto)
         } catch (ex: BadCredentialsException) {
             log.warn("Can't register user due to an error.", ex)
             throw BadRegistrationDataException()

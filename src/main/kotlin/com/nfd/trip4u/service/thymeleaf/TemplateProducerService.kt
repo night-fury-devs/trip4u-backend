@@ -34,7 +34,7 @@ open class TemplateProducerService{
         try{
             return templateEngine.process(templateName, context)
         } catch(e: Exception) {
-            logger.warn("Error while producing a template. " + e)
+            logger.warn("Error while producing a template.", e)
             return null
         }
     }

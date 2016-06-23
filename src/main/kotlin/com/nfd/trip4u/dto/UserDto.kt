@@ -13,7 +13,7 @@ import javax.validation.constraints.Size
  */
 
 @Validated
-open class ValidatedUser {
+open class UserDto {
 
     @Size(min = 3, max = 30)
     @NotEmpty
