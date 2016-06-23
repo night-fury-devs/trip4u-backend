@@ -30,7 +30,7 @@
         <td colspan="2" style="padding: 3%; width: 100%">
             <h3 th:text="${content.username} + ', your registration is almost done'"></h3>
             <h3>To complete your registration click the link below:</h3>
-            <a th:href="${content.confirmationLink}"></a>
+            <a th:href="${content.confirmationLink}" th:text="${content.confirmationLink}"></a>
             <br/>
             <h3>You've received this email because someone provided this email address during the registration in
                 <a th:href="${content.websiteLink}">trip4U website</a>. If it wasn't you, just ignore this email.
