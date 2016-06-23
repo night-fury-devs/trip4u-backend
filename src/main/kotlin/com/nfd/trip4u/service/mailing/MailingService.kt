@@ -48,7 +48,7 @@ open class MailingService {
 
             mailSender.send(mimeMessage)
         } catch(e: Exception) {
-            logger.warn("MailingService::sendMessage: ", e)
+            logger.warn("Error while sending an email. ", e)
         }
     }
 }
