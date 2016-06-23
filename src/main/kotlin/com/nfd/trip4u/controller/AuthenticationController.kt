@@ -1,6 +1,6 @@
 package com.nfd.trip4u.controller
 
-import com.nfd.trip4u.controller.validation.ValidatedUser
+import com.nfd.trip4u.dto.ValidatedUser
 import com.nfd.trip4u.service.security.AuthenticationService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired

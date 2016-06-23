@@ -1,4 +1,4 @@
-package com.nfd.trip4u.controller.validation
+package com.nfd.trip4u.dto
 
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotEmpty

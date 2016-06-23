@@ -3,7 +3,7 @@ package com.nfd.trip4u.service.security
 import com.nfd.trip4u.configuration.HOST
 import com.nfd.trip4u.configuration.properties.MailingProperties
 import com.nfd.trip4u.configuration.security.TokenGenerator
-import com.nfd.trip4u.controller.validation.ValidatedUser
+import com.nfd.trip4u.dto.ValidatedUser
 import com.nfd.trip4u.entity.domain.Gender
 import com.nfd.trip4u.entity.domain.Role
 import com.nfd.trip4u.entity.domain.User

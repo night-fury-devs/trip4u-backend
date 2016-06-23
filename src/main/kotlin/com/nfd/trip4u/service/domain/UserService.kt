@@ -1,6 +1,6 @@
 package com.nfd.trip4u.service.domain
 
-import com.nfd.trip4u.controller.validation.ValidatedUser
+import com.nfd.trip4u.dto.ValidatedUser
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
