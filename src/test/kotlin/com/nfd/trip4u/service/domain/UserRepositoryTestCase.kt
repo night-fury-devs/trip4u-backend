@@ -17,7 +17,7 @@ import java.util.*
  * Time: 22:56
  */
 
-class UserRepositoryTest : AbstractTestCase() {
+class UserRepositoryTestCase : AbstractTestCase() {
 
     private lateinit var user: User
 
@@ -25,7 +25,7 @@ class UserRepositoryTest : AbstractTestCase() {
     private lateinit var userService: UserService
 
     @Before
-    fun beforeRepositoryTestStart() {
+    fun populateTestData() {
         user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, Gender.MALE, null,
                 ArrayList<Role>(), true)
         user = userService.save(user)
@@ -33,32 +33,32 @@ class UserRepositoryTest : AbstractTestCase() {
     }
 
     @Test
-    fun testUpdateUser(){
+    fun updateUser(){
         user.firstName = "name"
         val newUser = userService.save(user)
         Assert.assertEquals(newUser.firstName, user.firstName)
     }
 
     @Test
-    fun testFindAllUsers(){
+    fun findAllUsers(){
         val userList = userService.findAll()
         Assert.assertTrue(userList.contains(user))
     }
 
     @Test
-    fun testFindUserById(){
+    fun findUserById(){
         val foundUser = userService.findById(user.id)
         Assert.assertEquals(foundUser, user)
     }
 
     @Test
-    fun testFindUserByUsername(){
+    fun findUserByUsername(){
         val foundUser = userService.findByUserName(user.userName)
         Assert.assertEquals(foundUser, user)
     }
 
     @Test
-    fun testFindUserByEmail(){
+    fun findUserByEmail(){
         val foundUser = userService.findByEmail(user.email)
         Assert.assertEquals(foundUser, user)
     }
@@ -70,13 +70,13 @@ class UserRepositoryTest : AbstractTestCase() {
     }
 
     @Test
-    fun testUsersCount(){
+    fun getUsersCount(){
         val usersCount = userService.count()
         Assert.assertNotEquals(usersCount, 0)
     }
 
     @After
-    fun afterRepositoryTestFinish() {
+    fun removeTestData() {
         userService.delete(user)
     }
 }

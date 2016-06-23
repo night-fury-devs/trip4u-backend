@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier
  * Time: 12:09
  */
 
-class TestTemplateGeneration : AbstractTestCase() {
+class TemplateGenerationTestCase : AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
     val NOT_EXISTING_TEMPLATE_NAME = "this-template-name-doesnt-exist-in-resource-folder-18572927862923"
@@ -46,13 +46,13 @@ class TestTemplateGeneration : AbstractTestCase() {
     private lateinit var templateProperties: TemplateProperties
 
     @Test
-    fun testNotExistingTemplate() {
+    fun generateNotExistingTemplate() {
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate, NOT_EXISTING_TEMPLATE_NAME)
         Assert.assertNull(templateResult)
     }
 
     @Test
-    fun testEmailConfirmationTemplateGeneration(){
+    fun generateEmailConfirmationTemplate(){
         val templateResult = templateProducer.produceTemplate(emailConfirmationTemplate,
                 EMAIL_CONFIRMATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
@@ -65,7 +65,7 @@ class TestTemplateGeneration : AbstractTestCase() {
     }
 
     @Test
-    fun testNotificationTemplateGeneration(){
+    fun generateNotificationTemplate(){
         val templateResult = templateProducer.produceTemplate(notificationTemplate,
                 NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
@@ -79,7 +79,7 @@ class TestTemplateGeneration : AbstractTestCase() {
     }
 
     @Test
-    fun testCommentNotificationTemplateGeneration(){
+    fun generateCommentNotificationTemplate(){
         val templateResult = templateProducer.produceTemplate(commentNotificationTemplate,
                 COMMENT_NOTIFICATION_TEMPLATE_NAME)
         Assert.assertNotNull(templateResult)
