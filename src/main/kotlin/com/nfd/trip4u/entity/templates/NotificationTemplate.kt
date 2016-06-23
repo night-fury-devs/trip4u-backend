@@ -1,12 +1,14 @@
 package com.nfd.trip4u.entity.templates
 
+import java.io.Serializable
+
 /**
  * Author: Mary Kuchumova
  * Date: 12 June 2016
  * Time: 14:28
  */
 
-open class NotificationTemplate : BaseTemplate {
+open class NotificationTemplate : BaseTemplate, Serializable {
 
     lateinit var imageLink: String
     lateinit var text: String

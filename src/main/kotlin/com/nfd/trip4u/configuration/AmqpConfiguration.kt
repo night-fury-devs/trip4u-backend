@@ -11,7 +11,7 @@ import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.messaging.converter.MappingJackson2MessageConverter
+import org.springframework.messaging.converter.SimpleMessageConverter
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory
 
 /**
@@ -43,7 +43,7 @@ open class AmqpConfiguration: RabbitListenerConfigurer {
     @Bean
     open fun handlerMethodFactory(): DefaultMessageHandlerMethodFactory {
         val factory = DefaultMessageHandlerMethodFactory()
-        factory.setMessageConverter(jsonConverter())
+        factory.setMessageConverter(messageConverter())
         return factory
     }
 
@@ -57,5 +57,5 @@ open class AmqpConfiguration: RabbitListenerConfigurer {
     open fun binding() = BindingBuilder.bind(queue()).to(exchange()).with(TOPIC_NAME)
 
     @Bean
-    open fun jsonConverter() = MappingJackson2MessageConverter();
+    open fun messageConverter() = SimpleMessageConverter();
 }

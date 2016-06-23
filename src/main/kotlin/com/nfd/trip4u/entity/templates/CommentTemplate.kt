@@ -1,12 +1,14 @@
 package com.nfd.trip4u.entity.templates
 
+import java.io.Serializable
+
 /**
  * Author: Mary Kuchumova
  * Date: 12 June 2016
  * Time: 14:29
  */
 
-class CommentTemplate : NotificationTemplate {
+class CommentTemplate : NotificationTemplate, Serializable {
 
     lateinit var comment: Comment
 

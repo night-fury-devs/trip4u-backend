@@ -20,10 +20,10 @@ open class EmailQueueService {
     private lateinit var rabbitTemplate: RabbitMessagingTemplate
 
     @Autowired
-    private lateinit var jsonConverter: MessageConverter
+    private lateinit var messageConverter: MessageConverter
 
     fun sendMessage(email: Email) {
-        rabbitTemplate.messageConverter = jsonConverter
+        rabbitTemplate.messageConverter = messageConverter
         rabbitTemplate.convertAndSend(TOPIC_NAME, TOPIC_NAME, email)
     }
 }

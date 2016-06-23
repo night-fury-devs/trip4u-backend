@@ -1,5 +1,7 @@
 package com.nfd.trip4u.entity.mailing
 
+import java.io.Serializable
+
 /**
  * Author: Mary Kuchumova
  * Date: 27 May 2016
@@ -12,4 +14,4 @@ data class Email(
     var subject: String = "",
     var messageBody: String? = "",
     var templateWrapper: TemplateWrapper? = null
-)
+): Serializable 

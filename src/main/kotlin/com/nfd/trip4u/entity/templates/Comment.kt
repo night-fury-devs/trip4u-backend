@@ -1,5 +1,6 @@
 package com.nfd.trip4u.entity.templates
 
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -12,4 +13,4 @@ data class Comment(
         var name: String,
         var date: Date,
         var text: String
-        )
+): Serializable

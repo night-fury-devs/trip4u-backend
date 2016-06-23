@@ -1,6 +1,7 @@
 package com.nfd.trip4u.entity.mailing
 
 import com.nfd.trip4u.entity.templates.BaseTemplate
+import java.io.Serializable
 
 /**
  * Author: Mary Kuchumova
@@ -11,4 +12,4 @@ import com.nfd.trip4u.entity.templates.BaseTemplate
 data class TemplateWrapper(
     var templateName: String? = null,
     var template: BaseTemplate? = null
-)
+): Serializable
