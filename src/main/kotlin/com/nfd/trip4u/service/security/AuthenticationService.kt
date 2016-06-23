@@ -74,28 +74,27 @@ open class AuthenticationService {
     }
 
     fun confirm(encodedToken: String): Boolean {
-//        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
-//
-//        try {
-//            val username = tokenGenerator.parseConfirmationToken(token)
-//
-//            val user = userService.findByUserName(username) ?: throw UsernameNotFoundException("Username not found.")
-//            user.activated = true
-//            userService.save(user)
-//        } catch (ex: BadCredentialsException) {
-//            log.error("Unable to confirm registration.", ex)
-//            return false
-//        }
+        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
+
+        try {
+            val username = tokenGenerator.parseConfirmationToken(token)
+
+            val user = userService.findByUserName(username) ?: throw UsernameNotFoundException("Username not found.")
+            user.activated = true
+            userService.save(user)
+        } catch (ex: BadCredentialsException) {
+            log.error("Unable to confirm registration.", ex)
+            return false
+        }
 
         return true
     }
 
     fun sendConfirmationEmail(user: User) {
         val token = tokenGenerator.generateForConfirmation(user)
-//        val encodedToken = Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
+        val encodedToken = Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
 
-        val url = "$HOST/auth/confirm?id="
-//                + "$encodedToken"
+        val url = "$HOST/auth/confirm?id=" + "$encodedToken"
 
         val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.userName, url, "")
         val templateWrapper = TemplateWrapper("registrationConfirmation", template)
