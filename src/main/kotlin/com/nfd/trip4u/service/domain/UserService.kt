@@ -1,6 +1,6 @@
 package com.nfd.trip4u.service.domain
 
-import com.nfd.trip4u.dto.ValidatedUser
+import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -56,8 +56,8 @@ open class UserService {
         return userRepository.count()
     }
 
-    fun exists(user: ValidatedUser): Boolean {
-        return userRepository.findUserByUserNameOrEmail(user.userName, user.email) != null
+    fun exists(userDto: UserDto): Boolean {
+        return userRepository.findUserByUserNameOrEmail(userDto.userName, userDto.email) != null
     }
 
 }
