@@ -5,11 +5,11 @@ import com.nfd.trip4u.dto.ValidatedUser
 import com.nfd.trip4u.service.security.AuthenticationService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
@@ -27,12 +27,12 @@ class AuthenticationController {
     @Autowired
     private lateinit var authService: AuthenticationService
 
-    @RequestMapping(AUTH_CONFIRM)
+    @RequestMapping(value = AUTH_CONFIRM, method = arrayOf(RequestMethod.PUT))
     fun confirm(id: String): Boolean {
         return authService.confirm(id)
     }
 
-    @RequestMapping(AUTH_REGISTER)
+    @RequestMapping(value = AUTH_REGISTER, method = arrayOf(RequestMethod.POST))
     fun register(@Valid @RequestBody user: ValidatedUser, bindingResult: BindingResult): Boolean {
         if (bindingResult.hasErrors()) {
             throw BadRegistrationDataException()
