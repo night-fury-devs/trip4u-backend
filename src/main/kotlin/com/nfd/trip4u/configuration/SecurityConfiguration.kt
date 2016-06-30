@@ -18,9 +18,12 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.AuthenticationEntryPoint
+import org.springframework.security.web.access.channel.ChannelProcessingFilter
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
-import org.springframework.web.servlet.config.annotation.CorsRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
+import javax.servlet.Filter
 import javax.servlet.http.HttpServletResponse
 
 /**
@@ -53,6 +56,7 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             ?.antMatchers("$AUTH_PREFIX/**")?.permitAll()
             ?.anyRequest()?.authenticated()?.and()
             ?.exceptionHandling()?.authenticationEntryPoint(authenticationEntryPoint())?.and()
+            ?.addFilterBefore(corsFilter(), ChannelProcessingFilter::class.java)
             ?.addFilterBefore(AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter::class.java)
     }
 
@@ -62,17 +66,18 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    open fun corsConfigurer(): WebMvcConfigurerAdapter {
-        return object: WebMvcConfigurerAdapter() {
-            override fun addCorsMappings(registry: CorsRegistry?) {
-                registry?.addMapping("/**")
-                        ?.allowedHeaders("*")
-                        ?.allowedMethods("*")
-                        ?.allowedOrigins(*corsProperties.origins)
-                        ?.maxAge(3600)
-                println(corsProperties.origins)
-            }
-        }
+    open fun corsFilter(): Filter {
+        val source = UrlBasedCorsConfigurationSource();
+        val config = CorsConfiguration();
+
+        config.allowCredentials = true;
+        corsProperties.origins.forEach { x -> config.addAllowedOrigin(x) }
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        source.registerCorsConfiguration("/**", config);
+
+        return CorsFilter(source);
     }
 
     @Bean
