@@ -33,5 +33,4 @@ open class EhcacheConfiguration{
         return cmfb;
     }
 
-
 }

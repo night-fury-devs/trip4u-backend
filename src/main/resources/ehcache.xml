@@ -11,11 +11,10 @@
            maxEntriesLocalDisk="1000"
            eternal="false"
            diskSpoolBufferSizeMB="20"
-           timeToIdleSeconds="84600"
-           timeToLiveSeconds="84600"
+           timeToIdleSeconds="10"
+           timeToLiveSeconds="10"
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
         <persistence strategy="localTempSwap" />
     </cache>
-
 </ehcache>

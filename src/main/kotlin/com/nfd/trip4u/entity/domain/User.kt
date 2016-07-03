@@ -3,6 +3,7 @@ package com.nfd.trip4u.entity.domain
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import org.springframework.format.annotation.DateTimeFormat
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -37,4 +38,4 @@ data class User(
 
         var role: List<Role>,
         var activated: Boolean
-        )
+        ): Serializable

@@ -2,7 +2,9 @@ package com.nfd.trip4u.dto
 
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotEmpty
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.validation.annotation.Validated
+import java.io.Serializable
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
@@ -12,8 +14,9 @@ import javax.validation.constraints.Size
  * Time: 20:02
  */
 
+@Cacheable(value = "true")
 @Validated
-open class UserDto {
+open class UserDto : Serializable{
 
     @Size(min = 3, max = 30)
     @NotEmpty

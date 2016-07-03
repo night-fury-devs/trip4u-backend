@@ -1,6 +1,8 @@
 package com.nfd.trip4u.repository.domain
 
 import com.nfd.trip4u.entity.domain.User
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
@@ -11,7 +13,11 @@ import org.springframework.stereotype.Repository
  */
 
 @Repository
+@CacheConfig(cacheNames = arrayOf("registeredUsers"))
 interface UserRepository : MongoRepository<User, String> {
+
+    @Cacheable(value="registeredUsers", key="#a0")
+    fun save(user: User): User
 
     fun findUserByUserNameAndPassword(userName: String, password: String): User?
     fun findUserByUserName(userName: String): User?
