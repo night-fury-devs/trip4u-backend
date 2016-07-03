@@ -27,8 +27,8 @@ open class UserDto {
     lateinit var password: String
 
     @Size(max = 30)
-    lateinit var lastName: String
+    var lastName: String = ""
 
     @Size(max = 30)
-    lateinit var firstName: String
+    var firstName: String = ""
 }
