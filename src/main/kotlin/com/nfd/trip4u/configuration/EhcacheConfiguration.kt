@@ -27,7 +27,7 @@ open class EhcacheConfiguration{
 
     @Bean
     open fun ehCacheCacheManager(): EhCacheManagerFactoryBean {
-        var cmfb = EhCacheManagerFactoryBean();
+        val cmfb = EhCacheManagerFactoryBean();
         cmfb.setConfigLocation(ClassPathResource("ehcache.xml"));
         cmfb.setShared(true);
         return cmfb;

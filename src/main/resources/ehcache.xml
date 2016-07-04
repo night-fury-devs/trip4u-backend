@@ -16,5 +16,7 @@
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
         <persistence strategy="localTempSwap" />
+        <cacheEventListenerFactory class="com.nfd.trip4u.service.ehcache.EhcacheListenerFactory"
+                                   properties="beanName=registeredUserCacheListener" listenFor="all" />
     </cache>
 </ehcache>

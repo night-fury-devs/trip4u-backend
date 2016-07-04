@@ -14,7 +14,6 @@ import com.nfd.trip4u.service.amqp.EmailQueueService
 import com.nfd.trip4u.service.domain.UserService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -22,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.nio.charset.Charset
-import java.util.*
 
 /**
  * Author: Alexey Kleschikov
@@ -71,7 +69,7 @@ open class AuthenticationService {
 
         userService.save(domainUser)
 
-//        sendConfirmationEmail(domainUser)
+        sendConfirmationEmail(domainUser)
     }
 
     fun confirm(encodedToken: String): Boolean {
