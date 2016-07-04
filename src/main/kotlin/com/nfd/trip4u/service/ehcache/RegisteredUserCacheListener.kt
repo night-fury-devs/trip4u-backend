@@ -5,6 +5,7 @@ import com.nfd.trip4u.service.domain.UserService
 import net.sf.ehcache.Ehcache
 import net.sf.ehcache.Element
 import net.sf.ehcache.event.CacheEventListener
+import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -15,45 +16,51 @@ import org.springframework.stereotype.Service
  */
 
 @Service
-open class RegisteredUserCacheListener: CacheEventListener {
+open class RegisteredUserCacheListener: CacheEventListener, Cloneable {
+
+    private val log = LogFactory.getLog(this.javaClass)
 
     @Autowired
     private lateinit var userService: UserService
 
-    override fun notifyElementEvicted(p0: Ehcache?, p1: Element?) {
-        throw UnsupportedOperationException()
+    private fun user(element: Element?): User? {
+        return element!!.objectValue as User
     }
 
-    override fun notifyElementUpdated(p0: Ehcache?, p1: Element?) {
-        throw UnsupportedOperationException()
+    override fun notifyElementEvicted(ehcache: Ehcache?, element: Element?) {
+        log.info("Ehcache element evicted: " + user(element))
+    }
+
+    override fun notifyElementUpdated(ehcache: Ehcache?, element: Element?) {
+        log.info("Ehcache element updated: " + user(element))
     }
 
     override fun notifyElementExpired(ehcache: Ehcache?, element: Element?) {
-        val user = element!!.objectValue as User;
-        if (!user.activated){
+        val user = user(element)
+        log.info("Ehcache element expired: " + user)
+        if (!user!!.activated){
             userService.delete(user)
         }
-        println("expired")
     }
 
     override fun clone(): Any {
-        return RegisteredUserCacheListener()
+        return super.clone()
     }
 
-    override fun notifyElementPut(p0: Ehcache?, p1: Element?) {
-        throw UnsupportedOperationException()
+    override fun notifyElementPut(ehcache: Ehcache?, element: Element?) {
+        log.info("Ehcache element put: " + user(element))
     }
 
-    override fun notifyElementRemoved(p0: Ehcache?, p1: Element?) {
-        throw UnsupportedOperationException()
+    override fun notifyElementRemoved(ehcache: Ehcache?, element: Element?) {
+        log.info("Ehcache element removed: " + user(element))
     }
 
-    override fun notifyRemoveAll(p0: Ehcache?) {
-        throw UnsupportedOperationException()
+    override fun notifyRemoveAll(ehcache: Ehcache?) {
+        log.info("All ehcache elements were removed")
     }
 
     override fun dispose() {
-        this.dispose()
+
     }
 
 }

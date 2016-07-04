@@ -2,6 +2,7 @@ package com.nfd.trip4u.service.ehcache
 
 import net.sf.ehcache.event.CacheEventListener
 import net.sf.ehcache.event.CacheEventListenerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -13,6 +14,9 @@ import java.util.*
 
 @Service
 open class EhcacheListenerFactory : CacheEventListenerFactory() {
+
+    @Autowired
+    private lateinit var registeredUserCacheListener: RegisteredUserCacheListener
 
     override fun createCacheEventListener(p0: Properties?): CacheEventListener? {
         return RegisteredUserCacheListener()
