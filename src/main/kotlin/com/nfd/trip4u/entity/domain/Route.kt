@@ -17,12 +17,11 @@ data class Route(
         var userId: Long,
 
         var name: String?,
-        var status: RouteStatus,
         var blogs: List<Long>?,
         var tags: List<String>?,
 
         @Field(value = "added_to")
-        var addedTo: List<Long>?,
+        var addedTo: List<UserCustomRoute>?,
 
         var description: String?,
         var comments: List<Comment>?,
