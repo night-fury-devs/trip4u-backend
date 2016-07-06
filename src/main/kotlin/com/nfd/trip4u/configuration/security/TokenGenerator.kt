@@ -52,9 +52,7 @@ open class TokenGenerator {
         return Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
     }
 
-    fun parseAuthenticationToken(encodedToken: String): Authentication {
-        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
-
+    fun parseAuthenticationToken(token: String): Authentication {
         try {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
@@ -73,7 +71,9 @@ open class TokenGenerator {
         }
     }
 
-    fun parseConfirmationToken(token: String): String {
+    fun parseConfirmationToken(encodedToken: String): String {
+        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
+
         try {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
