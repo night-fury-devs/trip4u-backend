@@ -20,8 +20,6 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.nio.charset.Charset
-import java.util.*
 
 /**
  * Author: Alexey Kleschikov
@@ -31,7 +29,6 @@ import java.util.*
 @Service
 open class AuthenticationService {
 
-    private val UTF8 = "UTF-8"
     private val log = LogFactory.getLog(this.javaClass)
 
     @Autowired
@@ -74,10 +71,8 @@ open class AuthenticationService {
     }
 
     fun confirm(encodedToken: String): Boolean {
-        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
-
         try {
-            val username = tokenGenerator.parseConfirmationToken(token)
+            val username = tokenGenerator.parseConfirmationToken(encodedToken)
 
             val user = userService.findByUserName(username) ?: throw UsernameNotFoundException("Username not found.")
             user.activated = true
@@ -92,9 +87,8 @@ open class AuthenticationService {
 
     fun sendConfirmationEmail(user: User) {
         val token = tokenGenerator.generateForConfirmation(user)
-        val encodedToken = Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
 
-        val url = "$HOST/auth/confirm?id=$encodedToken"
+        val url = "$HOST/auth/confirm?id=$token"
 
         val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.userName, url, "")
         val templateWrapper = TemplateWrapper("registrationConfirmation", template)

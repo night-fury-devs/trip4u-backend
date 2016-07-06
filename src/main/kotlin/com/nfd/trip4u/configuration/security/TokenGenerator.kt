@@ -10,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
 import org.springframework.stereotype.Component
+import java.nio.charset.Charset
 import java.util.*
 
 /**
@@ -18,11 +19,12 @@ import java.util.*
  * Time: 22:17
  */
 @Component
-class TokenGenerator {
+open class TokenGenerator {
 
     private val EXPIRED_TROUGH = 24 * 60 * 60 * 1000
     private val EMAIL_CLAIM = "email"
     private val ROLES = "roles"
+    private val UTF8 = "UTF-8"
     private val KEY = "5E3b86m26SKXhet8d9Y1UVl2p62AUoYRhLmXd6S6mh7dM0AMd6LXEC22VHSVb7hk"
 
     private val logger = LogFactory.getLog(this.javaClass)
@@ -38,7 +40,7 @@ class TokenGenerator {
     }
 
     fun generateForConfirmation(user: User): String {
-        return Jwts.builder()
+        val token = Jwts.builder()
                 .setIssuer(SERVER_URL)
                 .setExpiration(Date(System.currentTimeMillis() + EXPIRED_TROUGH))
                 .setSubject(user.userName)
@@ -46,9 +48,13 @@ class TokenGenerator {
                 .claim(EMAIL_CLAIM, user.email)
                 .signWith(SignatureAlgorithm.HS512, KEY)
                 .compact()
+
+        return Base64.getEncoder().encodeToString(token.toByteArray(charset = Charset.forName(UTF8)))
     }
 
-    fun parseAuthenticationToken(token: String): Authentication {
+    fun parseAuthenticationToken(encodedToken: String): Authentication {
+        val token = String(Base64.getDecoder().decode(encodedToken), Charset.forName(UTF8))
+
         try {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
