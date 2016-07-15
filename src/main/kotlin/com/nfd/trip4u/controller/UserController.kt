@@ -1,10 +1,15 @@
 package com.nfd.trip4u.controller
 
-import com.nfd.trip4u.entity.domain.User
+import com.nfd.trip4u.controller.exception.BadRequestException
+import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.domain.UserService
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 /**
  * Author: Mary Kuchumova
@@ -31,19 +36,19 @@ open class UserController {
         return userService.findByEmail(email) == null
     }
 
-    @RequestMapping(value = "/{id}", method = arrayOf(RequestMethod.GET))
-    open fun getUserInfo(@PathVariable id: String): User? {
-        return userService.findById(id)
-    }
-
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    open fun getUserInfoByToken(@RequestParam token: String): User? {
-        //TODO: add token based implementation
-        return null
+    open fun returnUserInfo(@AuthenticationPrincipal userName: String): UserDto? {
+        return userService.findUserInfo(userName)
     }
 
-    @RequestMapping(value = "/token", method = arrayOf(RequestMethod.GET))
-    open fun token(@RequestParam userName: String, @RequestParam password: String){
-        //TODO: add implementation
+    @RequestMapping(method = arrayOf(RequestMethod.PATCH))
+    open fun updateUserInfo(@RequestBody @Valid userDto: UserDto, bindingResult: BindingResult) {
+        if (bindingResult.hasErrors()) throw BadRequestException()
+        try {
+            userService.updateUserInfo(userDto)
+        } catch (ex: UsernameNotFoundException) {
+            log.error("Can't update user info.", ex)
+            //TODO: Return some code
+        }
     }
 }

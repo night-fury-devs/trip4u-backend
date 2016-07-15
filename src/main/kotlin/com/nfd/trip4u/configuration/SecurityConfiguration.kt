@@ -67,17 +67,17 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Bean
     open fun corsFilter(): Filter {
-        val source = UrlBasedCorsConfigurationSource();
-        val config = CorsConfiguration();
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
 
-        config.allowCredentials = true;
+        config.allowCredentials = true
         corsProperties.origins.forEach { x -> config.addAllowedOrigin(x) }
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.addAllowedHeader("*")
+        config.addAllowedMethod("*")
 
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/**", config)
 
-        return CorsFilter(source);
+        return CorsFilter(source)
     }
 
     @Bean

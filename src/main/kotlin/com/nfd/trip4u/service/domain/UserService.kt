@@ -1,10 +1,12 @@
 package com.nfd.trip4u.service.domain
 
 import com.nfd.trip4u.dto.RegistrationDataDto
+import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 /**
@@ -44,6 +46,21 @@ open class UserService {
         return userRepository.findUserByUserName(userName)
     }
 
+    fun findUserInfo(userName: String): UserDto? {
+        val user = userRepository.findUserByUserName(userName) ?: return null
+        val userDto = UserDto()
+
+        userDto.userName = user.userName
+        userDto.email = user.email
+        userDto.firstName = user.firstName
+        userDto.lastName = user.lastName
+        userDto.birthday = user.birthday
+        userDto.middleName = user.middleName
+        userDto.gender = user.gender
+
+        return userDto
+    }
+
     fun findByEmail(email: String): User? {
         return userRepository.findUserByEmail(email)
     }
@@ -58,6 +75,10 @@ open class UserService {
 
     fun exists(registrationDataDto: RegistrationDataDto): Boolean {
         return userRepository.findUserByUserNameOrEmail(registrationDataDto.userName, registrationDataDto.email) != null
+    }
+
+    fun updateUserInfo(userDto: UserDto) {
+        val user = userRepository.findUserByUserName(userDto.userName) ?: throw UsernameNotFoundException("")
     }
 
 }

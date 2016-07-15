@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
  * Time: 15:28
  */
 
-@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason = "Can't create user with given credentials")
-open class BadRegistrationDataException: RuntimeException() {
+@ResponseStatus(value= HttpStatus.BAD_REQUEST)
+open class BadRequestException(message: String? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
 
 }
