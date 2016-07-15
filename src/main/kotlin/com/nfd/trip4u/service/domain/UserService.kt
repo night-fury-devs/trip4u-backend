@@ -1,12 +1,10 @@
 package com.nfd.trip4u.service.domain
 
-import com.nfd.trip4u.dto.UserDto
+import com.nfd.trip4u.dto.RegistrationDataDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.cache.annotation.CacheConfig
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 /**
@@ -58,8 +56,8 @@ open class UserService {
         return userRepository.count()
     }
 
-    fun exists(userDto: UserDto): Boolean {
-        return userRepository.findUserByUserNameOrEmail(userDto.userName, userDto.email) != null
+    fun exists(registrationDataDto: RegistrationDataDto): Boolean {
+        return userRepository.findUserByUserNameOrEmail(registrationDataDto.userName, registrationDataDto.email) != null
     }
 
 }

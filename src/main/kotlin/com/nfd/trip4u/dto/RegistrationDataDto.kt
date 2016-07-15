@@ -16,7 +16,7 @@ import javax.validation.constraints.Size
 
 @Cacheable(value = "true")
 @Validated
-open class UserDto : Serializable{
+open class RegistrationDataDto : Serializable{
 
     @Size(min = 3, max = 30)
     @NotEmpty
