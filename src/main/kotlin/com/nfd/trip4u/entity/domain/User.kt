@@ -15,9 +15,10 @@ import java.util.*
 @Document(collection = "users")
 data class User(
         var id: String?,
-        var userName: String,
+        var username: String,
         var email: String,
         var password: String,
+        var avatarUrl: String?,
 
         @Field(value = "home_cities")
         var homeCities: List<Long>?,

@@ -28,7 +28,7 @@ open class UserController {
 
     @RequestMapping(value = "/isLoginAvailable", method = arrayOf(RequestMethod.GET))
     open fun validateLogin(@RequestParam login: String): Boolean {
-        return userService.findByUserName(login) == null
+        return userService.findByUsername(login) == null
     }
 
     @RequestMapping(value = "/isEmailAvailable", method = arrayOf(RequestMethod.GET))
@@ -37,18 +37,25 @@ open class UserController {
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    open fun returnUserInfo(@AuthenticationPrincipal userName: String): UserDto? {
-        return userService.findUserInfo(userName)
+    open fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
+        return userService.findUserInfo(username)
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
-    open fun updateUserInfo(@RequestBody @Valid userDto: UserDto, bindingResult: BindingResult) {
+    open fun updateUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
+                            bindingResult: BindingResult) {
         if (bindingResult.hasErrors()) throw BadRequestException()
         try {
+            userDto.username = username
             userService.updateUserInfo(userDto)
         } catch (ex: UsernameNotFoundException) {
             log.error("Can't update user info.", ex)
             //TODO: Return some code
         }
+    }
+
+    @RequestMapping(value = "/avatar", method = arrayOf(RequestMethod.PATCH))
+    open fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
+        userService.updateUserAvatar(username, avatarUrl)
     }
 }

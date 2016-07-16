@@ -26,7 +26,7 @@ class UserRepositoryTestCase : AbstractTestCase() {
 
     @Before
     fun populateTestData() {
-        user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, Gender.MALE, null,
+        user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, null, Gender.MALE, null,
                 ArrayList<Role>(), true)
         user = userService.save(user)
         Assert.assertNotNull(user.id)
@@ -53,7 +53,7 @@ class UserRepositoryTestCase : AbstractTestCase() {
 
     @Test
     fun findUserByUsername(){
-        val foundUser = userService.findByUserName(user.userName)
+        val foundUser = userService.findByUsername(user.username)
         Assert.assertEquals(foundUser, user)
     }
 
@@ -65,7 +65,7 @@ class UserRepositoryTestCase : AbstractTestCase() {
 
     @Test
     fun findUserByCredentials(){
-        val foundUser = userService.findByUserNameAndPassword(user.userName, user.password)
+        val foundUser = userService.findByUsernameAndPassword(user.username, user.password)
         Assert.assertEquals(foundUser, user)
     }
 

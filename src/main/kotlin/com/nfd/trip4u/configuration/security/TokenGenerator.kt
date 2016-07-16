@@ -43,7 +43,7 @@ open class TokenGenerator {
         val token = Jwts.builder()
                 .setIssuer(SERVER_URL)
                 .setExpiration(Date(System.currentTimeMillis() + EXPIRED_TROUGH))
-                .setSubject(user.userName)
+                .setSubject(user.username)
                 .setIssuedAt(Date())
                 .claim(EMAIL_CLAIM, user.email)
                 .signWith(SignatureAlgorithm.HS512, KEY)

@@ -47,7 +47,7 @@ open class AuthenticationService {
     private lateinit var mailingProperties: MailingProperties
 
     fun login(username: String, password: String): Authentication {
-        val user = userService.findByUserName(username)
+        val user = userService.findByUsername(username)
 
         return if (passwordEncoder.matches(password, user?.password)) {
             UsernamePasswordAuthenticationToken(username, null)
@@ -61,8 +61,8 @@ open class AuthenticationService {
             throw BadCredentialsException("User with provided username or email already exists.")
         }
 
-        val domainUser = User(null, registrationDataDto.userName, registrationDataDto.email,
-                passwordEncoder.encode(registrationDataDto.password), null, registrationDataDto.lastName,
+        val domainUser = User(null, registrationDataDto.username, registrationDataDto.email,
+                passwordEncoder.encode(registrationDataDto.password), null, null, registrationDataDto.lastName,
                 registrationDataDto.firstName, null, Gender.NOT_DEFINED, null, arrayListOf(Role.USER), false)
 
         userService.save(domainUser)
@@ -74,7 +74,7 @@ open class AuthenticationService {
         try {
             val username = tokenGenerator.parseConfirmationToken(encodedToken)
 
-            val user = userService.findByUserName(username) ?: throw UsernameNotFoundException("Username not found.")
+            val user = userService.findByUsername(username) ?: throw UsernameNotFoundException("Username not found.")
             user.activated = true
             userService.save(user)
         } catch (ex: BadCredentialsException) {
@@ -90,7 +90,7 @@ open class AuthenticationService {
 
         val url = "$HOST/auth/confirm?id=$token"
 
-        val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.userName, url, "")
+        val template = EmailConfirmationTemplate(HOST, "mailto:${mailingProperties.username}", user.username, url, "")
         val templateWrapper = TemplateWrapper("registrationConfirmation", template)
         val email = Email(mailingProperties.username, arrayListOf(user.email), "Trip4U registration confirmation.", null,
                 templateWrapper)

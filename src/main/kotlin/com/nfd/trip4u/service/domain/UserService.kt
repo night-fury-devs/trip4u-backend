@@ -42,15 +42,15 @@ open class UserService {
         return userRepository.findOne(id)
     }
 
-    fun findByUserName(userName: String): User? {
-        return userRepository.findUserByUserName(userName)
+    fun findByUsername(username: String): User? {
+        return userRepository.findUserByUsername(username)
     }
 
-    fun findUserInfo(userName: String): UserDto? {
-        val user = userRepository.findUserByUserName(userName) ?: return null
+    fun findUserInfo(username: String): UserDto? {
+        val user = userRepository.findUserByUsername(username) ?: return null
         val userDto = UserDto()
 
-        userDto.userName = user.userName
+        userDto.username = user.username
         userDto.email = user.email
         userDto.firstName = user.firstName
         userDto.lastName = user.lastName
@@ -65,8 +65,8 @@ open class UserService {
         return userRepository.findUserByEmail(email)
     }
 
-    fun findByUserNameAndPassword(userName: String, password: String): User? {
-        return userRepository.findUserByUserNameAndPassword(userName, password)
+    fun findByUsernameAndPassword(username: String, password: String): User? {
+        return userRepository.findUserByUsernameAndPassword(username, password)
     }
 
     fun count(): Long {
@@ -74,11 +74,11 @@ open class UserService {
     }
 
     fun exists(registrationDataDto: RegistrationDataDto): Boolean {
-        return userRepository.findUserByUserNameOrEmail(registrationDataDto.userName, registrationDataDto.email) != null
+        return userRepository.findUserByUsernameOrEmail(registrationDataDto.username, registrationDataDto.email) != null
     }
 
     fun updateUserInfo(userDto: UserDto) {
-        val user = userRepository.findUserByUserName(userDto.userName) ?: throw UsernameNotFoundException("") //TODO: Change exception
+        val user = userRepository.findUserByUsername(userDto.username) ?: throw UsernameNotFoundException("") //TODO: Change exception
 
         user.birthday = userDto.birthday
         user.email = userDto.email
@@ -87,6 +87,13 @@ open class UserService {
         user.middleName = userDto.middleName
         user.gender = userDto.gender
 
+        userRepository.save(user)
+    }
+
+    fun updateUserAvatar(username: String, avatarUrl: String?) {
+        val user = userRepository.findUserByUsername(username) ?: throw UsernameNotFoundException("") //TODO: Change exception
+
+        user.avatarUrl = avatarUrl
         userRepository.save(user)
     }
 

@@ -19,9 +19,9 @@ interface UserRepository : MongoRepository<User, String> {
     @Cacheable(value="registeredUsers", key="#a0")
     fun save(user: User): User
 
-    fun findUserByUserNameAndPassword(userName: String, password: String): User?
-    fun findUserByUserName(userName: String): User?
+    fun findUserByUsernameAndPassword(username: String, password: String): User?
+    fun findUserByUsername(username: String): User?
     fun findUserByEmail(email: String): User?
-    fun findUserByUserNameOrEmail(userName: String, email: String): User?
+    fun findUserByUsernameOrEmail(username: String, email: String): User?
 
 }

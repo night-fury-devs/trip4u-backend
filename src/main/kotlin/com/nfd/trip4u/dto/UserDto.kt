@@ -10,7 +10,7 @@ import java.util.*
  */
 
 class UserDto {
-    lateinit var userName: String
+    lateinit var username: String
     lateinit var email: String
     var lastName: String? = null
     var firstName: String? = null
