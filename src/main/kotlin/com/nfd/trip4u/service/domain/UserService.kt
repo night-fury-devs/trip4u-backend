@@ -78,7 +78,16 @@ open class UserService {
     }
 
     fun updateUserInfo(userDto: UserDto) {
-        val user = userRepository.findUserByUserName(userDto.userName) ?: throw UsernameNotFoundException("")
+        val user = userRepository.findUserByUserName(userDto.userName) ?: throw UsernameNotFoundException("") //TODO: Change exception
+
+        user.birthday = userDto.birthday
+        user.email = userDto.email
+        user.firstName = userDto.firstName
+        user.lastName = userDto.lastName
+        user.middleName = userDto.middleName
+        user.gender = userDto.gender
+
+        userRepository.save(user)
     }
 
 }
