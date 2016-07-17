@@ -46,8 +46,7 @@ open class UserController {
                             bindingResult: BindingResult) {
         if (bindingResult.hasErrors()) throw BadRequestException()
         try {
-            userDto.username = username
-            userService.updateUserInfo(userDto)
+            userService.updateUserInfo(username, userDto)
         } catch (ex: UsernameNotFoundException) {
             log.error("Can't update user info.", ex)
             //TODO: Return some code
