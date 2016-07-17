@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus
  */
 
 @ResponseStatus(value= HttpStatus.BAD_REQUEST)
-open class BadRequestException(message: String? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
+open class BadRequestException(
+        override var message: String? = null,
+        override var cause: Throwable? = null) : RuntimeException(message, cause) {
 
 }
