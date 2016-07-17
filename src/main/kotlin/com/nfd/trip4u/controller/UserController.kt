@@ -3,10 +3,10 @@ package com.nfd.trip4u.controller
 import com.nfd.trip4u.controller.exception.BadRequestException
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.domain.UserService
+import com.nfd.trip4u.service.exception.EntityNotFoundException
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -38,7 +38,12 @@ open class UserController {
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     open fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
-        return userService.findUserInfo(username)
+        try {
+            return userService.findUserInfo(username)
+        } catch(ex: EntityNotFoundException) {
+            log.error("Can't find user.", ex)
+            throw ex//TODO: Return some code
+        }
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
@@ -47,7 +52,7 @@ open class UserController {
         if (bindingResult.hasErrors()) throw BadRequestException()
         try {
             userService.updateUserInfo(username, userDto)
-        } catch (ex: UsernameNotFoundException) {
+        } catch (ex: EntityNotFoundException) {
             log.error("Can't update user info.", ex)
             //TODO: Return some code
         }
@@ -55,6 +60,11 @@ open class UserController {
 
     @RequestMapping(value = "/avatar", method = arrayOf(RequestMethod.PATCH))
     open fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
-        userService.updateUserAvatar(username, avatarUrl)
+        try {
+            userService.updateUserAvatar(username, avatarUrl)
+        } catch (ex: EntityNotFoundException) {
+            log.error("Can't update user avatar.", ex)
+            //TODO: Return some code
+        }
     }
 }

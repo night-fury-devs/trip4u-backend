@@ -4,9 +4,9 @@ import com.nfd.trip4u.dto.RegistrationDataDto
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
+import com.nfd.trip4u.service.exception.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 /**
@@ -47,7 +47,8 @@ open class UserService {
     }
 
     fun findUserInfo(username: String): UserDto? {
-        val user = userRepository.findUserByUsername(username) ?: return null
+        val user = userRepository.findUserByUsername(username) ?:
+                throw EntityNotFoundException(userNotFoundMsg(username))
         val userDto = UserDto()
 
         userDto.username = user.username
@@ -78,8 +79,8 @@ open class UserService {
     }
 
     fun updateUserInfo(username: String, userDto: UserDto) {
-        val user = userRepository.findUserByUsername(username) ?: throw UsernameNotFoundException("") //TODO: Change
-        // exception
+        val user = userRepository.findUserByUsername(username) ?:
+                throw EntityNotFoundException(userNotFoundMsg(username))
 
         user.birthday = userDto.birthday
         user.email = userDto.email
@@ -92,10 +93,15 @@ open class UserService {
     }
 
     fun updateUserAvatar(username: String, avatarUrl: String?) {
-        val user = userRepository.findUserByUsername(username) ?: throw UsernameNotFoundException("") //TODO: Change exception
+        val user = userRepository.findUserByUsername(username) ?:
+                throw EntityNotFoundException(userNotFoundMsg(username))
 
         user.avatarUrl = avatarUrl
         userRepository.save(user)
+    }
+
+    private fun userNotFoundMsg(username: String): String {
+        return "User $username doesn't exist."
     }
 
 }
