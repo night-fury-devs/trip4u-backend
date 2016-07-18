@@ -2,6 +2,7 @@ package com.nfd.trip4u.configuration.security
 
 import com.nfd.trip4u.configuration.SERVER_URL
 import com.nfd.trip4u.entity.domain.User
+import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.SignatureException
@@ -82,7 +83,7 @@ open class TokenGenerator {
             }
 
             return claims.subject
-        } catch (ex: SignatureException) {
+        } catch (ex: JwtException) {
             throw BadCredentialsException("Invalid token provided.", ex)
         }
     }
