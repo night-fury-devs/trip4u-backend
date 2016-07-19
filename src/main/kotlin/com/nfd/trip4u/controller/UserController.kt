@@ -1,6 +1,7 @@
 package com.nfd.trip4u.controller
 
 import com.nfd.trip4u.controller.exception.BadRequestException
+import com.nfd.trip4u.controller.exception.NotFoundException
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.domain.UserService
 import com.nfd.trip4u.service.exception.EntityNotFoundException
@@ -42,7 +43,7 @@ open class UserController {
             return userService.findUserInfo(username)
         } catch(ex: EntityNotFoundException) {
             log.error("Can't find user.", ex)
-            throw ex//TODO: Return some code
+            throw NotFoundException(ex.message, ex)
         }
     }
 
@@ -54,7 +55,7 @@ open class UserController {
             userService.updateUserInfo(username, userDto)
         } catch (ex: EntityNotFoundException) {
             log.error("Can't update user info.", ex)
-            //TODO: Return some code
+            throw NotFoundException(ex.message, ex)
         }
     }
 
@@ -64,7 +65,7 @@ open class UserController {
             userService.updateUserAvatar(username, avatarUrl)
         } catch (ex: EntityNotFoundException) {
             log.error("Can't update user avatar.", ex)
-            //TODO: Return some code
+            throw NotFoundException(ex.message, ex)
         }
     }
 }

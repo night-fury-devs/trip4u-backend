@@ -4,13 +4,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
 /**
- * Author: Mary Kuchumova
- * Date: 23 June 2016
- * Time: 15:28
+ * Author: Alexey Kleschikov
+ * Date: 19 Jul 2016
+ * Time: 21:14
  */
-
-@ResponseStatus(value= HttpStatus.BAD_REQUEST)
-open class BadRequestException(
+@ResponseStatus(value = HttpStatus.LOCKED)
+open class LockedException(
         override var message: String? = null,
         override var cause: Throwable? = null) : HttpErrorException(message, cause) {
 }
