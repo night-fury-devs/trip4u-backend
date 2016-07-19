@@ -26,12 +26,12 @@ open class RegistrationDataDto : Serializable {
     @Email
     lateinit var email: String
 
-    @Pattern(regexp = "(?=^.{8,}$)(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*()]*$")
+    @Pattern(regexp = "(?=^.{8,}$)(?=.*\\d)(?=.*[a-zA-Z])[-0-9a-zA-Z+*\\/=@#$%^&()}{~]*$")
     lateinit var password: String
 
     @Size(max = 30)
-    var lastName: String = ""
+    var lastName: String? = null
 
     @Size(max = 30)
-    var firstName: String = ""
+    var firstName: String? = null
 }
