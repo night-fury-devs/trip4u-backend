@@ -7,10 +7,7 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 /**
@@ -19,8 +16,8 @@ import javax.validation.Valid
  * Time: 20:52
  */
 @RestController
-@RequestMapping(AUTH_PREFIX)
-class AuthenticationController {
+@RequestMapping(AUTH)
+open class AuthenticationController {
 
     private val log = LogFactory.getLog(this.javaClass)
 
@@ -46,5 +43,15 @@ class AuthenticationController {
         }
 
         return true
+    }
+
+    @RequestMapping(value = "/check/username", method = arrayOf(RequestMethod.GET))
+    fun isUsernameFree(@RequestParam(name = "value", required = true) username: String): Boolean {
+        return authService.isUsernameFree(username)
+    }
+
+    @RequestMapping(value = "/check/email", method = arrayOf(RequestMethod.GET))
+    fun isEmailFree(@RequestParam(name = "value", required = true) email: String): Boolean {
+        return authService.isEmailFree(email)
     }
 }

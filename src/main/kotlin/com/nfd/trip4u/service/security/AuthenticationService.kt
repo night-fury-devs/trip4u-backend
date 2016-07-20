@@ -97,4 +97,12 @@ open class AuthenticationService {
 
         emailQueueService.sendMessage(email)
     }
+
+    fun isUsernameFree(username: String): Boolean {
+        return userService.findByUsername(username) == null
+    }
+
+    fun isEmailFree(email: String): Boolean {
+        return userService.findByEmail(email) == null
+    }
 }

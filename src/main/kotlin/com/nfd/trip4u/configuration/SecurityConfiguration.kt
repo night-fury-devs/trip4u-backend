@@ -4,7 +4,7 @@ import com.nfd.trip4u.configuration.properties.CorsProperties
 import com.nfd.trip4u.configuration.security.AuthenticationFilter
 import com.nfd.trip4u.configuration.security.TokenAuthenticationProvider
 import com.nfd.trip4u.configuration.security.UsernamePasswordAuthenticationProvider
-import com.nfd.trip4u.controller.AUTH_PREFIX
+import com.nfd.trip4u.controller.AUTH
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -53,7 +53,7 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
         http?.csrf()?.disable()
             ?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)?.and()
             ?.authorizeRequests()
-            ?.antMatchers("$AUTH_PREFIX/**")?.permitAll()
+            ?.antMatchers("$AUTH/**")?.permitAll()
             ?.anyRequest()?.authenticated()?.and()
             ?.exceptionHandling()?.authenticationEntryPoint(authenticationEntryPoint())?.and()
             ?.addFilterBefore(corsFilter(), ChannelProcessingFilter::class.java)

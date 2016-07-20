@@ -9,7 +9,10 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 /**
@@ -27,18 +30,8 @@ open class UserController {
     @Autowired
     private lateinit var userService: UserService
 
-    @RequestMapping(value = "/isLoginAvailable", method = arrayOf(RequestMethod.GET))
-    open fun validateLogin(@RequestParam login: String): Boolean {
-        return userService.findByUsername(login) == null
-    }
-
-    @RequestMapping(value = "/isEmailAvailable", method = arrayOf(RequestMethod.GET))
-    open fun validateEmail(@RequestParam email: String): Boolean {
-        return userService.findByEmail(email) == null
-    }
-
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    open fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
+    fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
         try {
             return userService.findUserInfo(username)
         } catch(ex: EntityNotFoundException) {
@@ -48,7 +41,7 @@ open class UserController {
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
-    open fun updateUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
+    fun updateUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
                             bindingResult: BindingResult) {
         if (bindingResult.hasErrors()) throw BadRequestException()
         try {
@@ -60,7 +53,7 @@ open class UserController {
     }
 
     @RequestMapping(value = "/avatar", method = arrayOf(RequestMethod.PATCH))
-    open fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
+    fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
         try {
             userService.updateUserAvatar(username, avatarUrl)
         } catch (ex: EntityNotFoundException) {

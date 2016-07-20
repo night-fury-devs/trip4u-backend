@@ -6,8 +6,10 @@ package com.nfd.trip4u.controller
  * Time: 20:53
  */
 
-/* AUTHENTICATION_ENDPOINTS */
-const val AUTH_PREFIX = "/auth"
-const val AUTH_LOGIN = "/login"
+/* AUTHENTICATION ENDPOINTS */
+const val AUTH = "/auth"
 const val AUTH_REGISTER = "/register"
 const val AUTH_CONFIRM = "/confirm"
+
+/* USER ENDPOINTS */
+const val USER = "/user"
