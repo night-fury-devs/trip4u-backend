@@ -2,6 +2,7 @@ package com.nfd.trip4u.controller
 
 import com.nfd.trip4u.controller.exception.BadRequestException
 import com.nfd.trip4u.controller.exception.NotFoundException
+import com.nfd.trip4u.controller.util.summary
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.domain.UserService
 import com.nfd.trip4u.service.exception.EntityNotFoundException
@@ -43,7 +44,8 @@ open class UserController {
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
     fun updateUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
                             bindingResult: BindingResult) {
-        if (bindingResult.hasErrors()) throw BadRequestException()
+        if (bindingResult.hasErrors()) throw BadRequestException(bindingResult.summary())
+
         try {
             userService.updateUserInfo(username, userDto)
         } catch (ex: EntityNotFoundException) {
