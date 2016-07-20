@@ -44,12 +44,12 @@ open class AuthenticationController {
         return true
     }
 
-    @RequestMapping(value = "/check/username", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = AUTH_CHECK_USERNAME, method = arrayOf(RequestMethod.GET))
     fun isUsernameFree(@RequestParam(name = "value", required = true) username: String): Boolean {
         return authService.isUsernameFree(username)
     }
 
-    @RequestMapping(value = "/check/email", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = AUTH_CHECK_EMAIL, method = arrayOf(RequestMethod.GET))
     fun isEmailFree(@RequestParam(name = "value", required = true) email: String): Boolean {
         return authService.isEmailFree(email)
     }

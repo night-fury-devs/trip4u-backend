@@ -23,7 +23,7 @@ import javax.validation.Valid
  */
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = USER)
 open class UserController {
 
     private val log = LogFactory.getLog(this.javaClass)
@@ -54,7 +54,7 @@ open class UserController {
         }
     }
 
-    @RequestMapping(value = "/avatar", method = arrayOf(RequestMethod.PATCH))
+    @RequestMapping(value = USER_AVATAR, method = arrayOf(RequestMethod.PATCH))
     fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
         try {
             userService.updateUserAvatar(username, avatarUrl)
