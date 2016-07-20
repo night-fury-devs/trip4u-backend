@@ -33,11 +33,11 @@ open class AmqpConfiguration: RabbitListenerConfigurer {
 
     @Bean
     open fun rabbitListenerContainerFactory(): SimpleRabbitListenerContainerFactory {
-        val factory = SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setConcurrentConsumers(3);
-        factory.setMaxConcurrentConsumers(10);
-        return factory;
+        val factory = SimpleRabbitListenerContainerFactory()
+        factory.setConnectionFactory(connectionFactory)
+        factory.setConcurrentConsumers(3)
+        factory.setMaxConcurrentConsumers(10)
+        return factory
     }
 
     @Bean
@@ -57,5 +57,5 @@ open class AmqpConfiguration: RabbitListenerConfigurer {
     open fun binding() = BindingBuilder.bind(queue()).to(exchange()).with(TOPIC_NAME)
 
     @Bean
-    open fun messageConverter() = SimpleMessageConverter();
+    open fun messageConverter() = SimpleMessageConverter()
 }

@@ -22,15 +22,15 @@ open class EhcacheConfiguration{
 
     @Bean
     open fun cacheManager(): CacheManager {
-        return EhCacheCacheManager(ehCacheCacheManager().getObject());
+        return EhCacheCacheManager(ehCacheCacheManager().`object`)
     }
 
     @Bean
     open fun ehCacheCacheManager(): EhCacheManagerFactoryBean {
-        val cmfb = EhCacheManagerFactoryBean();
-        cmfb.setConfigLocation(ClassPathResource("ehcache.xml"));
-        cmfb.setShared(true);
-        return cmfb;
+        val cmfb = EhCacheManagerFactoryBean()
+        cmfb.setConfigLocation(ClassPathResource("ehcache.xml"))
+        cmfb.setShared(true)
+        return cmfb
     }
 
 }
