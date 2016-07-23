@@ -11,25 +11,28 @@ import java.util.*
  */
 
 
-@Document(collection = "blog_entries")
-data class BlogEntry(
-        var id: Long?,
+@Document(collection = "blogs.entries")
+class BlogEntry() : IdentifiableEntity() {
+    @Field(value = "blog_id")
+    lateinit var blogId: String
 
-        @Field(value = "blog_id")
-        var blogId: Long,
+    @Field(value = "route_entry_id")
+    lateinit var routeEntryId: String
 
-        @Field(value = "route_entry_id")
-        var routeEntryId: Long?,
+    @Field(value = "next_place")
+    var nextPlace: String? = null
 
-        @Field(value = "next_place")
-        var nextPlace: Long?,
+    @Field(value = "previous_place")
+    var previousPlace: String? = null
 
-        @Field(value = "previous_place")
-        var previousPlace: Long?,
+    var date: Date? = null
+    var text: String? = null
 
-        var date: Date?,
-        var text: String?,
+    @Field(value = "media_sources")
+    var mediaSources: List<MediaSource> = arrayListOf()
 
-        @Field(value = "media_sources")
-        var mediaSources: List<MediaSource>?
-        )
+    constructor(blogId: String, routeEntryId: String) : this() {
+        this.blogId = blogId
+        this.routeEntryId = routeEntryId
+    }
+}

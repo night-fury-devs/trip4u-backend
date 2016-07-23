@@ -9,19 +9,22 @@ import org.springframework.data.mongodb.core.mapping.Field
  * Time: 17:51
  */
 
-@Document(collection = "route_entries")
-data class RouteEntry(
-        var id: Long?,
+@Document(collection = "routes.entries")
+class RouteEntry() : IdentifiableEntity() {
+    @Field(value = "place_id")
+    lateinit var placeId: String
 
-        @Field(value = "place_id")
-        var placeId: Long,
+    @Field(value = "route_id")
+    lateinit var routeId: String
 
-        @Field(value = "route_id")
-        var routeId: Long,
+    @Field(value = "prev_entry")
+    var previousEntry: String? = null
 
-        @Field(value = "prev_entry")
-        var previousEntry: Long?,
+    @Field(value = "next_entry")
+    var nextEntry: String? = null
 
-        @Field(value = "next_entry")
-        var nextEntry: Long?
-        )
+    constructor(placeId: String, routeId: String) : this() {
+        this.placeId = placeId
+        this.routeId = routeId
+    }
+}

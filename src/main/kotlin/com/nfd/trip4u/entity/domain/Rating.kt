@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:42
  */
 
-data class RatingEntry(
-        var rating: Long?,
-        var user: Long?
-        )
+data class Rating(
+        var username: String,
+        var rating: Long
+)

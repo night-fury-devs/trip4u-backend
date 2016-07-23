@@ -6,8 +6,8 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:29
  */
 
-enum class Gender(val value: String) {
-    MALE("MALE"),
-    FEMALE("FEMALE"),
-    NOT_DEFINED("NOT_DEFINED")
+enum class Gender {
+    MALE,
+    FEMALE,
+    NOT_DEFINED
 }

@@ -6,8 +6,8 @@ package com.nfd.trip4u.entity.domain
  * Time: 17:19
  */
 
-enum class RouteStatus(val value: String){
-    VISITED("visited"),
-    PLANNING_TO_VISIT("planning_to_visit"),
-    IN_PROGRESS("in_progress")
+enum class RouteStatus {
+    VISITED,
+    PLANNING_TO_VISIT,
+    IN_PROGRESS
 }

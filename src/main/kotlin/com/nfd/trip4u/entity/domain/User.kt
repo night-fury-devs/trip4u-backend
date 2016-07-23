@@ -13,30 +13,39 @@ import java.util.*
  */
 
 @Document(collection = "users")
-data class User(
-        var id: String?,
-        var username: String,
-        var email: String,
-        var password: String,
-        var avatarUrl: String?,
+class User() : IdentifiableEntity(), Serializable {
 
-        @Field(value = "home_cities")
-        var homeCities: List<Long>?,
+    lateinit var username: String
+    lateinit var email: String
+    lateinit var password: String
+    var avatarUrl: String? = null
 
-        @Field(value = "last_name")
-        var lastName: String?,
+    @Field(value = "home_cities")
+    var homeCities: List<String> = arrayListOf()
 
-        @Field(value = "first_name")
-        var firstName: String?,
+    var trips: List<Trip> = arrayListOf()
 
-        @Field(value = "middle_name")
-        var middleName: String?,
+    @Field(value = "last_name")
+    var lastName: String? = null
 
-        var gender: Gender,
+    @Field(value = "first_name")
+    var firstName: String? = null
 
-        @DateTimeFormat(pattern = "dd-MM-yyyy")
-        var birthday: Date?,
+    @Field(value = "middle_name")
+    var middleName: String? = null
 
-        var role: List<Role>,
-        var activated: Boolean
-        ): Serializable
+    var gender: Gender = Gender.NOT_DEFINED
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    var birthday: Date? = null
+
+    var role: List<Role> = arrayListOf(Role.USER)
+
+    var activated: Boolean = false
+
+    constructor(username: String, email: String, password: String): this() {
+        this.username = username
+        this.email = email
+        this.password = password
+    }
+}

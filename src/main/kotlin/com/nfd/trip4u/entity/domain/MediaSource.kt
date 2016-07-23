@@ -1,5 +1,6 @@
 package com.nfd.trip4u.entity.domain
 
+import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import java.util.*
 
@@ -9,21 +10,21 @@ import java.util.*
  * Time: 16:46
  */
 
+@Document(collection = "media")
+class MediaSource() : VerifiableEntity() {
 
-data class MediaSource(
-        var author: Long,
+    lateinit var author: String
+    lateinit var link: String
+    lateinit var type: MediaType
+    var geotag: Geotag? = null
+    var likes: List<String> = arrayListOf()
 
-        @Field(value = "date_added")
-        var dateAdded: Date,
+    @Field(value = "date_added")
+    var dateAdded: Date = Date()
 
-        var link: String?,
-        var status: VerificationStatus,
-        var geotag: Geotag?,
-
-        @Field(value = "type")
-        var mediaType: MediaType,
-
-        var likes: List<Long>?,
-
-        var comments: List<Comment>?
-        )
+    constructor(author: String, link: String, type: MediaType) : this() {
+        this.author = author
+        this.link = link
+        this.type = type
+    }
+}

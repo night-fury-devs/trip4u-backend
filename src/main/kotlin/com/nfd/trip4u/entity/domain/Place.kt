@@ -11,35 +11,37 @@ import java.util.*
  */
 
 @Document(collection = "places")
-data class Place(
-        var id: Long?,
-        var name: String?,
+class Place() : CommentableEntity() {
+    lateinit var name: String
 
-        @Field(value = "parent_place")
-        var parentPlace: Long?,
+    @Field(value = "type")
+    lateinit var placeType: PlaceType
 
-        @Field(value = "type")
-        var placeType: PlaceType,
+    @Field(value = "parent_place")
+    var parentPlace: String? = null
 
-        var geotag: Geotag?,
-        var rating: List<RatingEntry>?,
-        var description: String?,
-        var tags: List<String>?,
+    var geotag: Geotag? = null
+    var rating: List<Rating> = arrayListOf()
+    var description: String? = null
+    var tags: List<String> = arrayListOf()
 
-        @Field(value = "last_edited")
-        var lastEdited: Date?,
+    @Field(value = "last_edited")
+    var lastEdited: Date = Date()
 
-        @Field(value = "media_sources")
-        var mediaSources: List<MediaSource>?,
+    @Field(value = "media_sources")
+    var mediaSources: List<MediaSource> = arrayListOf()
 
-        @Field(value = "native_users")
-        var nativeUsers: List<Long>?,
+    @Field(value = "native_users")
+    var nativeUsers: List<String> = arrayListOf()
 
-        @Field(value = "planning_to_visit_users")
-        var planningToVisitUsers: List<Long>?,
+    @Field(value = "planning_to_visit_users")
+    var planningToVisitUsers: List<String> = arrayListOf()
 
-        @Field(value = "visited_users")
-        var visitedUsers: List<Long>?,
+    @Field(value = "visited_users")
+    var visitedUsers: List<String> = arrayListOf()
 
-        var comments: List<Comment>?
-        )
+    constructor(name: String, placeType: PlaceType) : this() {
+        this.name = name
+        this.placeType = placeType
+    }
+}

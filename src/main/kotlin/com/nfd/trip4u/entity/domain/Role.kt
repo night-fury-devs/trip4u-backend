@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:31
  */
 
-enum class Role(val value: String) {
-    ADMIN("admin"),
-    USER("user")
+enum class Role {
+    ADMIN,
+    USER
 }

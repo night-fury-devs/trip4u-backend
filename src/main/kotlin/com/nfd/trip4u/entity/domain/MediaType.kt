@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:58
  */
 
-enum class MediaType(val value: String) {
-    IMAGE("image"),
-    VIDEO("video")
+enum class MediaType {
+    IMAGE,
+    VIDEO
 }

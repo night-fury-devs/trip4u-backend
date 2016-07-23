@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:50
  */
 
-enum class VerificationStatus(val value: String) {
-    VERIFIED("verified"),
-    NOT_VERIFIED("not-verified")
+enum class VerificationStatus {
+    VERIFIED,
+    NOT_VERIFIED
 }

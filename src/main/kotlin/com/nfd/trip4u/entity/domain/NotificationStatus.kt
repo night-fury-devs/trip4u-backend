@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 17:07
  */
 
-enum class NotificationStatus(val value: String) {
-    WATCHED("watched"),
-    UNWATCHED("unwatched")
+enum class NotificationStatus {
+    WATCHED,
+    UNWATCHED
 }

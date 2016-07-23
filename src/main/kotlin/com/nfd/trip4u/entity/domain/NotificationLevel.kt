@@ -6,8 +6,8 @@ package com.nfd.trip4u.entity.domain
  * Time: 18:00
  */
 
-enum class NotificationLevel(val value: String) {
-    EMAIL("email"),
-    APP("app"),
-    NONE("none")
+enum class NotificationLevel {
+    EMAIL,
+    APP,
+    NONE
 }

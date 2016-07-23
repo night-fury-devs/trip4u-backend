@@ -11,18 +11,18 @@ import java.util.*
  */
 
 @Document(collection = "notifications")
-data class Notification(
-        var id: Long?,
+class Notification() : IdentifiableEntity() {
+    lateinit var username: String
+    var status: NotificationStatus = NotificationStatus.UNWATCHED
+    var date: Date = Date()
+    var text: String? = null
+    var link: String? = null
 
-        @Field(value = "user_id")
-        var userId: Long,
+    @Field(value = "attached_picture")
+    var attachedPicture: String? = null
 
-        var status: NotificationStatus,
-        var date: Date,
-        var text: String?,
-
-        @Field(value = "attached_picture")
-        var attachedPicture: String?,
-
-        var link: String?
-        )
+    constructor(username: String, date: Date = Date()) : this() {
+        this.username = username
+        this.date = date
+    }
+}

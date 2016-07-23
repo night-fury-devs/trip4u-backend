@@ -6,8 +6,8 @@ package com.nfd.trip4u.entity.domain
  * Time: 16:38
  */
 
-enum class PlaceType(val value: String) {
-    COUNTRY("country"),
-    CITY("city"),
-    PLACE("place")
+enum class PlaceType {
+    COUNTRY,
+    CITY,
+    PLACE
 }

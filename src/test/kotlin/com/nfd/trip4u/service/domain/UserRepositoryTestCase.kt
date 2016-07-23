@@ -1,23 +1,21 @@
 package com.nfd.trip4u.service.domain
 
 import com.nfd.trip4u.AbstractTestCase
-import com.nfd.trip4u.entity.domain.Gender
-import com.nfd.trip4u.entity.domain.Role
 import com.nfd.trip4u.entity.domain.User
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
-import java.util.*
+import org.springframework.stereotype.Component
 
 /**
  * Author: Mary Kuchumova
  * Date: 17 Jun 2016
  * Time: 22:56
  */
-
-class UserRepositoryTestCase : AbstractTestCase() {
+@Component
+open class UserRepositoryTestCase : AbstractTestCase() {
 
     private lateinit var user: User
 
@@ -26,8 +24,7 @@ class UserRepositoryTestCase : AbstractTestCase() {
 
     @Before
     fun populateTestData() {
-        user = User(null, "test user", "test@mail.com", "passwrd", null, null, null, null, null, Gender.MALE, null,
-                ArrayList<Role>(), true)
+        user = User("test user", "test@mail.com", "passwrd")
         user = userService.save(user)
         Assert.assertNotNull(user.id)
     }

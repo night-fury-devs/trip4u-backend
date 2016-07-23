@@ -6,7 +6,7 @@ package com.nfd.trip4u.entity.domain
  * Time: 10:23
  */
 
-data class UserCustomRoute(
-        var id: String,
+data class Trip(
+        var routeId: String,
         var status: RouteStatus
 )

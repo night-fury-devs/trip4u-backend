@@ -10,8 +10,7 @@ import java.util.*
 
 data class Comment(
         var user: Long,
-        var text: String?,
-        var date: Date,
-        var likes: List<Long>?,
-        var status: VerificationStatus
-        )
+        var text: String,
+        var date: Date = Date(),
+        var likes: List<Long> = arrayListOf()
+)

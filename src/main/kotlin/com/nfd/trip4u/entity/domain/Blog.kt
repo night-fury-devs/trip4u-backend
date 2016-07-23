@@ -11,25 +11,25 @@ import java.util.*
  */
 
 @Document(collection = "blogs")
-data class Blog(
-        var id: Long?,
-        var title: String?,
+class Blog() : VerifiableEntity() {
 
-        @Field(value = "user_id")
-        var userId: Long,
+    lateinit var username: String
 
-        @Field(value = "start_date")
-        var startDate: Date?,
+    @Field(value = "route_id")
+    lateinit var routeId: String
 
-        @Field(value = "end_date")
-        var endDate: Date?,
+    var title: String? = null
+    var tags: List<String> = arrayListOf()
+    var rating: List<Rating> = arrayListOf()
 
-        var tags: List<String>?,
-        var status: VerificationStatus,
-        var rating: List<RatingEntry>?,
+    @Field(value = "start_date")
+    var startDate: Date? = null
 
-        @Field(value = "route_id")
-        var routeId: Long?,
+    @Field(value = "end_date")
+    var endDate: Date? = null
 
-        var comments: List<Comment>?
-        )
+    constructor(username: String, routeId: String) : this() {
+        this.username = username
+        this.routeId = routeId
+    }
+}
