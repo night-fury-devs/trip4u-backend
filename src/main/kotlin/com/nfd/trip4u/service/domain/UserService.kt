@@ -4,6 +4,8 @@ import com.nfd.trip4u.dto.RegistrationDataDto
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
+import com.nfd.trip4u.service.domain.converter.toUserDto
+import com.nfd.trip4u.service.domain.converter.updateWith
 import com.nfd.trip4u.service.exception.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -46,20 +48,11 @@ open class UserService {
         return userRepository.findUserByUsername(username)
     }
 
-    fun findUserInfo(username: String): UserDto? {
+    fun findUserInfo(username: String): UserDto {
         val user = userRepository.findUserByUsername(username) ?:
                 throw EntityNotFoundException(userNotFoundMsg(username))
-        val userDto = UserDto()
 
-        userDto.username = user.username
-        userDto.email = user.email
-        userDto.firstName = user.firstName
-        userDto.lastName = user.lastName
-        userDto.birthday = user.birthday
-        userDto.middleName = user.middleName
-        userDto.gender = user.gender
-
-        return userDto
+        return user.toUserDto()
     }
 
     fun findByEmail(email: String): User? {
@@ -82,12 +75,7 @@ open class UserService {
         val user = userRepository.findUserByUsername(username) ?:
                 throw EntityNotFoundException(userNotFoundMsg(username))
 
-        user.birthday = userDto.birthday
-        user.email = userDto.email
-        user.firstName = userDto.firstName
-        user.lastName = userDto.lastName
-        user.middleName = userDto.middleName
-        user.gender = userDto.gender
+        user.updateWith(userDto)
 
         userRepository.save(user)
     }
