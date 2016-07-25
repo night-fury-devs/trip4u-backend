@@ -10,10 +10,7 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 /**
@@ -33,12 +30,12 @@ open class UserController {
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
     fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
-        try {
-            return userService.findUserInfo(username)
-        } catch(ex: EntityNotFoundException) {
-            log.error("Can't find user.", ex)
-            throw NotFoundException(ex.message, ex)
-        }
+        return findUser(username)
+    }
+
+    @RequestMapping(value = "/{username}", method = arrayOf(RequestMethod.GET))
+    fun returnUser(@PathVariable username: String): UserDto? {
+        return findUser(username)
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
@@ -60,6 +57,15 @@ open class UserController {
             userService.updateUserAvatar(username, avatarUrl)
         } catch (ex: EntityNotFoundException) {
             log.error("Can't update user avatar.", ex)
+            throw NotFoundException(ex.message, ex)
+        }
+    }
+
+    private fun findUser(username: String): UserDto? {
+        try {
+            return userService.findUserInfo(username)
+        } catch(ex: EntityNotFoundException) {
+            log.error("Can't find user.", ex)
             throw NotFoundException(ex.message, ex)
         }
     }
