@@ -7,4 +7,20 @@ package com.nfd.trip4u.entity.domain
  */
 abstract class CommentableEntity: IdentifiableEntity() {
     var comments: List<Comment> = arrayListOf()
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is CommentableEntity) return false
+        if (!super.equals(other)) return false
+
+        if (comments != other.comments) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + comments.hashCode()
+        return result
+    }
 }

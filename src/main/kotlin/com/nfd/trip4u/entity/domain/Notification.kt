@@ -25,4 +25,30 @@ class Notification() : IdentifiableEntity() {
         this.username = username
         this.date = date
     }
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is Notification) return false
+        if (!super.equals(other)) return false
+
+        if (username != other.username) return false
+        if (status != other.status) return false
+        if (date != other.date) return false
+        if (text != other.text) return false
+        if (link != other.link) return false
+        if (attachedPicture != other.attachedPicture) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + username.hashCode()
+        result = 31 * result + status.hashCode()
+        result = 31 * result + date.hashCode()
+        result = 31 * result + (text?.hashCode() ?: 0)
+        result = 31 * result + (link?.hashCode() ?: 0)
+        result = 31 * result + (attachedPicture?.hashCode() ?: 0)
+        return result
+    }
 }

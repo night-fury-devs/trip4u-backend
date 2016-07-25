@@ -21,4 +21,30 @@ class Route() : CommentableEntity() {
     constructor(username: String) : this() {
         this.username = username
     }
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is Route) return false
+        if (!super.equals(other)) return false
+
+        if (username != other.username) return false
+        if (name != other.name) return false
+        if (blogs != other.blogs) return false
+        if (tags != other.tags) return false
+        if (description != other.description) return false
+        if (rating != other.rating) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + username.hashCode()
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + blogs.hashCode()
+        result = 31 * result + tags.hashCode()
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + rating.hashCode()
+        return result
+    }
 }

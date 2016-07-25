@@ -17,4 +17,24 @@ class UserPreferences() : IdentifiableEntity() {
     constructor(username: String) : this() {
         this.username = username
     }
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is UserPreferences) return false
+        if (!super.equals(other)) return false
+
+        if (username != other.username) return false
+        if (locale != other.locale) return false
+        if (notifications != other.notifications) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + username.hashCode()
+        result = 31 * result + (locale?.hashCode() ?: 0)
+        result = 31 * result + notifications.hashCode()
+        return result
+    }
 }

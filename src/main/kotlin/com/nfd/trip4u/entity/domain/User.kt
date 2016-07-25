@@ -48,4 +48,44 @@ class User() : IdentifiableEntity(), Serializable {
         this.email = email
         this.password = password
     }
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is User) return false
+        if (!super.equals(other)) return false
+
+        if (username != other.username) return false
+        if (email != other.email) return false
+        if (password != other.password) return false
+        if (avatarUrl != other.avatarUrl) return false
+        if (homeCities != other.homeCities) return false
+        if (trips != other.trips) return false
+        if (lastName != other.lastName) return false
+        if (firstName != other.firstName) return false
+        if (middleName != other.middleName) return false
+        if (gender != other.gender) return false
+        if (birthday != other.birthday) return false
+        if (role != other.role) return false
+        if (activated != other.activated) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + username.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + password.hashCode()
+        result = 31 * result + (avatarUrl?.hashCode() ?: 0)
+        result = 31 * result + homeCities.hashCode()
+        result = 31 * result + trips.hashCode()
+        result = 31 * result + (lastName?.hashCode() ?: 0)
+        result = 31 * result + (firstName?.hashCode() ?: 0)
+        result = 31 * result + (middleName?.hashCode() ?: 0)
+        result = 31 * result + gender.hashCode()
+        result = 31 * result + (birthday?.hashCode() ?: 0)
+        result = 31 * result + role.hashCode()
+        result = 31 * result + activated.hashCode()
+        return result
+    }
 }

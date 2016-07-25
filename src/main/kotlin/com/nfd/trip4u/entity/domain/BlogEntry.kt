@@ -35,4 +35,32 @@ class BlogEntry() : IdentifiableEntity() {
         this.blogId = blogId
         this.routeEntryId = routeEntryId
     }
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is BlogEntry) return false
+        if (!super.equals(other)) return false
+
+        if (blogId != other.blogId) return false
+        if (routeEntryId != other.routeEntryId) return false
+        if (nextPlace != other.nextPlace) return false
+        if (previousPlace != other.previousPlace) return false
+        if (date != other.date) return false
+        if (text != other.text) return false
+        if (mediaSources != other.mediaSources) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = super.hashCode()
+        result = 31 * result + blogId.hashCode()
+        result = 31 * result + routeEntryId.hashCode()
+        result = 31 * result + (nextPlace?.hashCode() ?: 0)
+        result = 31 * result + (previousPlace?.hashCode() ?: 0)
+        result = 31 * result + (date?.hashCode() ?: 0)
+        result = 31 * result + (text?.hashCode() ?: 0)
+        result = 31 * result + mediaSources.hashCode()
+        return result
+    }
 }

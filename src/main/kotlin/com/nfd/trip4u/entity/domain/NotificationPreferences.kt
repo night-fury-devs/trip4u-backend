@@ -15,4 +15,4 @@ data class NotificationPreferences(
 
         @Field(value = "route_usage")
         var routeUsage: List<NotificationLevel> = arrayListOf()
-        )
+)
