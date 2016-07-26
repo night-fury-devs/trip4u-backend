@@ -18,11 +18,13 @@ open class TokenAuthenticationProvider: AuthenticationProvider {
     @Autowired
     private lateinit var tokenGenerator: TokenGenerator
 
+    private val BAD_TOKEN = "Invalid token provided."
+
     override fun authenticate(authentication: Authentication?): Authentication? {
         val token = authentication?.principal
 
         if (token == null || (token as String).isEmpty()) {
-            throw BadCredentialsException("Invalid token provided.")
+            throw BadCredentialsException(BAD_TOKEN)
         }
 
         return tokenGenerator.parseAuthenticationToken(token)

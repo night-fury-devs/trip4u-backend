@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component
 @Component
 open class UsernamePasswordAuthenticationProvider: AuthenticationProvider {
 
+    private val BAD_CREDENTIALS = "Invalid user credentials."
+
     @Autowired
     private lateinit var tokenGenerator: TokenGenerator
 
@@ -28,7 +30,7 @@ open class UsernamePasswordAuthenticationProvider: AuthenticationProvider {
         val password = authentication?.credentials?.toString()
 
         if (username == null || password == null) {
-            throw BadCredentialsException("Invalid user credentials.")
+            throw BadCredentialsException(BAD_CREDENTIALS)
         }
 
         val auth = authService.login(username, password)

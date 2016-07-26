@@ -7,6 +7,7 @@ import com.nfd.trip4u.repository.domain.UserRepository
 import com.nfd.trip4u.service.domain.converter.toUserDto
 import com.nfd.trip4u.service.domain.converter.updateWith
 import com.nfd.trip4u.service.exception.EntityNotFoundException
+import com.nfd.trip4u.service.userNotFoundMsg
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
@@ -86,10 +87,6 @@ open class UserService {
 
         user.avatarUrl = avatarUrl
         userRepository.save(user)
-    }
-
-    private fun userNotFoundMsg(username: String): String {
-        return "User $username doesn't exist."
     }
 
 }

@@ -10,6 +10,7 @@ import com.nfd.trip4u.entity.mailing.TemplateWrapper
 import com.nfd.trip4u.entity.templates.EmailConfirmationTemplate
 import com.nfd.trip4u.service.amqp.EmailQueueService
 import com.nfd.trip4u.service.domain.UserService
+import com.nfd.trip4u.service.userNotFoundMsg
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.BadCredentialsException
@@ -28,6 +29,8 @@ import org.springframework.stereotype.Service
 open class AuthenticationService {
 
     private val log = LogFactory.getLog(this.javaClass)
+    private val BAD_CREDENTIALS = "Username and password are not match."
+    private val USER_EXISTS = "User with provided username or email already exists."
 
     @Autowired
     private lateinit var userService: UserService
@@ -50,19 +53,17 @@ open class AuthenticationService {
         return if (passwordEncoder.matches(password, user?.password)) {
             UsernamePasswordAuthenticationToken(username, null)
         } else {
-            throw BadCredentialsException("Username and password are not match.")
+            throw BadCredentialsException(BAD_CREDENTIALS)
         }
     }
 
     fun register(registrationDataDto: RegistrationDataDto) {
         if (userService.exists(registrationDataDto)) {
-            throw BadCredentialsException("User with provided username or email already exists.")
+            throw BadCredentialsException(USER_EXISTS)
         }
 
-//        val domainUser = User(null, registrationDataDto.username, registrationDataDto.email,
-//                passwordEncoder.encode(registrationDataDto.password), null, null, registrationDataDto.lastName,
-//                registrationDataDto.firstName, null, Gender.NOT_DEFINED, null, arrayListOf(Role.USER), false)
-        val domainUser = User(registrationDataDto.username, registrationDataDto.email, passwordEncoder.encode(registrationDataDto.password))
+        val domainUser = User(registrationDataDto.username, registrationDataDto.email,
+                passwordEncoder.encode(registrationDataDto.password))
         domainUser.lastName = registrationDataDto.lastName
         domainUser.firstName = registrationDataDto.firstName
 
@@ -75,7 +76,7 @@ open class AuthenticationService {
         try {
             val username = tokenGenerator.parseConfirmationToken(encodedToken)
 
-            val user = userService.findByUsername(username) ?: throw UsernameNotFoundException("Username not found.")
+            val user = userService.findByUsername(username) ?: throw UsernameNotFoundException(userNotFoundMsg(username))
             user.activated = true
             userService.save(user)
         } catch (ex: BadCredentialsException) {

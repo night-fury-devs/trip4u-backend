@@ -21,13 +21,15 @@ import java.util.*
 @Component
 open class TokenGenerator {
 
+    private val logger = LogFactory.getLog(this.javaClass)
+
     private val EXPIRED_TROUGH = 24 * 60 * 60 * 1000
     private val EMAIL_CLAIM = "email"
     private val ROLES = "roles"
     private val UTF8 = "UTF-8"
     private val KEY = "5E3b86m26SKXhet8d9Y1UVl2p62AUoYRhLmXd6S6mh7dM0AMd6LXEC22VHSVb7hk"
-
-    private val logger = LogFactory.getLog(this.javaClass)
+    private val BAD_TOKEN = "Invalid token provided."
+    private val TOKEN_EXPIRED = "Token expired."
 
     fun generateForAuthentication(authentication: Authentication): String {
         return Jwts.builder()
@@ -57,7 +59,7 @@ open class TokenGenerator {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
             if (claims.expiration.before(Date())) {
-                throw BadCredentialsException("Token expired.")
+                throw BadCredentialsException(TOKEN_EXPIRED)
             }
 
             //TODO: Add retrieving roles from token
@@ -67,7 +69,7 @@ open class TokenGenerator {
 
             return resultAuth
         } catch (ex: JwtException) {
-            throw BadCredentialsException("Invalid token provided.", ex)
+            throw BadCredentialsException(BAD_TOKEN, ex)
         }
     }
 
@@ -78,12 +80,12 @@ open class TokenGenerator {
             val claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).body
 
             if (claims.expiration.before(Date())) {
-                throw BadCredentialsException("Provided token expired.")
+                throw BadCredentialsException(TOKEN_EXPIRED)
             }
 
             return claims.subject
         } catch (ex: JwtException) {
-            throw BadCredentialsException("Invalid token provided.", ex)
+            throw BadCredentialsException(BAD_TOKEN, ex)
         }
     }
 }

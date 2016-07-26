@@ -12,22 +12,15 @@ import org.springframework.stereotype.Component
 
 @Component
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix="spring.mail")
+@ConfigurationProperties(prefix="spring.mails")
 open class MailingProperties {
 
-    lateinit var port: String
-
-    lateinit var host: String
-
-    lateinit var username: String
-
-    lateinit var password: String
-
-    lateinit var protocol: String
-
-    lateinit var auth: String
-
-    lateinit var starttls: String
-
-    lateinit var quitwait: String
+    var port: Int = 587
+    var host: String = ""
+    var username: String = ""
+    var password: String = ""
+    var protocol: String = "smtp"
+    var auth: String = "false"
+    var starttls: String = "false"
+    var quitwait: String = "false"
 }

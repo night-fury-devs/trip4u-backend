@@ -16,8 +16,9 @@ import org.thymeleaf.context.Context
 @Service
 open class TemplateProducerService{
 
-    val logger = LogFactory.getLog(this.javaClass)
+    private val log = LogFactory.getLog(this.javaClass)
 
+    private val TEMPLATE_ERROR = "Error while producing a template."
     private val TEMPLATE_ENTITY_KEY = "content"
 
     @Autowired
@@ -34,7 +35,7 @@ open class TemplateProducerService{
         try{
             return templateEngine.process(templateName, context)
         } catch(e: Exception) {
-            logger.warn("Error while producing a template.", e)
+            log.warn(TEMPLATE_ERROR, e)
             return null
         }
     }

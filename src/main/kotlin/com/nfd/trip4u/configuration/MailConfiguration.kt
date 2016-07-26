@@ -24,7 +24,7 @@ open class MailConfiguration {
     open fun mailSender(): JavaMailSender {
         val mailSender = JavaMailSenderImpl()
         mailSender.host = mailingProperties.host
-        mailSender.port = mailingProperties.port.toInt()
+        mailSender.port = mailingProperties.port
         mailSender.protocol = mailingProperties.protocol
         mailSender.username = mailingProperties.username
         mailSender.password = mailingProperties.password

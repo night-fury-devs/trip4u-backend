@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service
 @Service
 open class MailingService {
 
-    val logger = LogFactory.getLog(this.javaClass)
+    private val log = LogFactory.getLog(this.javaClass)
 
-    val IS_HTML_MESSAGE = true
-    val DEFAULT_ENCODING = "UTF-8"
+    private val IS_HTML_MESSAGE = true
+    private val DEFAULT_ENCODING = "UTF-8"
 
     @Autowired
     lateinit var mailSender: JavaMailSender
@@ -47,8 +47,8 @@ open class MailingService {
             }
 
             mailSender.send(mimeMessage)
-        } catch(e: Exception) {
-            logger.warn("Error while sending an email. ", e)
+        } catch(ex: Exception) {
+            log.warn("Error while sending an email. ", ex)
         }
     }
 }
