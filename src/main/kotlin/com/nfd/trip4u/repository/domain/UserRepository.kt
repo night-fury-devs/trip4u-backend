@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 @CacheConfig(cacheNames = arrayOf("registeredUsers"))
-interface UserRepository : MongoRepository<User, String> {
+interface UserRepository : MongoRepository<User, String>, IdentifyableRepository<User, String> {
 
     @Cacheable(value="registeredUsers", key="#a0")
     fun save(user: User): User
