@@ -1,5 +1,6 @@
 package com.nfd.trip4u.service.domain
 
+import com.nfd.trip4u.dto.PlaceInfoDto
 import com.nfd.trip4u.dto.RegistrationDataDto
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
@@ -24,6 +25,9 @@ open class UserService {
     @Autowired
     @Qualifier("userRepository")
     lateinit var userRepository: UserRepository
+
+    @Autowired
+    lateinit var placeService: PlaceService
 
     fun save(user: User): User {
         return userRepository.save(user)
@@ -87,6 +91,19 @@ open class UserService {
 
         user.avatarUrl = avatarUrl
         userRepository.save(user)
+    }
+
+    fun findHomeCities(username: String): List<PlaceInfoDto> {
+        val user = userRepository.findUserByUsername(username) ?:
+                throw EntityNotFoundException(userNotFoundMsg(username))
+        val cities: MutableList<PlaceInfoDto> = mutableListOf()
+
+        user.homeCities.forEach {
+            val place = placeService.getPlaceInfo(it)
+            cities.add(place)
+        }
+
+        return cities
     }
 
 }

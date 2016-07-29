@@ -13,14 +13,13 @@ import java.util.*
 @Document(collection = "places")
 class Place() : CommentableEntity() {
     lateinit var name: String
+    lateinit var geotag: Geotag
 
     @Field(value = "type")
     lateinit var placeType: PlaceType
 
     @Field(value = "parent_place")
     var parentPlace: String? = null
-
-    var geotag: Geotag? = null
     var rating: List<Rating> = arrayListOf()
     var description: String? = null
     var tags: List<String> = arrayListOf()
@@ -71,7 +70,7 @@ class Place() : CommentableEntity() {
         result = 31 * result + name.hashCode()
         result = 31 * result + placeType.hashCode()
         result = 31 * result + (parentPlace?.hashCode() ?: 0)
-        result = 31 * result + (geotag?.hashCode() ?: 0)
+        result = 31 * result + geotag.hashCode()
         result = 31 * result + rating.hashCode()
         result = 31 * result + (description?.hashCode() ?: 0)
         result = 31 * result + tags.hashCode()
