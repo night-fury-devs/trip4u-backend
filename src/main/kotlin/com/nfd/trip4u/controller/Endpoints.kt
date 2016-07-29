@@ -16,3 +16,4 @@ const val AUTH_CHECK_EMAIL = "/check/email"
 /* USER ENDPOINTS */
 const val USER = "/user"
 const val USER_AVATAR = "/avatar"
+const val USER_CITIES = "/cities"

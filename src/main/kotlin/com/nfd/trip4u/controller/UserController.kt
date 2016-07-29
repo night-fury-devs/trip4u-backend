@@ -3,6 +3,7 @@ package com.nfd.trip4u.controller
 import com.nfd.trip4u.controller.exception.BadRequestException
 import com.nfd.trip4u.controller.exception.NotFoundException
 import com.nfd.trip4u.controller.util.summary
+import com.nfd.trip4u.dto.PlaceInfoDto
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.service.domain.UserService
 import com.nfd.trip4u.service.exception.EntityNotFoundException
@@ -29,17 +30,17 @@ open class UserController {
     private lateinit var userService: UserService
 
     @RequestMapping(method = arrayOf(RequestMethod.GET))
-    fun returnUserInfo(@AuthenticationPrincipal username: String): UserDto? {
+    fun returnCurrentUserInfo(@AuthenticationPrincipal username: String): UserDto? {
         return findUser(username)
     }
 
     @RequestMapping(value = "/{username}", method = arrayOf(RequestMethod.GET))
-    fun returnUser(@PathVariable username: String): UserDto? {
+    fun returnUserInfo(@PathVariable username: String): UserDto? {
         return findUser(username)
     }
 
     @RequestMapping(method = arrayOf(RequestMethod.PATCH))
-    fun updateUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
+    fun updateCurrentUserInfo(@AuthenticationPrincipal username: String, @RequestBody @Valid userDto: UserDto,
                             bindingResult: BindingResult) {
         if (bindingResult.hasErrors()) throw BadRequestException(bindingResult.summary())
 
@@ -52,7 +53,7 @@ open class UserController {
     }
 
     @RequestMapping(value = USER_AVATAR, method = arrayOf(RequestMethod.PATCH))
-    fun updateUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
+    fun updateCurrentUserAvatar(@AuthenticationPrincipal username: String, @RequestBody avatarUrl: String?) {
         try {
             userService.updateUserAvatar(username, avatarUrl)
         } catch (ex: EntityNotFoundException) {
@@ -61,11 +62,30 @@ open class UserController {
         }
     }
 
+    @RequestMapping(value = USER_CITIES, method = arrayOf(RequestMethod.GET))
+    fun returnCurrentUserHomeCities(@AuthenticationPrincipal username: String): List<PlaceInfoDto> {
+        return findHomeCities(username)
+    }
+
+    @RequestMapping(value = "/{username}/$USER_CITIES", method = arrayOf(RequestMethod.GET))
+    fun returnUserHomeCities(@PathVariable username: String): List<PlaceInfoDto> {
+        return findHomeCities(username)
+    }
+
     private fun findUser(username: String): UserDto? {
         try {
             return userService.findUserInfo(username)
         } catch(ex: EntityNotFoundException) {
             log.error("Can't find user.", ex)
+            throw NotFoundException(ex.message, ex)
+        }
+    }
+
+    private fun findHomeCities(username: String): List<PlaceInfoDto> {
+        try {
+            return userService.findHomeCities(username)
+        } catch (ex: EntityNotFoundException) {
+            log.error("Can't find home cities.", ex)
             throw NotFoundException(ex.message, ex)
         }
     }
