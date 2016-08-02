@@ -24,10 +24,10 @@ open class UserService {
 
     @Autowired
     @Qualifier("userRepository")
-    lateinit var userRepository: UserRepository
+    private lateinit var userRepository: UserRepository
 
     @Autowired
-    lateinit var placeService: PlaceService
+    private lateinit var placeService: PlaceService
 
     fun save(user: User): User {
         return userRepository.save(user)
@@ -35,18 +35,6 @@ open class UserService {
 
     fun delete(user: User) {
         userRepository.delete(user)
-    }
-
-    fun delete(id: String) {
-        userRepository.delete(id)
-    }
-
-    fun findAll(): Iterable<User> {
-        return userRepository.findAll()
-    }
-
-    fun findById(id: String?): User? {
-        return userRepository.findOne(id)
     }
 
     fun findByUsername(username: String): User? {

@@ -5,9 +5,11 @@ import com.nfd.trip4u.entity.domain.Geotag
 import com.nfd.trip4u.entity.domain.Place
 import com.nfd.trip4u.entity.domain.PlaceType
 import com.nfd.trip4u.repository.domain.PlaceRepository
+import com.nfd.trip4u.service.domain.converter.toPlaceInfoDto
 import com.nfd.trip4u.service.exception.EntityNotFoundException
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,28 +36,26 @@ open class PlaceServiceTestCase: AbstractTestCase() {
     fun populateTestData() {
         place = Place("Test City", PlaceType.CITY)
         place.geotag = Geotag(25.4, 36.54)
-
         placeRepository.save(place)
+
+        assertNotNull("Saved place should have id.", place.id)
     }
 
     @Test
     fun getPlaceInfo() {
         val placeInfo = placeService.getPlaceInfo(place.id ?: "")
 
-        assertEquals("Place should have correct id.", place.id, placeInfo.id)
-        assertEquals("Place should have correct name.", place.name, placeInfo.name)
-        assertEquals("Place should have correct geotag.", place.geotag, placeInfo.geotag)
-        assertEquals("Place should have correct type.", place.placeType, placeInfo.placeType)
+        assertEquals("Place should have the same info.", place.toPlaceInfoDto(), placeInfo)
     }
 
     @Test(expected = EntityNotFoundException::class)
     fun getPlaceInfoNotExistingPlace() {
-        val placeInfo = placeService.getPlaceInfo(INCORRECT_ID)
+        placeService.getPlaceInfo(INCORRECT_ID)
     }
 
     @After
     fun removeTestData() {
-        placeRepository.delete(place)
+        placeRepository.deleteAll()
     }
 
 }

@@ -22,7 +22,7 @@ open class TemplateProducerService{
     private val TEMPLATE_ENTITY_KEY = "content"
 
     @Autowired
-    lateinit var templateEngine: TemplateEngine
+    private lateinit var templateEngine: TemplateEngine
 
     open fun produceTemplate(template: BaseTemplate, templateName: String): String? {
         val context = Context()
