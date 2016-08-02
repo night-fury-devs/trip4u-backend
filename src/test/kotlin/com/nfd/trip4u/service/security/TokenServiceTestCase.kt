@@ -1,6 +1,7 @@
-package com.nfd.trip4u.configuration.security
+package com.nfd.trip4u.service.security
 
 import com.nfd.trip4u.AbstractTestCase
+import com.nfd.trip4u.configuration.security.TokenGenerator
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -9,14 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
+import org.springframework.stereotype.Component
 
 /**
  * Author: Alexey Kleschikov
  * Date: 17 Jun 2016
  * Time: 22:43
  */
-
-class TokenServiceTestCase: AbstractTestCase() {
+@Component
+open class TokenServiceTestCase: AbstractTestCase() {
 
     private val ROLE_COUNT = 1
 

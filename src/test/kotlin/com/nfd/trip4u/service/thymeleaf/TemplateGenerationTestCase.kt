@@ -9,14 +9,15 @@ import org.junit.Assert
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.stereotype.Component
 
 /**
  * Author: Mary Kuchumova
  * Date: 27 May 2016
  * Time: 12:09
  */
-
-class TemplateGenerationTestCase : AbstractTestCase() {
+@Component
+open class TemplateGenerationTestCase : AbstractTestCase() {
 
     val EXISTING_TEMPLATE_NAME = "test-email"
     val NOT_EXISTING_TEMPLATE_NAME = "this-template-name-doesnt-exist-in-resource-folder-18572927862923"
