@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix="spring.mails")
+@ConfigurationProperties(prefix="spring.mail")
 open class MailingProperties {
 
     var port: Int = 587

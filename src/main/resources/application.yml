@@ -1,5 +1,5 @@
 spring:
-  mails:
+  mail:
     host: smtp.gmail.com
     port: 587
     username: night.fury.devs@gmail.com
@@ -53,3 +53,14 @@ spring:
     cors:
       origins:
         - https://project-762377074824993679.firebaseapp.com
+
+---
+
+spring:
+  profiles: test
+  mongodb:
+    embedded:
+      version: 3.2.6
+  data:
+    mongodb:
+      port: 0
