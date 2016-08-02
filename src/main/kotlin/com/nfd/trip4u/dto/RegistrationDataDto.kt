@@ -34,4 +34,26 @@ open class RegistrationDataDto : Serializable {
 
     @Size(max = 30)
     var firstName: String? = null
+
+    override fun equals(other: Any?): Boolean{
+        if (this === other) return true
+        if (other !is RegistrationDataDto) return false
+
+        if (username != other.username) return false
+        if (email != other.email) return false
+        if (password != other.password) return false
+        if (lastName != other.lastName) return false
+        if (firstName != other.firstName) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int{
+        var result = username.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + password.hashCode()
+        result = 31 * result + (lastName?.hashCode() ?: 0)
+        result = 31 * result + (firstName?.hashCode() ?: 0)
+        return result
+    }
 }
