@@ -2,8 +2,13 @@ package com.nfd.trip4u.service.domain
 
 import com.nfd.trip4u.AbstractTestCase
 import com.nfd.trip4u.dto.RegistrationDataDto
+import com.nfd.trip4u.entity.domain.Geotag
+import com.nfd.trip4u.entity.domain.Place
+import com.nfd.trip4u.entity.domain.PlaceType
 import com.nfd.trip4u.entity.domain.User
+import com.nfd.trip4u.repository.domain.PlaceRepository
 import com.nfd.trip4u.repository.domain.UserRepository
+import com.nfd.trip4u.service.domain.converter.toPlaceInfoList
 import com.nfd.trip4u.service.domain.converter.toUserDto
 import com.nfd.trip4u.service.exception.EntityNotFoundException
 import org.junit.After
@@ -24,6 +29,7 @@ open class UserServiceTestCase : AbstractTestCase() {
     private val NOT_EXISTING_USERNAME = "user***not///exist--"
 
     private lateinit var user: User
+    private lateinit var place: Place
     private lateinit var registrationData: RegistrationDataDto
 
     @Autowired
@@ -32,6 +38,9 @@ open class UserServiceTestCase : AbstractTestCase() {
     @Autowired
     private lateinit var userRepository: UserRepository
 
+    @Autowired
+    private lateinit var placeRepository: PlaceRepository
+
     @Before
     fun populateTestData() {
         registrationData = RegistrationDataDto()
@@ -39,7 +48,12 @@ open class UserServiceTestCase : AbstractTestCase() {
         registrationData.username = "qqq"
         registrationData.password = "qqq"
 
+        place = Place("Test", Geotag(24.0, 24.0), PlaceType.CITY)
+        place = placeRepository.save(place)
+        assertNotNull(place.id)
+
         user = User("test user", "test@mail.com", "passwrd")
+        user.homeCities.add(place)
         user = userRepository.save(user)
 
         assertNotNull(user.id)
@@ -160,8 +174,16 @@ open class UserServiceTestCase : AbstractTestCase() {
         userService.updateUserAvatar(NOT_EXISTING_USERNAME, "")
     }
 
+    @Test
+    fun findHomeCities() {
+        val cities = userService.findHomeCities(user.username)
+
+        assertEquals("Cities should be the same.", user.homeCities.toPlaceInfoList(), cities)
+    }
+
     @After
     fun removeTestData() {
         userRepository.deleteAll()
+        placeRepository.deleteAll()
     }
 }

@@ -34,8 +34,7 @@ open class PlaceServiceTestCase: AbstractTestCase() {
 
     @Before
     fun populateTestData() {
-        place = Place("Test City", PlaceType.CITY)
-        place.geotag = Geotag(25.4, 36.54)
+        place = Place("Test City", Geotag(25.4, 36.54), PlaceType.CITY)
         placeRepository.save(place)
 
         assertNotNull("Saved place should have id.", place.id)

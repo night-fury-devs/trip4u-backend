@@ -1,6 +1,7 @@
 package com.nfd.trip4u.entity.domain
 
 import org.springframework.data.mongodb.core.mapping.Field
+import java.io.Serializable
 
 /**
  * Author: Mary Kuchumova
@@ -14,4 +15,4 @@ data class Geotag(
 
         @Field(value = "lon")
         var longitude: Double
-)
+) : Serializable

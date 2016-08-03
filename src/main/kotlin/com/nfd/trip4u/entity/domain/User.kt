@@ -1,5 +1,6 @@
 package com.nfd.trip4u.entity.domain
 
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import org.springframework.format.annotation.DateTimeFormat
@@ -21,7 +22,8 @@ class User() : IdentifiableEntity(), Serializable {
     var avatarUrl: String? = null
 
     @Field(value = "home_cities")
-    var homeCities: List<String> = arrayListOf()
+    @DBRef
+    var homeCities: MutableList<Place> = mutableListOf()
 
     var trips: List<Trip> = arrayListOf()
 
@@ -43,13 +45,13 @@ class User() : IdentifiableEntity(), Serializable {
 
     var activated: Boolean = false
 
-    constructor(username: String, email: String, password: String): this() {
+    constructor(username: String, email: String, password: String) : this() {
         this.username = username
         this.email = email
         this.password = password
     }
 
-    override fun equals(other: Any?): Boolean{
+    override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
         if (!super.equals(other)) return false
@@ -71,7 +73,7 @@ class User() : IdentifiableEntity(), Serializable {
         return true
     }
 
-    override fun hashCode(): Int{
+    override fun hashCode(): Int {
         var result = super.hashCode()
         result = 31 * result + username.hashCode()
         result = 31 * result + email.hashCode()
@@ -87,5 +89,11 @@ class User() : IdentifiableEntity(), Serializable {
         result = 31 * result + role.hashCode()
         result = 31 * result + activated.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "User(username='$username', email='$email', password='$password', avatarUrl=$avatarUrl, " +
+                "homeCities=$homeCities, trips=$trips, lastName=$lastName, firstName=$firstName, middleName=$middleName, " +
+                "gender=$gender, birthday=$birthday, role=$role, activated=$activated)"
     }
 }

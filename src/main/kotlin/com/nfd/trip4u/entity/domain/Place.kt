@@ -2,6 +2,7 @@ package com.nfd.trip4u.entity.domain
 
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -11,7 +12,7 @@ import java.util.*
  */
 
 @Document(collection = "places")
-class Place() : CommentableEntity() {
+class Place() : CommentableEntity(), Serializable {
     lateinit var name: String
     lateinit var geotag: Geotag
 
@@ -39,8 +40,9 @@ class Place() : CommentableEntity() {
     @Field(value = "visited_users")
     var visitedUsers: List<String> = arrayListOf()
 
-    constructor(name: String, placeType: PlaceType) : this() {
+    constructor(name: String, geotag: Geotag, placeType: PlaceType) : this() {
         this.name = name
+        this.geotag = geotag
         this.placeType = placeType
     }
 

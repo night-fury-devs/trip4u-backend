@@ -19,3 +19,11 @@ fun Place.toPlaceInfoDto(): PlaceInfoDto {
 
     return placeInfo
 }
+
+fun List<Place>.toPlaceInfoList(): List<PlaceInfoDto> {
+    val result: MutableList<PlaceInfoDto> = mutableListOf()
+
+    this.forEach { result.add(it.toPlaceInfoDto()) }
+
+    return result.toList()
+}

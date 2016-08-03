@@ -5,6 +5,7 @@ import com.nfd.trip4u.dto.RegistrationDataDto
 import com.nfd.trip4u.dto.UserDto
 import com.nfd.trip4u.entity.domain.User
 import com.nfd.trip4u.repository.domain.UserRepository
+import com.nfd.trip4u.service.domain.converter.toPlaceInfoList
 import com.nfd.trip4u.service.domain.converter.toUserDto
 import com.nfd.trip4u.service.domain.converter.updateWith
 import com.nfd.trip4u.service.exception.EntityNotFoundException
@@ -84,14 +85,8 @@ open class UserService {
     fun findHomeCities(username: String): List<PlaceInfoDto> {
         val user = userRepository.findUserByUsername(username) ?:
                 throw EntityNotFoundException(userNotFoundMsg(username))
-        val cities: MutableList<PlaceInfoDto> = mutableListOf()
 
-        user.homeCities.forEach {
-            val place = placeService.getPlaceInfo(it)
-            cities.add(place)
-        }
-
-        return cities
+        return user.homeCities.toPlaceInfoList()
     }
 
 }
