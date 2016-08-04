@@ -181,6 +181,11 @@ open class UserServiceTestCase : AbstractTestCase() {
         assertEquals("Cities should be the same.", user.homeCities.toPlaceInfoList(), cities)
     }
 
+    @Test(expected = EntityNotFoundException::class)
+    fun findHomeCitiesNotExistingUser() {
+        val cities = userService.findHomeCities(NOT_EXISTING_USERNAME)
+    }
+
     @After
     fun removeTestData() {
         userRepository.deleteAll()
