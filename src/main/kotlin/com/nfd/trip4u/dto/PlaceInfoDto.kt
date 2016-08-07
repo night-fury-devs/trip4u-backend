@@ -1,6 +1,6 @@
 package com.nfd.trip4u.dto
 
-import com.nfd.trip4u.entity.domain.Geotag
+import com.nfd.trip4u.entity.domain.Location
 import com.nfd.trip4u.entity.domain.PlaceType
 import org.hibernate.validator.constraints.NotEmpty
 import java.io.Serializable
@@ -21,7 +21,7 @@ class PlaceInfoDto : Serializable {
     lateinit var placeType: PlaceType
 
     @NotNull
-    lateinit var geotag: Geotag
+    lateinit var location: Location
 
     override fun equals(other: Any?): Boolean{
         if (this === other) return true
@@ -30,7 +30,7 @@ class PlaceInfoDto : Serializable {
         if (id != other.id) return false
         if (name != other.name) return false
         if (placeType != other.placeType) return false
-        if (geotag != other.geotag) return false
+        if (location != other.location) return false
 
         return true
     }
@@ -39,7 +39,7 @@ class PlaceInfoDto : Serializable {
         var result = id?.hashCode() ?: 0
         result = 31 * result + name.hashCode()
         result = 31 * result + placeType.hashCode()
-        result = 31 * result + geotag.hashCode()
+        result = 31 * result + location.hashCode()
         return result
     }
 

@@ -9,7 +9,7 @@ import java.io.Serializable
  * Time: 16:40
  */
 
-data class Geotag(
+data class Location(
         @Field(value = "lat")
         var latitude: Double,
 

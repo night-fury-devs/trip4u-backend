@@ -16,7 +16,7 @@ class MediaSource() : VerifiableEntity() {
     lateinit var author: String
     lateinit var link: String
     lateinit var type: MediaType
-    var geotag: Geotag? = null
+    var location: Location? = null
     var likes: List<String> = arrayListOf()
 
     @Field(value = "date_added")
@@ -36,7 +36,7 @@ class MediaSource() : VerifiableEntity() {
         if (author != other.author) return false
         if (link != other.link) return false
         if (type != other.type) return false
-        if (geotag != other.geotag) return false
+        if (location != other.location) return false
         if (likes != other.likes) return false
         if (dateAdded != other.dateAdded) return false
 
@@ -48,7 +48,7 @@ class MediaSource() : VerifiableEntity() {
         result = 31 * result + author.hashCode()
         result = 31 * result + link.hashCode()
         result = 31 * result + type.hashCode()
-        result = 31 * result + (geotag?.hashCode() ?: 0)
+        result = 31 * result + (location?.hashCode() ?: 0)
         result = 31 * result + likes.hashCode()
         result = 31 * result + dateAdded.hashCode()
         return result

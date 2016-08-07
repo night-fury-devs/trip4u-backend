@@ -15,7 +15,7 @@ fun Place.toPlaceInfoDto(): PlaceInfoDto {
     placeInfo.id = this.id
     placeInfo.name = this.name
     placeInfo.placeType = this.placeType
-    placeInfo.geotag = this.geotag
+    placeInfo.location = this.location
 
     return placeInfo
 }

@@ -1,7 +1,7 @@
 package com.nfd.trip4u.service.domain
 
 import com.nfd.trip4u.AbstractTestCase
-import com.nfd.trip4u.entity.domain.Geotag
+import com.nfd.trip4u.entity.domain.Location
 import com.nfd.trip4u.entity.domain.Place
 import com.nfd.trip4u.entity.domain.PlaceType
 import com.nfd.trip4u.repository.domain.PlaceRepository
@@ -34,7 +34,7 @@ open class PlaceServiceTestCase: AbstractTestCase() {
 
     @Before
     fun populateTestData() {
-        place = Place("Test City", Geotag(25.4, 36.54), PlaceType.CITY)
+        place = Place("Test City", Location(25.4, 36.54), PlaceType.CITY)
         placeRepository.save(place)
 
         assertNotNull("Saved place should have id.", place.id)

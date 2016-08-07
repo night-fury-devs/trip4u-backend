@@ -2,7 +2,7 @@ package com.nfd.trip4u.service.domain
 
 import com.nfd.trip4u.AbstractTestCase
 import com.nfd.trip4u.dto.RegistrationDataDto
-import com.nfd.trip4u.entity.domain.Geotag
+import com.nfd.trip4u.entity.domain.Location
 import com.nfd.trip4u.entity.domain.Place
 import com.nfd.trip4u.entity.domain.PlaceType
 import com.nfd.trip4u.entity.domain.User
@@ -48,7 +48,7 @@ open class UserServiceTestCase : AbstractTestCase() {
         registrationData.username = "qqq"
         registrationData.password = "qqq"
 
-        place = Place("Test", Geotag(24.0, 24.0), PlaceType.CITY)
+        place = Place("Test", Location(24.0, 24.0), PlaceType.CITY)
         place = placeRepository.save(place)
         assertNotNull(place.id)
 

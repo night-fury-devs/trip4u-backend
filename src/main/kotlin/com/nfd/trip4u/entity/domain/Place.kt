@@ -14,7 +14,7 @@ import java.util.*
 @Document(collection = "places")
 class Place() : CommentableEntity(), Serializable {
     lateinit var name: String
-    lateinit var geotag: Geotag
+    lateinit var location: Location
 
     @Field(value = "type")
     lateinit var placeType: PlaceType
@@ -40,9 +40,9 @@ class Place() : CommentableEntity(), Serializable {
     @Field(value = "visited_users")
     var visitedUsers: List<String> = arrayListOf()
 
-    constructor(name: String, geotag: Geotag, placeType: PlaceType) : this() {
+    constructor(name: String, location: Location, placeType: PlaceType) : this() {
         this.name = name
-        this.geotag = geotag
+        this.location = location
         this.placeType = placeType
     }
 
@@ -54,7 +54,7 @@ class Place() : CommentableEntity(), Serializable {
         if (name != other.name) return false
         if (placeType != other.placeType) return false
         if (parentPlace != other.parentPlace) return false
-        if (geotag != other.geotag) return false
+        if (location != other.location) return false
         if (rating != other.rating) return false
         if (description != other.description) return false
         if (tags != other.tags) return false
@@ -72,7 +72,7 @@ class Place() : CommentableEntity(), Serializable {
         result = 31 * result + name.hashCode()
         result = 31 * result + placeType.hashCode()
         result = 31 * result + (parentPlace?.hashCode() ?: 0)
-        result = 31 * result + geotag.hashCode()
+        result = 31 * result + location.hashCode()
         result = 31 * result + rating.hashCode()
         result = 31 * result + (description?.hashCode() ?: 0)
         result = 31 * result + tags.hashCode()
