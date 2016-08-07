@@ -15,5 +15,6 @@ class GooglePlaceDto: Serializable {
     lateinit var location: Location
     lateinit var name: String
     lateinit var photos: List<PhotoReference>
+    lateinit var types: List<GooglePlaceType>
     var utcOffset = 0
 }
