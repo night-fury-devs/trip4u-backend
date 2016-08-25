@@ -14,6 +14,7 @@ class PhotoReference {
 
     @JsonProperty("html_attributions")
     lateinit var htmlAttributions: Array<String>
+
     var height = 0
     var width = 0
 }

@@ -16,5 +16,6 @@ class AddressComponent : Serializable {
 
     @JsonProperty("short_name")
     lateinit var shortName: String
+
     lateinit var types: List<GooglePlaceType>
 }
